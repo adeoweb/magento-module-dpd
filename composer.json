@@ -1,0 +1,22 @@
+{
+  "name": "adeoweb/module-dpd",
+  "description": "",
+  "type": "magento2-module",
+  "license": "proprietary",
+  "authors": [
+    {
+      "email": "info@adeoweb.biz",
+      "name": "Adeo Web"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "AdeoWeb\\Dpd\\": ""
+    }
+  }
+}
