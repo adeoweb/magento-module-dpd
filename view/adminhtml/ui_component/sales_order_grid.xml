@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <settings>
+        <buttons>
+            <button name="dpd_close_manifest" class="AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CloseManifest"/>
+            <button name="dpd_call_courier" class="AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CallCourier"/>
+        </buttons>
+    </settings>
+    <modal name="dpd_call_courier_modal" component="AdeoWeb_Dpd/js/modal/dpd-call-courier-modal">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="onCancel" xsi:type="string">actionCancel</item>
+                <item name="submitUrl" xsi:type="url" path="dpd/action/callCourier"/>
+                <item name="options" xsi:type="array">
+                    <item name="title" xsi:type="string">Call DPD Courier</item>
+                    <item name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">actionCancel</item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string">Done</item>
+                            <item name="class" xsi:type="string">action-primary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="string">submitAjax</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <fieldset name="call_courier" sortOrder="10">
+            <settings>
+                <collapsible>false</collapsible>
+                <label translate="true">Fill form bellow</label>
+            </settings>
+            <field name="warehouse" formElement="select">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Warehouse</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                </settings>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options class="AdeoWeb\Dpd\Model\Location\Source\Warehouse"/>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+            <field name="comment" formElement="textarea">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Comment</item>
+                        <item name="formElement" xsi:type="string">textarea</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="pickup_date" formElement="date">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Pickup Date</item>
+                        <item name="formElement" xsi:type="string">date</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-date" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                </settings>
+            </field>
+            <field name="pickup_time" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Pickup Time</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="value" xsi:type="string">09:20</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="time" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                </settings>
+            </field>
+            <field name="num_of_parcels" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Number of Parcels</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="value" xsi:type="string">1</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="integer" xsi:type="boolean">true</rule>
+                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                </settings>
+            </field>
+            <field name="total_weight" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Total Weight (kg)</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="value" xsi:type="string">0.1</item>
+                    </item>
+                </argument>
+                <settings>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-number" xsi:type="boolean">true</rule>
+                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                    </validation>
+                    <dataType>text</dataType>
+                </settings>
+            </field>
+        </fieldset>
+    </modal>
+</listing>

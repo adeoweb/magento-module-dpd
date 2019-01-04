@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="AdeoWeb_Dpd::dpd" sortOrder="10" title="DPD">
+                    <resource id="AdeoWeb_Dpd::dpd_call_courier" sortOrder="10" title="Call Courier"/>
+                    <resource id="AdeoWeb_Dpd::dpd_cancel_parcels" sortOrder="20" title="Cancel Parcels"/>
+                    <resource id="AdeoWeb_Dpd::dpd_close_manifest" sortOrder="30" title="Close Manifest"/>
+                    <resource id="AdeoWeb_Dpd::dpd_collection_request" sortOrder="40" title="Collection Request"/>
+                    <resource id="AdeoWeb_Dpd::dpd_location" sortOrder="50" title="Location">
+                        <resource id="AdeoWeb_Dpd::dpd_location_save" sortOrder="10" title="Save Location"/>
+                        <resource id="AdeoWeb_Dpd::dpd_location_delete" sortOrder="20" title="Delete Location"/>
+                        <resource id="AdeoWeb_Dpd::dpd_location_update" sortOrder="30" title="Update Location"/>
+                        <resource id="AdeoWeb_Dpd::dpd_location_view" sortOrder="40" title="View Location"/>
+                    </resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

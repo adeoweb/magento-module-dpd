@@ -1,0 +1,14 @@
+<div id="shipping-additional-info">
+    <?php foreach ($this->getAdditionalInfo() as $item): ?>
+        <?php echo $block->escapeHtml($item['label']); ?>: <?php echo $block->escapeHtml($item['value']); ?>
+    <?php endforeach; ?>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        $('.shipping-description-title')
+        .after($('#shipping-additional-info'));
+
+        $('.order-shipping-method .admin__page-section-item-content')
+        .after($('#shipping-additional-info'));
+    });
+</script>
