@@ -113,7 +113,7 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
      */
     public function collectRates(RateRequest $request)
     {
-        if (!$this->canCollectRates() || !$this->getConfigFlag('active')) {
+        if (!$this->canCollectRates())  {
             return false;
         }
 
@@ -142,6 +142,7 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
 
     /**
      * {@inheritDoc}
+     * @codeCoverageIgnore
      */
     public function processAdditionalValidation(DataObject $request)
     {
@@ -184,7 +185,7 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
             throw new LocalizedException(__('No packages for request'));
         }
 
-        if ($request->getStoreId() != null) {
+        if ($request->getStoreId() !== null) {
             $this->setStore($request->getStoreId());
         }
 

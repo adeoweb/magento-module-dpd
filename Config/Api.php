@@ -5,6 +5,10 @@ namespace AdeoWeb\Dpd\Config;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * Class Api
+ * @codeCoverageIgnore
+ */
 class Api
 {
     const XML_PATH_CARRIER_API_USERNAME = 'carriers/dpd/api/username';

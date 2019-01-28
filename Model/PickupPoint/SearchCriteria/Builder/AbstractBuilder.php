@@ -70,6 +70,12 @@ abstract class AbstractBuilder
         return $searchCriteriaBuilder->addSortOrder($sortOrderBuilder->create());
     }
 
+    /**
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param $field
+     * @param $value
+     * @return SearchCriteriaBuilder
+     */
     protected function addFilter(
         SearchCriteriaBuilder $searchCriteriaBuilder,
         $field,

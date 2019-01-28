@@ -2,6 +2,9 @@
 
 namespace AdeoWeb\Dpd\Model\Config\Source;
 
+/**
+ * Class Method
+ */
 class Method extends Generic
 {
     const TYPE = 'method';

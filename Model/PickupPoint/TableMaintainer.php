@@ -6,6 +6,10 @@ use AdeoWeb\Dpd\Setup\Schema;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 
+/**
+ * Class TableMaintainer
+ * @codeCoverageIgnore
+ */
 class TableMaintainer
 {
     /**

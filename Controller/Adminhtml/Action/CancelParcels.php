@@ -41,6 +41,8 @@ class CancelParcels extends Action implements HttpGetActionInterface
 
         if (!$shipmentId) {
             $this->messageManager->addErrorMessage(__('Shipment ID is not specified'));
+
+            return $this->_redirect($this->_redirect->getRefererUrl());
         }
 
         try {
@@ -69,6 +71,7 @@ class CancelParcels extends Action implements HttpGetActionInterface
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

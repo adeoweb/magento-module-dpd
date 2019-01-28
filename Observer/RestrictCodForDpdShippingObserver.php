@@ -70,7 +70,13 @@ class RestrictCodForDpdShippingObserver implements ObserverInterface
         }
 
         $pickupPointId = $deliveryOptions['pickup_point_id'];
-        $pickupPoint = $this->pickupPointRepository->getById($pickupPointId);
+
+        try {
+            $pickupPoint = $this->pickupPointRepository->getById($pickupPointId);
+        } catch (NoSuchEntityException $e) {
+            return $checkResult->setData('is_available', false);
+        }
+
         $pickupPointIdentifier = \substr($pickupPoint->getApiId(),0 ,4);
 
         if (!\in_array($pickupPointIdentifier, $this->allowedPickupPointIdentifiers)) {

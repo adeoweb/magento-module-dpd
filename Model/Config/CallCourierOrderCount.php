@@ -3,6 +3,7 @@
 namespace AdeoWeb\Dpd\Model\Config;
 
 use Magento\Config\Model\ResourceModel\Config\Data\CollectionFactory;
+use Magento\Framework\App\Config\Storage\WriterInterface;
 
 class CallCourierOrderCount
 {
@@ -14,13 +15,13 @@ class CallCourierOrderCount
     private $configCollectionFactory;
 
     /**
-     * @var \Magento\Framework\App\Config\Storage\WriterInterface
+     * @var WriterInterface
      */
     private $configWriter;
 
     public function __construct(
         CollectionFactory $configCollectionFactory,
-        \Magento\Framework\App\Config\Storage\WriterInterface $configWriter
+        WriterInterface $configWriter
     ) {
         $this->configCollectionFactory = $configCollectionFactory;
         $this->configWriter = $configWriter;
@@ -43,6 +44,9 @@ class CallCourierOrderCount
         return (int)$config->getData('value');
     }
 
+    /**
+     * @return int
+     */
     public function register()
     {
         $value = $this->get();

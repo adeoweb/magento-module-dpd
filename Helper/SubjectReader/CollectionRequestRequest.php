@@ -8,17 +8,18 @@ class CollectionRequestRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readOrderId($subject)
     {
         return $this->read('order_id', null, $subject);
     }
 
-
     /**
      * @param array $subject
      * @return bool
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readIsSenderUseShippingAddress($subject)
     {
@@ -29,6 +30,7 @@ class CollectionRequestRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readSenderLocation($subject)
     {
@@ -39,6 +41,7 @@ class CollectionRequestRequest extends AbstractSubjectReader
      * @param array $subject
      * @return bool
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readIsRecipientUseShippingAddress($subject)
     {
@@ -49,6 +52,7 @@ class CollectionRequestRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readRecipientLocation($subject)
     {
@@ -59,6 +63,7 @@ class CollectionRequestRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readPickupDate($subject)
     {
@@ -89,6 +94,7 @@ class CollectionRequestRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readComment($subject)
     {

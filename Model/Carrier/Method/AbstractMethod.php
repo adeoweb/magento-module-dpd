@@ -57,6 +57,11 @@ abstract class AbstractMethod
      */
     private $carrierHelper;
 
+    /**
+     * @var RequestInterface
+     */
+    private $httpRequest;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         MethodFactory $rateMethodFactory,
@@ -67,12 +72,13 @@ abstract class AbstractMethod
         $this->scopeConfig = $scopeConfig;
         $this->rateMethodFactory = $rateMethodFactory;
         $this->validators = $validators;
-        $this->request = $request;
+        $this->httpRequest = $request;
         $this->carrierHelper = $carrierHelper;
     }
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getCode()
     {
@@ -81,6 +87,7 @@ abstract class AbstractMethod
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getLabel()
     {
@@ -98,6 +105,7 @@ abstract class AbstractMethod
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getCarrierTitle()
     {
@@ -134,10 +142,6 @@ abstract class AbstractMethod
      */
     public function validate()
     {
-        if (!$this->request) {
-            return false;
-        }
-
         foreach ($this->validators as $validator) {
             if (!$validator instanceof ValidatorInterface) {
                 throw new \InvalidArgumentException(
@@ -164,10 +168,6 @@ abstract class AbstractMethod
      */
     public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request)
     {
-        if (!isset($createShipmentRequest, $request)) {
-            throw new \Exception('Invalid shipment request');
-        }
-
         /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
 
@@ -197,6 +197,7 @@ abstract class AbstractMethod
 
     /**
      * @return float
+     * @codeCoverageIgnore
      */
     public function getFreeShipping()
     {
@@ -208,6 +209,7 @@ abstract class AbstractMethod
 
     /**
      * @return float
+     * @codeCoverageIgnore
      */
     public function getFreeShippingOrderValue()
     {
@@ -219,6 +221,7 @@ abstract class AbstractMethod
 
     /**
      * @param RateRequest $request
+     * @codeCoverageIgnore
      */
     public function setRequest(RateRequest $request)
     {
@@ -231,10 +234,6 @@ abstract class AbstractMethod
      */
     protected function getPackageValue()
     {
-        if (!$this->request) {
-            throw new \Exception(RateRequest::class . ' not set.');
-        }
-
         return $this->request->getPackageValue();
     }
 
@@ -261,21 +260,18 @@ abstract class AbstractMethod
      */
     protected function isFreeShipping()
     {
-        if (!$this->request) {
-            throw new \Exception(RateRequest::class . ' not set.');
-        }
-
-        $freeShippingValue = $this->getFreeShippingOrderValue();
-
         if (!$this->getFreeShipping()) {
             return false;
         }
+
+        $freeShippingValue = $this->getFreeShippingOrderValue();
 
         return (\is_numeric($freeShippingValue) && $this->getPackageValue() >= $freeShippingValue);
     }
 
     /**
      * @return mixed
+     * @codeCoverageIgnore
      */
     protected function getMaxWeight()
     {
@@ -289,10 +285,6 @@ abstract class AbstractMethod
      */
     protected function getWeight(DataObject $request, $splitInto = 1)
     {
-        if ($splitInto < 1) {
-            throw new RuntimeException('Atleast one package is required');
-        }
-
         $totalWeightKilogram = 0.00;
 
         foreach ($request->getPackages() as $package) {
@@ -319,7 +311,7 @@ abstract class AbstractMethod
             $result .= '-COD';
         }
 
-        if ($this->request->getParam('dpd_include_return_labels') == '1') {
+        if ($this->httpRequest->getParam('dpd_include_return_labels') == '1') {
             $result .= '-RETURN';
         }
 

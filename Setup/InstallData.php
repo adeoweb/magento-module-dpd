@@ -8,6 +8,10 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Quote\Setup\QuoteSetupFactory;
 use Magento\Sales\Setup\SalesSetupFactory;
 
+/**
+ * Class InstallData
+ * @codeCoverageIgnore
+ */
 class InstallData implements InstallDataInterface
 {
     /**

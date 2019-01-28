@@ -30,6 +30,7 @@ class Response implements ResponseInterface
 
     /**
      * @return boolean
+     * @codeCoverageIgnore
      */
     public function hasError()
     {
@@ -38,6 +39,7 @@ class Response implements ResponseInterface
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getErrorMessage()
     {
@@ -50,14 +52,14 @@ class Response implements ResponseInterface
      */
     public function getBody($index = null)
     {
-        if ($index) {
-            if (!\array_key_exists($index, $this->body)) {
-                return [];
-            }
-
-            return $this->body[$index];
+        if (!$index) {
+            return $this->body;
         }
 
-        return $this->body;
+        if (!\array_key_exists($index, $this->body)) {
+            return [];
+        }
+
+        return $this->body[$index];
     }
 }

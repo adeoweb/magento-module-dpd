@@ -27,6 +27,7 @@ abstract class AbstractRequest
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getEndpoint()
     {
@@ -76,6 +77,7 @@ abstract class AbstractRequest
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isFile()
     {
@@ -84,6 +86,7 @@ abstract class AbstractRequest
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getMethod()
     {

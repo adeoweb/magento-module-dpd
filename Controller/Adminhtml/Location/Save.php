@@ -49,10 +49,10 @@ class Save extends \Magento\Backend\App\Action
 
         $locationId = $this->getRequest()->getParam('location_id');
 
-        $location = $this->locationRepository->getById($locationId);
-        $location->setData($data);
-
         try {
+            $location = $this->locationRepository->getById($locationId);
+            $location->setData($data);
+
             $this->locationRepository->save($location);
 
             $this->messageManager->addSuccessMessage(__('You saved the location.'));
@@ -74,6 +74,7 @@ class Save extends \Magento\Backend\App\Action
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

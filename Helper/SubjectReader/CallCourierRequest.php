@@ -8,6 +8,7 @@ class CallCourierRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readWarehouseId($subject)
     {
@@ -18,6 +19,7 @@ class CallCourierRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readPickupDate($subject)
     {
@@ -28,6 +30,7 @@ class CallCourierRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readPickupTime($subject)
     {
@@ -58,6 +61,7 @@ class CallCourierRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
      */
     public function readComment($subject)
     {

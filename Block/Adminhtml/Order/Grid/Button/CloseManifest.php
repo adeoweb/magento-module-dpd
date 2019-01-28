@@ -16,6 +16,7 @@ class CloseManifest extends \Magento\Framework\View\Element\AbstractBlock implem
     public function getButtonData()
     {
         $message = __('Are you sure you want to close DPD manifest?');
+
         return [
             'label' => __('Close DPD Manifest'),
             'on_click' => "confirmSetLocation('{$message}', '{$this->getCloseManifestUrl()}')"

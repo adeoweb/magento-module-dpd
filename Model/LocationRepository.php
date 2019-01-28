@@ -74,7 +74,7 @@ class LocationRepository implements LocationRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(LocationInterface $location)
+    public function save($location)
     {
         $locationData = $this->extensibleDataObjectConverter->toNestedArray(
             $location,
@@ -170,6 +170,7 @@ class LocationRepository implements LocationRepositoryInterface
 
     /**
      * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function deleteById($locationId)
     {

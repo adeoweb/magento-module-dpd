@@ -27,13 +27,14 @@ class Index extends \Magento\Backend\App\Action
     {
         $resultPage = $this->resultPageFactory->create();
 
-        $resultPage->getConfig()->getTitle()->prepend(__("DPD Locations"));
+        $resultPage->getConfig()->getTitle()->prepend(__('DPD Locations'));
 
         return $resultPage;
     }
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

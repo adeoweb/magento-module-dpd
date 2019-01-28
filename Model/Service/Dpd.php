@@ -7,6 +7,7 @@ use AdeoWeb\Dpd\Model\Service\Dpd\ResponseFactory;
 use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\HTTP\ZendClientFactory;
 use Magento\Framework\Module\ModuleListInterface;
 use Psr\Log\LoggerInterface;
 use Zend_Http_Client_Adapter_Curl;
@@ -15,6 +16,7 @@ class Dpd implements ServiceInterface
 {
     const PARAM_AUTH_USERNAME = 'username';
     const PARAM_AUTH_PASSWORD = 'password';
+    const API_METHOD_PATH = 'ws-mapper-rest/';
 
     /**
      * @var Api
@@ -41,18 +43,25 @@ class Dpd implements ServiceInterface
      */
     private $productMetadata;
 
+    /**
+     * @var ZendClientFactory
+     */
+    private $httpClientFactory;
+
     public function __construct(
         Api $apiConfig,
         ResponseFactory $responseFactory,
         LoggerInterface $logger,
         ModuleListInterface $moduleList,
-        ProductMetadataInterface $productMetadata
+        ProductMetadataInterface $productMetadata,
+        ZendClientFactory $httpClientFactory
     ) {
         $this->apiConfig = $apiConfig;
         $this->responseFactory = $responseFactory;
         $this->logger = $logger;
         $this->moduleList = $moduleList;
         $this->productMetadata = $productMetadata;
+        $this->httpClientFactory = $httpClientFactory;
     }
 
     /**
@@ -62,25 +71,25 @@ class Dpd implements ServiceInterface
      */
     public function call(RequestInterface $request)
     {
-        if (!$request) {
-            return null;
-        }
-
-        $config = array(
-            'adapter' => Zend_Http_Client_Adapter_Curl::class,
-            'curloptions' => array(CURLOPT_SSL_VERIFYPEER => false),
-        );
+        $config = [
+            'verifypeer' => false
+        ];
 
         $requestParams = $this->getRequestParams($request);
 
-        $client = new \Zend_Http_Client($this->getEndpointUrl($request), $config);
-        $client->setParameterPost($requestParams->toArray());
-
         try {
+            $client = $this->httpClientFactory->create([
+                'uri' => $this->getEndpointUrl($request)
+            ]);
+            $client->setConfig($config);
+            $client->setUrlEncodeBody(false);
+            $client->setParameterPost($requestParams->toArray());
+
             $rawResponse = $client->request($request->getMethod());
             $rawResponse = $rawResponse->getBody();
         } catch (\Zend_Http_Exception $e) {
             $this->logger->info('HTTP Request ERROR: ' . $e->getMessage());
+            $this->logger->info('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
 
             throw new LocalizedException(
                 __('Something went wrong while doing a request to DPD service. Please contact system administrator for more information.')
@@ -117,7 +126,7 @@ class Dpd implements ServiceInterface
             $apiUrl .= '/';
         }
 
-        return $apiUrl . 'ws-mapper-rest/' . $request->getEndpoint();
+        return $apiUrl . self::API_METHOD_PATH . $request->getEndpoint();
     }
 
     /**
@@ -149,7 +158,7 @@ class Dpd implements ServiceInterface
 
         return [
             self::PARAM_AUTH_USERNAME => $username,
-            self::PARAM_AUTH_PASSWORD => $password
+            self::PARAM_AUTH_PASSWORD => $password,
         ];
     }
 
@@ -162,7 +171,7 @@ class Dpd implements ServiceInterface
 
         return [
             'PluginVersion' => isset($module['setup_version']) ? $module['setup_version'] : '',
-            'EshopVersion' => 'Magento ' .  $this->productMetadata->getVersion()
+            'EshopVersion' => 'Magento ' . $this->productMetadata->getVersion(),
         ];
     }
 }

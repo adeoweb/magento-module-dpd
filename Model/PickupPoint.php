@@ -6,6 +6,10 @@ use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
 use Magento\Framework\Model\AbstractModel;
 use AdeoWeb\Dpd\Model\ResourceModel\PickupPoint as PickupPointResource;
 
+/**
+ * Class PickupPoint
+ * @codeCoverageIgnore
+ */
 class PickupPoint extends AbstractModel implements PickupPointInterface
 {
 

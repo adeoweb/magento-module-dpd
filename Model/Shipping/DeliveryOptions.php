@@ -5,6 +5,10 @@ namespace AdeoWeb\Dpd\Model\Shipping;
 use AdeoWeb\Dpd\Api\Data\Shipping\DeliveryOptionsInterface;
 use Magento\Framework\DataObject;
 
+/**
+ * Class DeliveryOptions
+ * @codeCoverageIgnore
+ */
 class DeliveryOptions extends DataObject implements DeliveryOptionsInterface
 {
     /**

@@ -4,6 +4,10 @@ namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
+/**
+ * Class ParcelPrintRequest
+ * @codeCoverageIgnore
+ */
 class ParcelPrintRequest extends AbstractRequest implements RequestInterface
 {
     const ENDPOINT = 'parcelPrint_';

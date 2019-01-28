@@ -4,6 +4,10 @@ namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
+/**
+ * Class CreateShipmentRequest
+ * @codeCoverageIgnore
+ */
 class CreateShipmentRequest extends AbstractRequest implements RequestInterface
 {
     const ENDPOINT = 'createShipment_';

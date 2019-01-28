@@ -4,6 +4,10 @@ namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
+/**
+ * Class CollectionRequestImportRequest
+ * @codeCoverageIgnore
+ */
 class CollectionRequestImportRequest extends AbstractRequest implements RequestInterface
 {
     const ENDPOINT = 'crImport_';

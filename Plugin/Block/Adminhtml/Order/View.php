@@ -2,11 +2,18 @@
 
 namespace AdeoWeb\Dpd\Plugin\Block\Adminhtml\Order;
 
+use Magento\Framework\View\LayoutInterface;
+
 class View
 {
+    /**
+     * @param \Magento\Sales\Block\Adminhtml\Order\View $subject
+     * @param LayoutInterface $layout
+     * @return array
+     */
     public function beforeSetLayout(
         \Magento\Sales\Block\Adminhtml\Order\View $subject,
-        \Magento\Framework\View\LayoutInterface $layout
+        LayoutInterface $layout
     ) {
         $order = $subject->getOrder();
 

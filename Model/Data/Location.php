@@ -5,6 +5,10 @@ namespace AdeoWeb\Dpd\Model\Data;
 use AdeoWeb\Dpd\Api\Data\LocationExtensionInterface;
 use AdeoWeb\Dpd\Api\Data\LocationInterface;
 
+/**
+ * Class Location
+ * @codeCoverageIgnore
+ */
 class Location extends \Magento\Framework\Api\AbstractExtensibleObject implements LocationInterface
 {
     /**
@@ -229,5 +233,13 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     public function setUpdatedAt($updatedAt)
     {
         return $this->setData(self::UPDATED_AT, $updatedAt);
+    }
+
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->_data;
     }
 }

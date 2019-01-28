@@ -36,37 +36,42 @@ class LocationActions extends Column
      */
     public function prepareDataSource(array $dataSource)
     {
-        if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as & $item) {
-                if (isset($item['location_id'])) {
-                    $item[$this->getData('name')] = [
-                        'edit' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                static::URL_PATH_EDIT,
-                                [
-                                    'location_id' => $item['location_id']
-                                ]
-                            ),
-                            'label' => __('Edit')
-                        ],
-                        'delete' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                static::URL_PATH_DELETE,
-                                [
-                                    'location_id' => $item['location_id']
-                                ]
-                            ),
-                            'label' => __('Delete'),
-                            'confirm' => [
-                                'title' => __('Delete "${ $.$data.title }"'),
-                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.title }" record?')
-                            ]
-                        ]
-                    ];
-                }
-            }
+        if (!isset($dataSource['data']['items'])) {
+            return $dataSource;
         }
-        
+
+        foreach ($dataSource['data']['items'] as $key => $item) {
+            if (!isset($item['location_id'])) {
+                continue;
+            }
+
+            $dataSource['data']['items'][$key][$this->getData('name')] = [
+                'edit' => [
+                    'href' => $this->urlBuilder->getUrl(
+                        static::URL_PATH_EDIT,
+                        [
+                            'location_id' => $item['location_id'],
+                        ]
+                    ),
+                    'label' => __('Edit'),
+                ],
+                'delete' => [
+                    'href' => $this->urlBuilder->getUrl(
+                        static::URL_PATH_DELETE,
+                        [
+                            'location_id' => $item['location_id'],
+                        ]
+                    ),
+                    'label' => __('Delete'),
+                    'confirm' => [
+                        'title' => __('Delete "${ $.$data.title }"'),
+                        'message' => __('Are you sure you wan\'t to delete a "${ $.$data.title }" record?'),
+                    ],
+                ],
+            ];
+        }
+
+
         return $dataSource;
     }
 }

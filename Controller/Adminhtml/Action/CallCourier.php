@@ -62,6 +62,7 @@ class CallCourier extends Action implements HttpPostActionInterface
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

@@ -2,6 +2,10 @@
 
 namespace AdeoWeb\Dpd\Setup;
 
+/**
+ * Interface Schema
+ * @codeCoverageIgnore
+ */
 interface Schema
 {
     const TABLE_DPD_PICKUP_POINT = 'adeoweb_dpd_pickup_point';

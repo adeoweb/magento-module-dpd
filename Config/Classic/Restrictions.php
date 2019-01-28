@@ -37,7 +37,7 @@ class Restrictions
     {
         $configValue = $this->getConfigValue();
 
-        if (!is_array($configValue)) {
+        if (!\is_array($configValue)) {
             throw new \Exception('Invalid method configuration');
         }
 
@@ -62,6 +62,6 @@ class Restrictions
 
         $result = $this->serializer->unserialize($configValue);
 
-        return \array_values($result);
+        return \is_array($result) ? \array_values($result) : $result;
     }
 }

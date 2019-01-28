@@ -73,6 +73,7 @@ class CloseManifest extends Action implements HttpGetActionInterface
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

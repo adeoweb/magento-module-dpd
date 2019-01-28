@@ -32,6 +32,7 @@ class Country extends \Magento\Framework\View\Element\Html\Select
                 $this->addOption($country['value'], $country['label']);
             }
         }
+
         return parent::_toHtml();
     }
 

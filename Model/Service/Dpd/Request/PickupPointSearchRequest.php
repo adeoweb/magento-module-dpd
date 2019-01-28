@@ -4,6 +4,9 @@ namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
+/**
+ * Class PickupPointSearchRequest
+ */
 class PickupPointSearchRequest extends AbstractRequest implements RequestInterface
 {
     const ENDPOINT = 'parcelShopSearch_';

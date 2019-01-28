@@ -6,6 +6,7 @@ use AdeoWeb\Dpd\Api\CollectionRequestManagementInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Exception\LocalizedException;
 
 class CollectionRequest extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
@@ -29,13 +30,17 @@ class CollectionRequest extends \Magento\Backend\App\Action implements HttpPostA
         $this->collectionRequestManagement = $collectionRequestManagement;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws LocalizedException
+     */
     public function execute()
     {
-        $result = ['error' => false];
-
         if (!$this->getRequest()->isXmlHttpRequest()) {
-            $result['error'] = true;
+            throw new LocalizedException(__('Only AJAX calls are permitted'));
         }
+
+        $result = ['error' => false];
 
         $data = $this->getRequest()->getParams();
 
@@ -54,9 +59,8 @@ class CollectionRequest extends \Magento\Backend\App\Action implements HttpPostA
     }
 
     /**
-     * Check Permission.
-     *
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

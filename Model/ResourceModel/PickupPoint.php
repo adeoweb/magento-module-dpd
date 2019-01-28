@@ -6,6 +6,10 @@ use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
 use AdeoWeb\Dpd\Setup\Schema;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
+/**
+ * Class PickupPoint
+ * @codeCoverageIgnore
+ */
 class PickupPoint extends AbstractDb
 {
     /**

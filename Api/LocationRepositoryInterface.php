@@ -14,7 +14,7 @@ interface LocationRepositoryInterface
      * @return LocationInterface
      * @throws LocalizedException
      */
-    public function save(LocationInterface $location);
+    public function save($location);
 
     /**
      * @param string $locationId

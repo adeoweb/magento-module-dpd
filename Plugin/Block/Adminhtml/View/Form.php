@@ -18,6 +18,7 @@ class Form
     }
 
     /**
+     * @param \Magento\Shipping\Block\Adminhtml\View\Form $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */

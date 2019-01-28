@@ -43,7 +43,7 @@ class Edit extends \AdeoWeb\Dpd\Controller\Adminhtml\Location
         $locationId = $this->getRequest()->getParam('location_id');
 
         if (!$locationId) {
-            $this->messageManager->addErrorMessage(__('We can\'t find a location to delete.'));
+            $this->messageManager->addErrorMessage(__('We can\'t find a location to edit.'));
 
             return $resultRedirect->setPath('*/*/');
         }
@@ -75,9 +75,8 @@ class Edit extends \AdeoWeb\Dpd\Controller\Adminhtml\Location
     }
 
     /**
-     * Check Permission.
-     *
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

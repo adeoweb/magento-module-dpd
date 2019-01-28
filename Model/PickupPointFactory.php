@@ -37,6 +37,7 @@ class PickupPointFactory
     /**
      * @param array $data
      * @return \AdeoWeb\Dpd\Api\Data\PickupPointInterface
+     * @codeCoverageIgnore
      */
     public function create(array $data = [])
     {

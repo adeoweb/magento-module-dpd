@@ -58,6 +58,7 @@ class Delete extends Location
 
     /**
      * @return bool
+     * @codeCoverageIgnore
      */
     protected function _isAllowed()
     {

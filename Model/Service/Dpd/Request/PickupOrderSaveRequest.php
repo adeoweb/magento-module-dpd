@@ -4,6 +4,10 @@ namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
+/**
+ * Class PickupOrderSaveRequest
+ * @codeCoverageIgnore
+ */
 class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
 {
     const ENDPOINT = 'pickupOrderSave_';

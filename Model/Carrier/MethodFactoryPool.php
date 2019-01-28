@@ -31,6 +31,7 @@ class MethodFactoryPool
 
     /**
      * @return array
+     * @codeCoverageIgnore
      */
     public function getAll()
     {
