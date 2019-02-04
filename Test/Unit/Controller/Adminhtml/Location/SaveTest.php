@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Test\Unit\Controller\Adminhtml\Location;
 
+use AdeoWeb\Dpd\Api\Data\LocationInterface;
 use AdeoWeb\Dpd\Model\Location;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use AdeoWeb\Dpd\Controller\Adminhtml\Location\Save;
@@ -43,6 +44,11 @@ class SaveTest extends AbstractTest
      */
     private $dataPersistorMock;
 
+    /**
+     * @var MockObject
+     */
+    private $locationMock;
+
     public function setUp()
     {
         parent::setUp();
@@ -50,6 +56,7 @@ class SaveTest extends AbstractTest
         $this->requestMock = $this->createMock(Http::class);
         $this->resultRedirectMock = $this->createMock(\Magento\Backend\Model\View\Result\Redirect::class);
         $this->messageManagerMock = $this->createMock(ManagerInterface::class);
+        $this->locationMock = $this->createMock(LocationInterface::class);
 
         $resultRedirectFactoryMock = $this->createMock(\Magento\Backend\Model\View\Result\RedirectFactory::class);
         $resultRedirectFactoryMock->expects($this->atLeastOnce())
@@ -63,13 +70,18 @@ class SaveTest extends AbstractTest
             'messageManager' => $this->messageManagerMock
         ]);
 
+        $locationFactoryMock = $this->createConfiguredMock(\AdeoWeb\Dpd\Api\Data\LocationInterfaceFactory::class, [
+            'create' => $this->locationMock
+        ]);
+
         $this->locationRepositoryMock = $this->createMock(LocationRepositoryInterface::class);
         $this->dataPersistorMock = $this->createMock(\AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface::class);
 
         $this->subject = $this->objectManager->getObject(Save::class, [
             'context' => $contextMock,
             'locationRepository' => $this->locationRepositoryMock,
-            'dataPersistor' => $this->dataPersistorMock
+            'dataPersistor' => $this->dataPersistorMock,
+            'locationFactory' => $locationFactoryMock
         ]);
     }
 
@@ -217,7 +229,7 @@ class SaveTest extends AbstractTest
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testExecute()
+    public function testExecuteWithNewItem()
     {
         $this->requestMock
             ->expects(self::atLeastOnce())
@@ -228,14 +240,7 @@ class SaveTest extends AbstractTest
             ->expects(self::atLeastOnce())
             ->method('getParam')
             ->withConsecutive(['location_id'], ['back'])
-            ->willReturnOnConsecutiveCalls(1, false);
-
-        $locationMock = $this->createMock(Location::class);
-
-        $this->locationRepositoryMock
-            ->expects(self::atLeastOnce())
-            ->method('getById')
-            ->willReturn($locationMock);
+            ->willReturnOnConsecutiveCalls(null, false);
 
         $this->messageManagerMock
             ->expects(self::once())

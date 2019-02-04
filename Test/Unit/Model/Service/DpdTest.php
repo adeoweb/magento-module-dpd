@@ -107,12 +107,12 @@ class DpdTest extends AbstractTest
             ->willThrowException(new \Zend_Http_Exception('Invalid data'));
 
         $this->loggerMock->expects($this->atleastOnce())
-            ->method('info');
+            ->method('debug');
 
         $this->expectException(LocalizedException::class);
         $this->expectExceptionMessage('Something went wrong while doing a request to DPD service. Please contact system administrator for more information.');
 
-        $this->subject->call($requestMock);
+        return $this->subject->call($requestMock);
     }
 
     public function testCallWithRawRequest()

@@ -37,12 +37,18 @@ class ShippingInformationManagementTest extends AbstractTest
      */
     private $loggerMock;
 
+    /**
+     * @var MockObject
+     */
+    private $shippingAddressMock;
+
     public function setUp()
     {
         parent::setUp();
 
         $this->subjectMock = $this->createMock(\Magento\Checkout\Model\ShippingInformationManagement::class);
         $this->addressInformationMock = $this->createMock(\Magento\Checkout\Api\Data\ShippingInformationInterface::class);
+        $this->shippingAddressMock = $this->createMock(\Magento\Quote\Api\Data\AddressInterface::class);
 
         $this->quoteRepositoryMock = $this->createMock(\Magento\Quote\Api\CartRepositoryInterface::class);
         $this->loggerMock = $this->createMock(LoggerInterface::class);
@@ -105,6 +111,10 @@ class ShippingInformationManagementTest extends AbstractTest
         $extensionAttributesSubstitute->setDpdDeliveryOptions(null);
 
         $this->addressInformationMock->expects($this->once())
+            ->method('getShippingAddress')
+            ->willReturn($this->shippingAddressMock);
+
+        $this->shippingAddressMock->expects($this->once())
             ->method('getExtensionAttributes')
             ->willReturn($extensionAttributesSubstitute);
 
@@ -133,6 +143,10 @@ class ShippingInformationManagementTest extends AbstractTest
         $extensionAttributesSubstitute->setDpdDeliveryOptions(new DataObject(['test' => 'test']));
 
         $this->addressInformationMock->expects($this->once())
+            ->method('getShippingAddress')
+            ->willReturn($this->shippingAddressMock);
+
+        $this->shippingAddressMock->expects($this->once())
             ->method('getExtensionAttributes')
             ->willReturn($extensionAttributesSubstitute);
 
@@ -163,6 +177,10 @@ class ShippingInformationManagementTest extends AbstractTest
         $extensionAttributesSubstitute->setDpdDeliveryOptions(new DataObject(['test' => 'test']));
 
         $this->addressInformationMock->expects($this->once())
+            ->method('getShippingAddress')
+            ->willReturn($this->shippingAddressMock);
+
+        $this->shippingAddressMock->expects($this->once())
             ->method('getExtensionAttributes')
             ->willReturn($extensionAttributesSubstitute);
 
@@ -201,6 +219,10 @@ class ShippingInformationManagementTest extends AbstractTest
         $extensionAttributesSubstitute->setDpdDeliveryOptions(new DataObject(['test' => 'test']));
 
         $this->addressInformationMock->expects($this->once())
+            ->method('getShippingAddress')
+            ->willReturn($this->shippingAddressMock);
+
+        $this->shippingAddressMock->expects($this->once())
             ->method('getExtensionAttributes')
             ->willReturn($extensionAttributesSubstitute);
 

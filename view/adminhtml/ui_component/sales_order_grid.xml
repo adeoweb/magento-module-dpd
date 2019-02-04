@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    <settings>
-        <buttons>
-            <button name="dpd_close_manifest" class="AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CloseManifest"/>
-            <button name="dpd_call_courier" class="AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CallCourier"/>
-        </buttons>
-    </settings>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="buttons" xsi:type="array">
+            <item name="dpd_close_manifest" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CloseManifest</item>
+            <item name="dpd_call_courier" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CallCourier</item>
+        </item>
+    </argument>
     <modal name="dpd_call_courier_modal" component="AdeoWeb_Dpd/js/modal/dpd-call-courier-modal">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
@@ -33,31 +34,24 @@
             </item>
         </argument>
         <fieldset name="call_courier" sortOrder="10">
-            <settings>
-                <collapsible>false</collapsible>
-                <label translate="true">Fill form bellow</label>
-            </settings>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Fill form bellow</item>
+                </item>
+            </argument>
             <field name="warehouse" formElement="select">
                 <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">AdeoWeb\Dpd\Model\Location\Source\Warehouse</item>
                     <item name="config" xsi:type="array">
                         <item name="label" xsi:type="string">Warehouse</item>
                         <item name="formElement" xsi:type="string">select</item>
                         <item name="visible" xsi:type="boolean">true</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
-                <formElements>
-                    <select>
-                        <settings>
-                            <options class="AdeoWeb\Dpd\Model\Location\Source\Warehouse"/>
-                        </settings>
-                    </select>
-                </formElements>
             </field>
             <field name="comment" formElement="textarea">
                 <argument name="data" xsi:type="array">
@@ -74,15 +68,12 @@
                         <item name="label" xsi:type="string">Pickup Date</item>
                         <item name="formElement" xsi:type="string">date</item>
                         <item name="visible" xsi:type="boolean">true</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="validate-date" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="validate-date" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
             <field name="pickup_time" formElement="input">
                 <argument name="data" xsi:type="array">
@@ -91,15 +82,12 @@
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">09:20</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="time" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="time" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
             <field name="num_of_parcels" formElement="input">
                 <argument name="data" xsi:type="array">
@@ -108,16 +96,13 @@
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">1</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="integer" xsi:type="boolean">true</item>
+                            <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="integer" xsi:type="boolean">true</rule>
-                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
             <field name="total_weight" formElement="input">
                 <argument name="data" xsi:type="array">
@@ -126,16 +111,13 @@
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">0.1</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="validate-number" xsi:type="boolean">true</item>
+                            <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="validate-number" xsi:type="boolean">true</rule>
-                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
         </fieldset>
     </modal>

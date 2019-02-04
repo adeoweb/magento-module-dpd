@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller\Adminhtml\Location;
+namespace AdeoWeb\Dpd\Test\Unit\Controller\Adminhtml\Location;
 
 use AdeoWeb\Dpd\Api\Data\LocationInterface;
 use AdeoWeb\Dpd\Controller\Adminhtml\Location\Edit;
@@ -47,6 +47,11 @@ class EditTest extends AbstractTest
      */
     private $pageMock;
 
+    /**
+     * @var MockObject
+     */
+    private $locationMock;
+
     public function setUp()
     {
         parent::setUp();
@@ -54,6 +59,7 @@ class EditTest extends AbstractTest
         $this->requestMock = $this->createMock(Http::class);
         $this->responseMock = $this->createMock(\Magento\Framework\App\Response\Http::class);
         $this->messageManagerMock = $this->createMock(ManagerInterface::class);
+        $this->locationMock = $this->createMock(LocationInterface::class);
 
         $this->redirectMock = $this->createMock(\Magento\Backend\Model\View\Result\Redirect::class);
         $this->pageMock = $this->createMock(\Magento\Backend\Model\View\Result\Page::class);
@@ -68,6 +74,10 @@ class EditTest extends AbstractTest
             ->method('create')
             ->willReturn($this->pageMock);
 
+        $locationFactoryMock = $this->createConfiguredMock(\AdeoWeb\Dpd\Api\Data\LocationInterfaceFactory::class, [
+            'create' => $this->locationMock
+        ]);
+
         $contextMock = $this->objectManager->getObject(\Magento\Backend\App\Action\Context::class, [
             'request' => $this->requestMock,
             'response' => $this->responseMock,
@@ -80,17 +90,9 @@ class EditTest extends AbstractTest
         $this->subject = $this->objectManager->getObject(Edit::class, [
             'context' => $contextMock,
             'resultPageFactory' => $pageFactoryMock,
-            'locationRepository' => $this->locationRepositoryMock
+            'locationRepository' => $this->locationRepositoryMock,
+            'locationFactory' => $locationFactoryMock
         ]);
-    }
-
-    public function testExecuteWithoutLocationId()
-    {
-        $this->messageManagerMock->expects($this->atLeastOnce())
-            ->method('addErrorMessage')
-            ->with('We can\'t find a location to edit.');
-
-        $this->subject->execute();
     }
 
     public function testExecuteWithLocationLoadException()
@@ -112,19 +114,13 @@ class EditTest extends AbstractTest
         $this->subject->execute();
     }
 
-    public function testExecute()
+    public function testExecuteWithNewItem()
     {
         $this->requestMock->expects($this->atLeastOnce())
             ->method('getParam')
             ->with('location_id')
-            ->willReturn(1);
+            ->willReturn(null);
 
-        $locationMock = $this->createMock(LocationInterface::class);
-
-        $this->locationRepositoryMock->expects($this->atLeastOnce())
-            ->method('getById')
-            ->with(1)
-            ->willReturn($locationMock);
 
         $titleMock = $this->createMock(\Magento\Framework\View\Page\Title::class);
 

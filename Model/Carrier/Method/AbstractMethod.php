@@ -5,7 +5,6 @@ namespace AdeoWeb\Dpd\Model\Carrier\Method;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Model\Carrier\ValidatorInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
-use http\Exception\RuntimeException;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;

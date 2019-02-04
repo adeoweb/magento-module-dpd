@@ -2,7 +2,6 @@
 
 namespace AdeoWeb\Dpd\Model;
 
-use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
 use AdeoWeb\Dpd\Api\PickupPointManagementInterface;
 use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface;

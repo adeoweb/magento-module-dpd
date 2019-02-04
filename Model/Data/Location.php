@@ -242,4 +242,18 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     {
         return $this->_data;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setData($key, $value = null)
+    {
+        if ($key === (array)$key) {
+            $this->_data = $key;
+        } else {
+            $this->_data[$key] = $value;
+        }
+
+        return $this;
+    }
 }

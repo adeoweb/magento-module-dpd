@@ -108,7 +108,7 @@ class CarrierTest extends AbstractTest
             'trackStatusFactory' => $trackStatusFactoryMock,
             'dpdService' => $this->carrierServiceMock,
             'createShipmentRequestFactory' => $createShipmentRequestFactoryMock,
-            'parcelPrintRequestFactory' => $parcelPrintRequestFactoryMock
+            'parcelPrintRequestFactory' => $parcelPrintRequestFactoryMock,
         ]);
     }
 
@@ -242,6 +242,11 @@ class CarrierTest extends AbstractTest
         return $this->subject->requestToShipment($request);
     }
 
+    public function testProccessAdditionalValidation()
+    {
+        $this->assertTrue($this->subject->proccessAdditionalValidation(new DataObject()));
+    }
+
     public function testRequestToShipmentWithParcelPrintException()
     {
         $request = $this->createPartialMock(DataObject::class, []);
@@ -266,7 +271,8 @@ class CarrierTest extends AbstractTest
         $this->carrierServiceMock->expects($this->atLeastOnce())
             ->method('call')
             ->withConsecutive([$this->shipmentRequestMock], [$this->parcelPrintRequestMock])
-            ->willReturnOnConsecutiveCalls($shipmentRequestResponseMock, $this->throwException(new LocalizedException(__('Invalid response'))));
+            ->willReturnOnConsecutiveCalls($shipmentRequestResponseMock,
+                $this->throwException(new LocalizedException(__('Invalid response'))));
 
         $shipmentRequestResponseMock->expects($this->once())
             ->method('hasError')

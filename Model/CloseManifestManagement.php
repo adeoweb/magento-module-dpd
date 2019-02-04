@@ -5,6 +5,7 @@ namespace AdeoWeb\Dpd\Model;
 use AdeoWeb\Dpd\Api\CloseManifestManagementInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelManifestPrintRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
+use Magento\Framework\Exception\LocalizedException;
 
 class CloseManifestManagement implements CloseManifestManagementInterface
 {
@@ -35,9 +36,9 @@ class CloseManifestManagement implements CloseManifestManagementInterface
         $today = new \DateTime;
         $dates = [
             $today,
-            $today->modify('+1 day'),
-            $today->modify('+2 days'),
-            $today->modify('+3 days')
+            (clone $today)->modify('+1 day'),
+            (clone $today)->modify('+2 days'),
+            (clone $today)->modify('+3 days')
         ];
 
         $pdfList = [];
@@ -45,14 +46,17 @@ class CloseManifestManagement implements CloseManifestManagementInterface
         foreach ($dates as $date) {
             $parcelManifestPrintRequest = $this->parcelManifestPrintRequestFactory->create();
             $parcelManifestPrintRequest->setDate($date->format('Y-m-d'));
+            $parcelManifestPrintRequest->setType('manifest');
 
             $response = $this->carrierService->call($parcelManifestPrintRequest);
 
-            if ($response->hasError()) {
-                throw new \Exception($response->getErrorMessage());
+            if (!$response->hasError()) {
+                $pdfList[] = $response->getBody('pdf');
             }
+        }
 
-            $pdfList[] = $response->getBody('pdf');
+        if (empty($pdfList)) {
+            throw new LocalizedException(__('No new shipments were created.'));
         }
 
         return $pdfList;

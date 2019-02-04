@@ -19,16 +19,42 @@ class LocationActionsTest extends AbstractTest
         $this->subject = $this->objectManager->getObject(LocationActions::class);
     }
 
+    public function testPrepareDataSourceWithEmptyArray()
+    {
+        $result = $this->subject->prepareDataSource([]);
+
+        $this->assertEmpty($result);
+    }
+
+    public function testPrepareDataSourceWithIncorrectDataSource()
+    {
+        $dataSource = [
+            'data' => [
+                'items' => [
+                    [
+                        'test' => 1,
+                    ],
+                ],
+            ],
+        ];
+
+        $this->subject->setData('name', 'test');
+
+        $result = $this->subject->prepareDataSource($dataSource);
+
+        $this->assertEquals($dataSource, $result);
+    }
+
     public function testPrepareDataSource()
     {
         $dataSource = [
             'data' => [
                 'items' => [
                     [
-                        'location_id' => 1
-                    ]
-                ]
-            ]
+                        'location_id' => 1,
+                    ],
+                ],
+            ],
         ];
 
         $this->subject->setData('name', 'test');

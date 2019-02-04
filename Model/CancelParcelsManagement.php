@@ -46,9 +46,7 @@ class CancelParcelsManagement implements CancelParcelsManagementInterface
     /**
      * @param ShipmentInterface $shipment
      * @return boolean
-     * @throws \Magento\Framework\Exception\CouldNotDeleteException
      * @throws \Magento\Framework\Exception\LocalizedException
-     * @throws \Exception
      */
     public function cancelParcels(ShipmentInterface $shipment)
     {

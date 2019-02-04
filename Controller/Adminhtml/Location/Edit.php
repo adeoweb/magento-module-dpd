@@ -2,6 +2,8 @@
 
 namespace AdeoWeb\Dpd\Controller\Adminhtml\Location;
 
+use AdeoWeb\Dpd\Api\Data\LocationInterface;
+use AdeoWeb\Dpd\Api\Data\LocationInterfaceFactory;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Registry;
@@ -20,16 +22,23 @@ class Edit extends \AdeoWeb\Dpd\Controller\Adminhtml\Location
      */
     private $locationRepository;
 
+    /**
+     * @var LocationInterfaceFactory
+     */
+    private $locationFactory;
+
     public function __construct(
         Context $context,
         Registry $coreRegistry,
         PageFactory $resultPageFactory,
-        LocationRepositoryInterface $locationRepository
+        LocationRepositoryInterface $locationRepository,
+        LocationInterfaceFactory $locationFactory
     ) {
         parent::__construct($context, $coreRegistry);
 
         $this->resultPageFactory = $resultPageFactory;
         $this->locationRepository = $locationRepository;
+        $this->locationFactory = $locationFactory;
     }
 
     /**
@@ -42,14 +51,12 @@ class Edit extends \AdeoWeb\Dpd\Controller\Adminhtml\Location
 
         $locationId = $this->getRequest()->getParam('location_id');
 
-        if (!$locationId) {
-            $this->messageManager->addErrorMessage(__('We can\'t find a location to edit.'));
-
-            return $resultRedirect->setPath('*/*/');
-        }
-
         try {
-            $location = $this->locationRepository->getById($locationId);
+            if (!$locationId) {
+                $location = $this->locationFactory->create();
+            } else {
+                $location = $this->locationRepository->getById($locationId);
+            }
 
             $this->coreRegistry->register('adeoweb_dpd_location', $location);
         } catch (\Exception $e) {

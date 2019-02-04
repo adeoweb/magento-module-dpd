@@ -109,7 +109,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="adeoweb_dpd_location_listing_data_source" xsi:type="string">AdeoWeb\Dpd\Model\ResourceModel\Location\Grid\Collection</item>
+                <item name="adeoweb_dpd_location_grid_data_source" xsi:type="string">AdeoWeb\Dpd\Model\ResourceModel\Location\Grid\Collection</item>
             </argument>
         </arguments>
     </type>

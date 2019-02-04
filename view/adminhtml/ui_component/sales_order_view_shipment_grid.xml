@@ -28,10 +28,12 @@
             </item>
         </argument>
         <fieldset name="sender_adress" sortOrder="10">
-            <settings>
-                <collapsible>false</collapsible>
-                <label translate="true">Sender Address</label>
-            </settings>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" translate="true" xsi:type="string">Sender Address</item>
+                </item>
+            </argument>
             <field name="sender_use_shipping_address" formElement="checkbox">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
@@ -41,44 +43,32 @@
                         <item name="formElement" xsi:type="string">checkbox</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="checked" xsi:type="boolean">false</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="string">1</item>
+                            <item name="false" xsi:type="string">0</item>
+                        </item>
                     </item>
                 </argument>
-                <formElements>
-                    <checkbox>
-                        <settings>
-                            <valueMap>
-                                <map name="false" xsi:type="string">0</map>
-                                <map name="true" xsi:type="string">1</map>
-                            </valueMap>
-                        </settings>
-                    </checkbox>
-                </formElements>
             </field>
             <field name="sender_location" formElement="select">
                 <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">AdeoWeb\Dpd\Model\Location\Source\All</item>
                     <item name="config" xsi:type="array">
                         <item name="label" xsi:type="string">Sender Location</item>
                         <item name="formElement" xsi:type="string">select</item>
                         <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
                     </item>
                 </argument>
-                <settings>
-                    <dataType>text</dataType>
-                </settings>
-                <formElements>
-                    <select>
-                        <settings>
-                            <options class="AdeoWeb\Dpd\Model\Location\Source\All"/>
-                        </settings>
-                    </select>
-                </formElements>
             </field>
         </fieldset>
         <fieldset name="recipient_adress" sortOrder="20">
-            <settings>
-                <collapsible>false</collapsible>
-                <label translate="true">Recipient Address</label>
-            </settings>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" translate="true" xsi:type="string">Recipient Address</item>
+                </item>
+            </argument>
             <field name="recipient_use_shipping_address" formElement="checkbox">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
@@ -88,44 +78,32 @@
                         <item name="formElement" xsi:type="string">checkbox</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="checked" xsi:type="boolean">false</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="string">1</item>
+                            <item name="false" xsi:type="string">0</item>
+                        </item>
                     </item>
                 </argument>
-                <formElements>
-                    <checkbox>
-                        <settings>
-                            <valueMap>
-                                <map name="false" xsi:type="string">0</map>
-                                <map name="true" xsi:type="string">1</map>
-                            </valueMap>
-                        </settings>
-                    </checkbox>
-                </formElements>
             </field>
             <field name="recipient_location" formElement="select">
                 <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">AdeoWeb\Dpd\Model\Location\Source\All</item>
                     <item name="config" xsi:type="array">
                         <item name="label" xsi:type="string">Recipient Location</item>
                         <item name="formElement" xsi:type="string">select</item>
                         <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
                     </item>
                 </argument>
-                <settings>
-                    <dataType>text</dataType>
-                </settings>
-                <formElements>
-                    <select>
-                        <settings>
-                            <options class="AdeoWeb\Dpd\Model\Location\Source\All"/>
-                        </settings>
-                    </select>
-                </formElements>
             </field>
         </fieldset>
         <fieldset name="package_info" sortOrder="30">
-            <settings>
-                <collapsible>false</collapsible>
-                <label translate="true">Package Info</label>
-            </settings>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" translate="true" xsi:type="string">Package Info</item>
+                </item>
+            </argument>
             <field name="comment" formElement="textarea">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
@@ -141,15 +119,13 @@
                         <item name="label" xsi:type="string">Pickup Date</item>
                         <item name="formElement" xsi:type="string">date</item>
                         <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="validate-date" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="validate-date" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
             <field name="num_of_parcels" formElement="input">
                 <argument name="data" xsi:type="array">
@@ -158,16 +134,14 @@
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">1</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="integer" xsi:type="boolean">true</item>
+                            <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="integer" xsi:type="boolean">true</rule>
-                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
             <field name="total_weight" formElement="input">
                 <argument name="data" xsi:type="array">
@@ -176,16 +150,14 @@
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">0.1</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="validate-number" xsi:type="boolean">true</item>
+                            <item name="validate-greater-than-zero" xsi:type="boolean">true</item>
+                        </item>
                     </item>
                 </argument>
-                <settings>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                        <rule name="validate-number" xsi:type="boolean">true</rule>
-                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
-                    </validation>
-                    <dataType>text</dataType>
-                </settings>
             </field>
         </fieldset>
     </modal>

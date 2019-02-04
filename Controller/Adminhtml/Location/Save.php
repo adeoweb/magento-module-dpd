@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Controller\Adminhtml\Location;
 
+use AdeoWeb\Dpd\Api\Data\LocationInterfaceFactory;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Redirect;
@@ -21,20 +22,26 @@ class Save extends \Magento\Backend\App\Action
      */
     private $locationRepository;
 
+    /**
+     * @var LocationInterfaceFactory
+     */
+    private $locationFactory;
+
     public function __construct(
         Context $context,
         DataPersistorInterface $dataPersistor,
-        LocationRepositoryInterface $locationRepository
+        LocationRepositoryInterface $locationRepository,
+        LocationInterfaceFactory $locationFactory
     ) {
         parent::__construct($context);
 
         $this->dataPersistor = $dataPersistor;
         $this->locationRepository = $locationRepository;
+        $this->locationFactory = $locationFactory;
     }
 
     /**
      * @return ResultInterface
-     * @throws LocalizedException
      */
     public function execute()
     {
@@ -50,8 +57,12 @@ class Save extends \Magento\Backend\App\Action
         $locationId = $this->getRequest()->getParam('location_id');
 
         try {
-            $location = $this->locationRepository->getById($locationId);
-            $location->setData($data);
+            if (!$locationId) {
+                $location = $this->locationFactory->create(['data' => $data]);
+            } else {
+                $location = $this->locationRepository->getById($locationId);
+                $location->setData($data);
+            }
 
             $this->locationRepository->save($location);
 

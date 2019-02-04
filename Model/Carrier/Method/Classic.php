@@ -11,7 +11,6 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Helper\Carrier;
-use Magento\Store\Model\ScopeInterface;
 
 class Classic extends AbstractMethod implements MethodInterface
 {
