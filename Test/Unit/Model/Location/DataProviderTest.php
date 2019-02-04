@@ -7,7 +7,7 @@ use AdeoWeb\Dpd\Model\Location;
 use AdeoWeb\Dpd\Model\Location\DataProvider;
 use AdeoWeb\Dpd\Model\ResourceModel\Location\Collection;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
-use Magento\Framework\App\Request\DataPersistorInterface;
+use AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class DataProviderTest extends AbstractTest

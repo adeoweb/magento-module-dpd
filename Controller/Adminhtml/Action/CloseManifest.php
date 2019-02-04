@@ -4,15 +4,13 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Action;
 
 use AdeoWeb\Dpd\Api\CloseManifestManagementInterface;
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\Exception\NotFoundException;
 
-class CloseManifest extends Action implements HttpGetActionInterface
+class CloseManifest extends Action
 {
     /**
      * @var CloseManifestManagementInterface

@@ -47,7 +47,6 @@ class TypeTest extends AbstractTest
             'getApiId' => 'TEST90001',
         ]);
 
-
         $this->assertEquals(1, $this->subject->resolve($pickupPointMock1));
         $this->assertEquals(1, $this->subject->resolve($pickupPointMock2));
         $this->assertEquals(1, $this->subject->resolve($pickupPointMock3));
@@ -68,7 +67,6 @@ class TypeTest extends AbstractTest
         $pickupPointMock4 = $this->createConfiguredMock(PickupPointInterface::class, [
             'getApiId' => 'TEST10001',
         ]);
-
 
         $this->assertEquals(2, $this->subject->resolve($pickupPointMock1));
         $this->assertEquals(2, $this->subject->resolve($pickupPointMock2));

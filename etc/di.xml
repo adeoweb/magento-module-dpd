@@ -31,6 +31,9 @@
     <preference for="AdeoWeb\Dpd\Model\Service\ServiceInterface"
                 type="AdeoWeb\Dpd\Model\Service\Dpd"/>
 
+    <preference for="AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface"
+                type="AdeoWeb\Dpd\Model\App\Request\DataPersistor"/>
+
     <virtualType name="dpdApiLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
             <argument name="handlers"  xsi:type="array">

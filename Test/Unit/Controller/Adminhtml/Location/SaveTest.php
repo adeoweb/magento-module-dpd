@@ -64,7 +64,7 @@ class SaveTest extends AbstractTest
         ]);
 
         $this->locationRepositoryMock = $this->createMock(LocationRepositoryInterface::class);
-        $this->dataPersistorMock = $this->createMock(\Magento\Framework\App\Request\DataPersistorInterface::class);
+        $this->dataPersistorMock = $this->createMock(\AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface::class);
 
         $this->subject = $this->objectManager->getObject(Save::class, [
             'context' => $contextMock,

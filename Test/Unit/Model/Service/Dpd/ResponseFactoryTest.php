@@ -42,7 +42,7 @@ class ResponseFactoryTest extends AbstractTest
     {
         $this->objectManagerMock->expects($this->once())
             ->method('create')
-            ->with('AdeoWeb\Dpd\Model\Service\Dpd\Response\Response', ['error' => true, 'errorMessage' => 'Something went wrong', 'body' => ['testResult' => 123]])
+            ->with(\AdeoWeb\Dpd\Model\Service\Dpd\Response\Response::class, ['error' => true, 'errorMessage' => 'Something went wrong', 'body' => ['testResult' => 123]])
             ->willReturn($this->createMock(ResponseInterface::class));
 
         $result = $this->subject->create(['status' => 'err', 'errlog' => 'Something went wrong', 'testResult' => 123]);

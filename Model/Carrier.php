@@ -113,7 +113,7 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
      */
     public function collectRates(RateRequest $request)
     {
-        if (!$this->canCollectRates())  {
+        if (!$this->canCollectRates()) {
             return false;
         }
 
@@ -145,6 +145,15 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
      * @codeCoverageIgnore
      */
     public function processAdditionalValidation(DataObject $request)
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Used for compatibility between Magento versions
+     */
+    public function proccessAdditionalValidation(DataObject $request)
     {
         return true;
     }

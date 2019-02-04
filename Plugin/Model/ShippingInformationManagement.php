@@ -77,6 +77,6 @@ class ShippingInformationManagement
      */
     private function readDeliveryOptionsFromAddressInformation(ShippingInformationInterface $addressInformation)
     {
-        return $addressInformation->getExtensionAttributes()->getDpdDeliveryOptions();
+        return $addressInformation->getShippingAddress()->getExtensionAttributes()->getDpdDeliveryOptions();
     }
 }

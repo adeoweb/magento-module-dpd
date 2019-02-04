@@ -5,7 +5,7 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Location;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Request\DataPersistorInterface;
+use AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 

@@ -10,7 +10,6 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\HTTP\ZendClientFactory;
 use Magento\Framework\Module\ModuleListInterface;
 use Psr\Log\LoggerInterface;
-use Zend_Http_Client_Adapter_Curl;
 
 class Dpd implements ServiceInterface
 {
@@ -88,8 +87,8 @@ class Dpd implements ServiceInterface
             $rawResponse = $client->request($request->getMethod());
             $rawResponse = $rawResponse->getBody();
         } catch (\Zend_Http_Exception $e) {
-            $this->logger->info('HTTP Request ERROR: ' . $e->getMessage());
-            $this->logger->info('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
+            $this->logger->debug('HTTP Request ERROR: ' . $e->getMessage());
+            $this->logger->debug('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
 
             throw new LocalizedException(
                 __('Something went wrong while doing a request to DPD service. Please contact system administrator for more information.')
@@ -97,8 +96,8 @@ class Dpd implements ServiceInterface
         }
 
         if ($this->apiConfig->isDebugMode()) {
-            $this->logger->info('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
-            $this->logger->info('RESPONSE: ' . $rawResponse);
+            $this->logger->debug('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
+            $this->logger->debug('RESPONSE: ' . $rawResponse);
         }
 
         if ($request->isFile()) {

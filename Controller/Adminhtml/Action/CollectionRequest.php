@@ -4,11 +4,10 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Action;
 
 use AdeoWeb\Dpd\Api\CollectionRequestManagementInterface;
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Exception\LocalizedException;
 
-class CollectionRequest extends \Magento\Backend\App\Action implements HttpPostActionInterface
+class CollectionRequest extends \Magento\Backend\App\Action
 {
     /**
      * @var JsonFactory

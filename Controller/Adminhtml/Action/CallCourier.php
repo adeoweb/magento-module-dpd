@@ -4,13 +4,12 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Action;
 
 use AdeoWeb\Dpd\Api\CallCourierManagementInterface;
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 
-class CallCourier extends Action implements HttpPostActionInterface
+class CallCourier extends Action
 {
     /**
      * @var JsonFactory

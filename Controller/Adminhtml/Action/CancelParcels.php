@@ -4,12 +4,11 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Action;
 
 use AdeoWeb\Dpd\Api\CancelParcelsManagementInterface;
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Api\ShipmentRepositoryInterface;
 
-class CancelParcels extends Action implements HttpGetActionInterface
+class CancelParcels extends Action
 {
     /**
      * @var ShipmentRepositoryInterface

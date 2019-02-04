@@ -4,7 +4,7 @@ namespace AdeoWeb\Dpd\Model\Location;
 
 use AdeoWeb\Dpd\Model\ResourceModel\Location\Collection;
 use AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory;
-use Magento\Framework\App\Request\DataPersistorInterface;
+use AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class DataProvider extends AbstractDataProvider
