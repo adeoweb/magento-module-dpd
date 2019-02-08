@@ -26,6 +26,11 @@ class Location extends AbstractModel
      */
     protected $_eventPrefix = 'adeoweb_dpd_location';
 
+    /**
+     * @var string
+     */
+    protected $_idFieldName = 'location_id';
+
     public function __construct(
         Context $context,
         Registry $registry,

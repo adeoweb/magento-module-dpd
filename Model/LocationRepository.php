@@ -152,7 +152,7 @@ class LocationRepository implements LocationRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function delete(LocationInterface $location)
+    public function delete($location)
     {
         try {
             $locationModel = $this->locationFactory->create();

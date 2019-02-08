@@ -35,7 +35,7 @@ interface LocationRepositoryInterface
      * @return boolean
      * @throws LocalizedException
      */
-    public function delete(LocationInterface $location);
+    public function delete($location);
 
     /**
      * @param string $locationId

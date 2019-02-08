@@ -10,6 +10,8 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
  */
 class Collection extends AbstractCollection
 {
+    protected $_idFieldName = 'location_id';
+
     /**
      * @return void
      */
