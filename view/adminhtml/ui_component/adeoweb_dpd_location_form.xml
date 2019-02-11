@@ -173,6 +173,7 @@
                     <item name="source" xsi:type="string">Location</item>
                     <item name="sortOrder" xsi:type="number">100</item>
                     <item name="dataScope" xsi:type="string">phone</item>
+                    <item name="placeholder" xsi:type="string" translate="true">+37060000000</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
@@ -188,6 +189,7 @@
                     <item name="source" xsi:type="string">Location</item>
                     <item name="sortOrder" xsi:type="number">110</item>
                     <item name="dataScope" xsi:type="string">work_until</item>
+                    <item name="placeholder" xsi:type="string" translate="true">18:00</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                         <item name="time" xsi:type="boolean">true</item>
