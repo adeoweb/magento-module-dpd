@@ -97,7 +97,7 @@ class CallCourierManagement implements CallCourierManagementInterface
         $response = $this->carrierService->call($pickupOrderSaveRequest);
 
         if (\strpos($response, 'DONE') === false) {
-            throw new \Exception('Something went wrong while doing a DPD Courier Call request. Please check the logs.');
+            throw new \Exception($response);
         }
 
         return true;

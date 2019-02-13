@@ -127,7 +127,6 @@ class CollectionRequestManagementTest extends AbstractTest
             ->willReturn('error');
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Something went wrong while doing a DPD Courier Call request. Please check the logs.');
 
         return $this->subject->collectionRequest($requestData);
     }

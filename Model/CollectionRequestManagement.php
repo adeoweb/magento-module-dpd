@@ -115,7 +115,7 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
         $response = $this->carrierService->call($collectionRequestImportRequest);
 
         if (\strpos($response, '201 OK') === false) {
-            throw new \Exception('Something went wrong while doing a DPD Courier Call request. Please check the logs.');
+            throw new \Exception($response);
         }
 
         return true;

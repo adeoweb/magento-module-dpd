@@ -129,7 +129,6 @@ class CallCourierManagementTest extends AbstractTest
             ->willReturn($pickupOrderSaveRequestMock);
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Something went wrong while doing a DPD Courier Call request. Please check the logs.');
 
         return $this->subject->callCourier($data);
     }
