@@ -4,12 +4,14 @@ define([
     'Magento_Checkout/js/model/quote',
     'Magento_Ui/js/model/messageList',
     'mage/translate',
-], function($, wrapper, quote, globalMessageList, $t) {
+    'AdeoWeb_Dpd/js/dpd-shipping-data'
+], function($, wrapper, quote, globalMessageList, $t, dpdShippingData) {
     'use strict';
 
     return function(shippingInformationAction) {
 
-        return wrapper.wrap(shippingInformationAction,
+        return wrapper.wrap(
+            shippingInformationAction,
             function(originalAction) {
                 let selectedShippingMethod = quote.shippingMethod();
                 let shippingAddress = quote.shippingAddress();
@@ -18,8 +20,8 @@ define([
                     return originalAction();
                 }
 
-                let pickupPoint = $('#dpd-pickup-point-select').val();
-                let deliveryTime = $('#dpd-delivery-time-select').val();
+                let pickupPoint = dpdShippingData.getSelectedPickupPoint();
+                let deliveryTime = dpdShippingData.getSelectedDeliveryTime();
 
                 if (selectedShippingMethod.method_code === 'pickup' &&
                     !pickupPoint) {

@@ -4,8 +4,9 @@ define([
     'underscore',
     'AdeoWeb_Dpd/js/view/checkout/shipping/abstract',
     'Magento_Checkout/js/model/quote',
-    'AdeoWeb_Dpd/js/action/fetch-delivery-time-list'
-], function ($, ko, _, Component, quote, fetchDeliveryTimeListAction) {
+    'AdeoWeb_Dpd/js/action/fetch-delivery-time-list',
+    'AdeoWeb_Dpd/js/dpd-shipping-data'
+], function ($, ko, _, Component, quote, fetchDeliveryTimeListAction, dpdShippingData) {
     'use strict';
 
     return Component.extend({
@@ -24,6 +25,12 @@ define([
 
             this.deliveryTimes.subscribe(this.calculateAvailability.bind(this));
 
+            this.selectedDeliveryTime(dpdShippingData.getSelectedDeliveryTime());
+            this.selectedDeliveryTime.subscribe(function(value) {
+                if (value !== undefined) {
+                    dpdShippingData.setSelectedDeliveryTime(value);
+                }
+            });
             return this;
         },
 

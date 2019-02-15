@@ -2,12 +2,11 @@
     <div data-bind="visible: selectedMethod() == 'dpd_pickup'">
         <div><label for="dpd-pickup-point-select" data-bind="i18n: 'Select DPD Pickup Point'"></label>:</div>
         <div>
-            <select id="dpd-pickup-point-select"
-                    data-validate="{required:true}"
-                    data-bind="options: pickupPoints,
-                            optionsText: 'company',
-                            optionsValue: 'pickup_point_id',
-                            value: selectedPickupPoint"></select>
+            <select id="dpd-pickup-point-select" data-validate="{required:true}" data-bind="foreach: pickupPoints, value: selectedPickupPoint">
+                <optgroup data-bind="attr: {label: name}, foreach: items">
+                    <option data-bind="text: label, value: pickup_point_id"></option>
+                </optgroup>
+            </select>
         </div>
     </div>
 </p>

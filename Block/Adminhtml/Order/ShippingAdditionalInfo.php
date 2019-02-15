@@ -88,7 +88,8 @@ class ShippingAdditionalInfo extends Template
                     if ($pickupPoint) {
                         $result[] = [
                             'label' => __('Pickup Point'),
-                            'value' => '(' . $pickupPoint->getApiId() . ') ' . $pickupPoint->getCompany()
+                            'value' => '(' . $pickupPoint->getApiId() . ') ' . $pickupPoint->getCompany() . ', ' .
+                                $pickupPoint->getStreet() . ', ' . $pickupPoint->getPostcode() . ', ' . $pickupPoint->getCity()
                         ];
                     }
                     break;

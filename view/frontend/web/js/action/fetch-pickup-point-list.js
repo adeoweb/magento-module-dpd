@@ -1,6 +1,6 @@
 define(['jquery', 'mage/url'], function($, UrlBuilder) {
     return {
-        fetchByCountry: function(country) {
+        fetchByAddress: function(address) {
             let url = UrlBuilder.build('rest/V1/dpd/pickup-points', {});
 
             return $.ajax({
@@ -8,7 +8,7 @@ define(['jquery', 'mage/url'], function($, UrlBuilder) {
                 cache: true,
                 dataType: 'json',
                 data: {
-                    country: country
+                    country: address.countryId
                 }
             });
         }

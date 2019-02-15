@@ -183,6 +183,15 @@ class ShippingAdditionalInfoTest extends AbstractTest
         $pickupPointMock->expects($this->atLeastOnce())
             ->method('getCompany')
             ->willReturn('TestCompany');
+        $pickupPointMock->expects($this->atLeastOnce())
+            ->method('getStreet')
+            ->willReturn('TestStreet');
+        $pickupPointMock->expects($this->atLeastOnce())
+            ->method('getPostcode')
+            ->willReturn('4400');
+        $pickupPointMock->expects($this->atLeastOnce())
+            ->method('getCity')
+            ->willReturn('TestCity');
 
         $this->pickupPointRepositoryMock->expects($this->atLeastOnce())
             ->method('getById')
@@ -194,7 +203,7 @@ class ShippingAdditionalInfoTest extends AbstractTest
             0 =>
                 array(
                     'label' => __('Pickup Point'),
-                    'value' => '(LT00000) TestCompany',
+                    'value' => '(LT00000) TestCompany, TestStreet, 4400, TestCity',
                 ),
             1 =>
                 array(
