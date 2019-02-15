@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="default">
-        <job name="dpd_pickup_point_update" instance="AdeoWeb\Dpd\Model\PickupPointManagement" method="update">   
+        <job name="dpd_pickup_point_update" instance="AdeoWeb\Dpd\Cron\UpdatePickupPointList" method="execute">   
             <config_path>carriers/dpd/cron/pickup_point_update</config_path>
         </job>
     </group>

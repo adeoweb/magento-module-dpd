@@ -120,11 +120,15 @@ class PickupPointManagement implements PickupPointManagementInterface
     }
 
     /**
+     * @return bool|array
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function update()
     {
         $this->tableMaintainer->resetTable();
+
+        $result = [];
 
         foreach (self::ALLOWED_COUNTRIES as $countryCode) {
             /** @var PickupPointSearchRequest $request */
@@ -134,6 +138,11 @@ class PickupPointManagement implements PickupPointManagementInterface
 
             $pickupPointListResponse = $this->apiService->call($request);
 
+            if ($pickupPointListResponse->hasError()) {
+                $result[$countryCode] = $pickupPointListResponse->getErrorMessage();
+                continue;
+            }
+
             foreach ($pickupPointListResponse->getBody('parcelshops') as $pickupPointData) {
                 $pickupPoint = $this->pickupPointFactory->createFromResponseData($pickupPointData);
 
@@ -141,6 +150,6 @@ class PickupPointManagement implements PickupPointManagementInterface
             }
         }
 
-        return true;
+        return $result ?: true;
     }
 }

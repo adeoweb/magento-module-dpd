@@ -130,6 +130,28 @@ class PickupPointManagementTest extends AbstractTest
         $this->assertEquals($expectedResult, $result);
     }
 
+    public function testUpdateWithError()
+    {
+        $responseMock = $this->createMock(ResponseInterface::class);
+
+        $this->carrierService->expects($this->atleastOnce())
+            ->method('call')
+            ->willReturn($responseMock);
+
+        $responseMock->expects($this->atleastOnce())
+            ->method('hasError')
+            ->willReturn(true);
+
+        $responseMock->expects($this->atleastOnce())
+            ->method('getErrorMessage')
+            ->willReturn('Some error');
+
+        $result = $this->subject->update();
+
+        $this->assertArrayHasKey('LT', $result);
+        $this->assertEquals('Some error', $result['LT']);
+    }
+
     public function testUpdate()
     {
         $responseMock = $this->createMock(ResponseInterface::class);
@@ -137,6 +159,10 @@ class PickupPointManagementTest extends AbstractTest
         $this->carrierService->expects($this->atleastOnce())
             ->method('call')
             ->willReturn($responseMock);
+
+        $responseMock->expects($this->atleastOnce())
+            ->method('hasError')
+            ->willReturn(false);
 
         $responseMock->expects($this->atleastOnce())
             ->method('getBody')

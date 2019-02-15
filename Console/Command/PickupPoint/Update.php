@@ -34,11 +34,28 @@ class Update extends Command
         InputInterface $input,
         OutputInterface $output
     ) {
+        $output->setDecorated(true);
         $output->writeln('Starting DPD Pickup Point list update.');
 
-        $this->pickupPointManagement->update();
+        $result = $this->pickupPointManagement->update();
 
-        $output->writeln('DPD Pickup Point list was successfully updated!');
+        if (!\is_array($result)) {
+            $output->writeln('DPD Pickup Point list was successfully updated!');
+
+            return true;
+        }
+
+        foreach ($result as $languageCode => $warning) {
+            $output->writeln(
+                \sprintf(
+                    '<error>Error encountered while updating list for "%s": %s</error>',
+                    $languageCode,
+                    $warning
+                )
+            );
+        }
+
+        return true;
     }
 
     /**
