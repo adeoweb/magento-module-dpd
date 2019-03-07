@@ -2,7 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model\Carrier\Method;
 
-use AdeoWeb\Dpd\Config\Classic\Restrictions;
+use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Helper\Config;
 use AdeoWeb\Dpd\Model\Carrier\MethodInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
@@ -24,11 +24,6 @@ class Classic extends AbstractMethod implements MethodInterface
     protected $code = self::CODE;
 
     /**
-     * @var Restrictions
-     */
-    private $restrictionsConfig;
-
-    /**
      * @var Config
      */
     private $carrierConfig;
@@ -36,15 +31,14 @@ class Classic extends AbstractMethod implements MethodInterface
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         MethodFactory $rateMethodFactory,
-        Restrictions $restrictionsConfig,
         RequestInterface $request,
         Carrier $carrierHelper,
         Config $carrierConfig,
+        Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
-        parent::__construct($scopeConfig, $rateMethodFactory, $request, $carrierHelper, $validators);
+        parent::__construct($scopeConfig, $rateMethodFactory, $request, $carrierHelper, $restrictionsConfig, $validators);
 
-        $this->restrictionsConfig = $restrictionsConfig;
         $this->carrierConfig = $carrierConfig;
     }
 
@@ -70,23 +64,5 @@ class Classic extends AbstractMethod implements MethodInterface
         $createShipmentRequest->setTimeframeTo($deliveryTimeValue[1]);
 
         return $createShipmentRequest;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPrice()
-    {
-        if ($this->isFreeShipping()) {
-            return 0.00;
-        }
-
-        $restrictions = $this->restrictionsConfig->getByCountry($this->request->getData('dest_country_id'));
-
-        if (!isset($restrictions['price']) || empty($restrictions['price'])) {
-            return parent::getPrice();
-        }
-
-        return $restrictions['price'];
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace AdeoWeb\Dpd\Test\Unit\Block\System\Config\Form\Field\Classic;
+namespace AdeoWeb\Dpd\Test\Unit\Block\System\Config\Form\Field;
 
-use AdeoWeb\Dpd\Block\System\Config\Form\Field\Classic\Restrictions;
+use AdeoWeb\Dpd\Block\System\Config\Form\Field\Restrictions;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\DataObject;
 use PHPUnit\Framework\MockObject\MockObject;

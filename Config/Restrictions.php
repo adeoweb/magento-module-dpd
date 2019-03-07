@@ -1,6 +1,6 @@
 <?php
 
-namespace AdeoWeb\Dpd\Config\Classic;
+namespace AdeoWeb\Dpd\Config;
 
 use AdeoWeb\Dpd\Helper\Config\Serializer;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -8,7 +8,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class Restrictions
 {
-    const XML_PATH_METHOD_CLASSIC_RESTRICTIONS = 'carriers/dpd/classic/restrictions';
+    const XML_PATH_METHOD_CLASSIC_RESTRICTIONS = 'carriers/dpd/%s/restrictions';
 
     /**
      * @var ScopeConfigInterface
@@ -20,12 +20,19 @@ class Restrictions
      */
     private $serializer;
 
+    /**
+     * @var string
+     */
+    private $method;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        Serializer $serializer
+        Serializer $serializer,
+        $method = 'classic'
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->serializer = $serializer;
+        $this->method = $method;
     }
 
     /**
@@ -56,7 +63,7 @@ class Restrictions
     protected function getConfigValue()
     {
         $configValue = $this->scopeConfig->getValue(
-            self::XML_PATH_METHOD_CLASSIC_RESTRICTIONS,
+            \sprintf(self::XML_PATH_METHOD_CLASSIC_RESTRICTIONS, $this->method),
             ScopeInterface::SCOPE_WEBSITE
         );
 

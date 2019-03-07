@@ -1,8 +1,8 @@
 <?php
 
-namespace AdeoWeb\Dpd\Test\Unit\Config\Classic;
+namespace AdeoWeb\Dpd\Test\Unit\Config;
 
-use AdeoWeb\Dpd\Config\Classic\Restrictions;
+use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use PHPUnit\Framework\MockObject\MockObject;
 

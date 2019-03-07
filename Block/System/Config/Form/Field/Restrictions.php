@@ -1,6 +1,6 @@
 <?php
 
-namespace AdeoWeb\Dpd\Block\System\Config\Form\Field\Classic;
+namespace AdeoWeb\Dpd\Block\System\Config\Form\Field;
 
 use AdeoWeb\Dpd\Block\Adminhtml\Form\Field\Country;
 use Magento\Framework\Exception\LocalizedException;

@@ -65,7 +65,7 @@ class PickupTest extends AbstractTest
         $this->validatorMock = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\ValidatorInterface::class);
         $this->scopeConfigMock = $this->createMock(ScopeConfigInterface::class);
         $this->requestMock = $this->createMock(Http::class);
-        $this->restrictionsConfig = $this->createMock(\AdeoWeb\Dpd\Config\Classic\Restrictions::class);
+        $this->restrictionsConfig = $this->createMock(\AdeoWeb\Dpd\Config\Restrictions::class);
         $this->pickupPointRepositoryMock = $this->createMock(PickupPointRepositoryInterface::class);
 
         $rateMethodFactoryMock = $this->createConfiguredMock(
@@ -80,7 +80,7 @@ class PickupTest extends AbstractTest
             'scopeConfig' => $this->scopeConfigMock,
             'request' => $this->requestMock,
             'carrierConfig' => $carrierConfig,
-            'restrictionsConfig' => $this->restrictionsConfig,
+            'restrictionsConfig' => null,
             'pickupPointRepository' => $this->pickupPointRepositoryMock,
             'validators' => [$this->validatorMock],
         ]);

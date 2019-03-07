@@ -64,6 +64,41 @@
         </arguments>
     </virtualType>
 
+    <virtualType name="DpdClassicMethodRestrictionsConfig" type="AdeoWeb\Dpd\Config\Restrictions">
+        <arguments>
+            <argument name="method" xsi:type="const">AdeoWeb\Dpd\Model\Carrier\Method\Classic::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DpdPickupMethodRestrictionsConfig" type="AdeoWeb\Dpd\Config\Restrictions">
+        <arguments>
+            <argument name="method" xsi:type="const">AdeoWeb\Dpd\Model\Carrier\Method\Pickup::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DpdSaturdayMethodRestrictionsConfig" type="AdeoWeb\Dpd\Config\Restrictions">
+        <arguments>
+            <argument name="method" xsi:type="const">AdeoWeb\Dpd\Model\Carrier\Method\Saturday::CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="AdeoWeb\Dpd\Model\Carrier\Method\Classic">
+        <arguments>
+            <argument name="restrictionsConfig" xsi:type="object">DpdClassicMethodRestrictionsConfig</argument>
+        </arguments>
+    </type>
+    <type name="AdeoWeb\Dpd\Model\Carrier\Method\Pickup">
+        <arguments>
+            <argument name="restrictionsConfig" xsi:type="object">DpdPickupMethodRestrictionsConfig</argument>
+        </arguments>
+    </type>
+    <type name="AdeoWeb\Dpd\Model\Carrier\Method\Saturday">
+        <arguments>
+            <argument name="restrictionsConfig" xsi:type="object">DpdSaturdayMethodRestrictionsConfig</argument>
+            <argument name="validators" xsi:type="array">
+                <item name="timeframe" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Validator\Saturday\Timeframe</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="AdeoWeb\Dpd\Model\PickupPointManagement">
         <arguments>
             <argument name="searchCriteriaBuilder" xsi:type="object">AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\Builder\PickupPoint</argument>
@@ -79,14 +114,6 @@
         <arguments>
             <argument name="validators" xsi:type="array">
                 <item name="country" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Validator\Country</item>
-            </argument>
-        </arguments>
-    </type>
-
-    <type name="AdeoWeb\Dpd\Model\Carrier\Method\Saturday">
-        <arguments>
-            <argument name="validators" xsi:type="array">
-                <item name="timeframe" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Validator\Saturday\Timeframe</item>
             </argument>
         </arguments>
     </type>

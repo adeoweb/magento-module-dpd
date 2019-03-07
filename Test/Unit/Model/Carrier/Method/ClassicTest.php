@@ -58,7 +58,7 @@ class ClassicTest extends AbstractTest
         $this->validatorMock = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\ValidatorInterface::class);
         $this->scopeConfigMock = $this->createMock(ScopeConfigInterface::class);
         $this->requestMock = $this->createMock(Http::class);
-        $this->restrictionsConfig = $this->createMock(\AdeoWeb\Dpd\Config\Classic\Restrictions::class);
+        $this->restrictionsConfig = $this->createMock(\AdeoWeb\Dpd\Config\Restrictions::class);
 
         $rateMethodFactoryMock = $this->createConfiguredMock(
             \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory::class,

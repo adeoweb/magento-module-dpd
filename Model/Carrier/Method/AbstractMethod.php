@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model\Carrier\Method;
 
+use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Model\Carrier\ValidatorInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
@@ -61,11 +62,17 @@ abstract class AbstractMethod
      */
     private $httpRequest;
 
+    /**
+     * @var Restrictions
+     */
+    protected $restrictionsConfig;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         MethodFactory $rateMethodFactory,
         RequestInterface $request,
         Carrier $carrierHelper,
+        Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
         $this->scopeConfig = $scopeConfig;
@@ -73,6 +80,7 @@ abstract class AbstractMethod
         $this->validators = $validators;
         $this->httpRequest = $request;
         $this->carrierHelper = $carrierHelper;
+        $this->restrictionsConfig = $restrictionsConfig;
     }
 
     /**
@@ -150,7 +158,7 @@ abstract class AbstractMethod
 
             if (!$validator->validate([
                 'request' => $this->request,
-                'method_code' => $this->code
+                'method_code' => $this->code,
             ])) {
                 return false;
             }
@@ -247,10 +255,33 @@ abstract class AbstractMethod
             return 0.00;
         }
 
+        if ($restrictedPrice = $this->getRestrictedPrice()) {
+            return (float)$restrictedPrice;
+        }
+
         return (float)$this->scopeConfig->getValue(
             sprintf(self::XML_PATH_METHOD_PRICE, $this->getCode()),
             ScopeInterface::SCOPE_STORE
         );
+    }
+
+    /**
+     * @return string|null
+     * @throws \Exception
+     */
+    protected function getRestrictedPrice()
+    {
+        if (!$this->restrictionsConfig) {
+            return null;
+        }
+
+        $restrictions = $this->restrictionsConfig->getByCountry($this->request->getData('dest_country_id'));
+
+        if (!isset($restrictions['price']) || empty($restrictions['price'])) {
+            return null;
+        }
+
+        return $restrictions['price'];
     }
 
     /**

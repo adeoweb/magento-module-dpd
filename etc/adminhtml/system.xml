@@ -74,7 +74,7 @@
                     </field>
                     <field id="restrictions" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
                         <label>Restrictions</label>
-                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\Classic\Restrictions</frontend_model>
+                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\Restrictions</frontend_model>
                         <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     </field>
                     <field id="delivery_times_enable" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="80">
@@ -113,6 +113,11 @@
                         <can_be_empty>1</can_be_empty>
                         <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
                     </field>
+                    <field id="restrictions" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
+                        <label>Restrictions</label>
+                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\Restrictions</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    </field>
                 </group>
 
                 <group id="saturday" translate="label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="930">
@@ -144,6 +149,11 @@
                         <label>Ship to Specific Countries</label>
                         <can_be_empty>1</can_be_empty>
                         <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    </field>
+                    <field id="restrictions" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
+                        <label>Restrictions</label>
+                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\Restrictions</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     </field>
                     <group id="timeframe" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
                         <label>Timeframes Configuration</label>
