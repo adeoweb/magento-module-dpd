@@ -48,4 +48,12 @@ class ParcelManifestPrintRequest extends AbstractRequest implements RequestInter
     {
         return $this->setData('format', $format);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isFile()
+    {
+        return true;
+    }
 }

@@ -71,7 +71,8 @@ class Dpd implements ServiceInterface
     public function call(RequestInterface $request)
     {
         $config = [
-            'verifypeer' => false
+            'verifypeer' => false,
+            'timeout' => 300
         ];
 
         $requestParams = $this->getRequestParams($request);

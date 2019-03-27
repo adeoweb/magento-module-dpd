@@ -51,8 +51,8 @@ class CloseManifestManagement implements CloseManifestManagementInterface
 
             $response = $this->carrierService->call($parcelManifestPrintRequest);
 
-            if (!$response->hasError()) {
-                $pdfList[] = $response->getBody('pdf');
+            if (!empty($response) && \json_decode($response) === null) {
+                $pdfList[] = $response;
             }
         }
 

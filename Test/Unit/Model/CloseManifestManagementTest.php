@@ -47,16 +47,10 @@ class CloseManifestManagementTest extends AbstractTest
 
     public function testCloseManifestWithException()
     {
-        $responseMock = $this->createMock(ResponseInterface::class);
-
         $this->carrierServiceMock->expects($this->atleastOnce())
             ->method('call')
             ->with($this->parcelManifestPrintRequestMock)
-            ->willReturn($responseMock);
-
-        $responseMock->expects($this->atleastOnce())
-            ->method('hasError')
-            ->willReturn(true);
+            ->willReturn('{"err":"true"}');
 
         $this->expectException(LocalizedException::class);
         $this->expectExceptionMessage('No new shipments were created.');
@@ -66,23 +60,13 @@ class CloseManifestManagementTest extends AbstractTest
 
     public function testCloseManifest()
     {
-        $responseMock = $this->createMock(ResponseInterface::class);
-
         $this->carrierServiceMock->expects($this->atLeastOnce())
             ->method('call')
             ->with($this->parcelManifestPrintRequestMock)
-            ->willReturn($responseMock);
-
-        $responseMock->expects($this->atLeastOnce())
-            ->method('hasError')
-            ->willReturn(false);
-        $responseMock->expects($this->atLeastOnce())
-            ->method('getBody')
-            ->with('pdf')
-            ->willReturn('pdfcontent');
+            ->willReturn('testPDFString');
 
         $result = $this->subject->closeManifest();
-        $expectedValue = ['pdfcontent','pdfcontent','pdfcontent', 'pdfcontent'];
+        $expectedValue = ['testPDFString','testPDFString','testPDFString', 'testPDFString'];
 
         $this->assertEquals($expectedValue, $result);
     }
