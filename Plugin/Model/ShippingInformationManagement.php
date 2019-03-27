@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Plugin\Model;
 
+use AdeoWeb\Dpd\Model\Carrier\MethodFactoryPool;
 use Magento\Checkout\Api\Data\ShippingInformationInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartRepositoryInterface;
@@ -19,12 +20,19 @@ class ShippingInformationManagement
      */
     private $logger;
 
+    /**
+     * @var MethodFactoryPool
+     */
+    private $methodFactoryPool;
+
     public function __construct(
         CartRepositoryInterface $quoteRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        MethodFactoryPool $methodFactoryPool
     ) {
         $this->quoteRepository = $quoteRepository;
         $this->logger = $logger;
+        $this->methodFactoryPool = $methodFactoryPool;
     }
 
     /**
@@ -53,6 +61,14 @@ class ShippingInformationManagement
         if (!$deliveryOptions) {
             return [$cartId, $addressInformation];
         }
+
+        $method = $this->methodFactoryPool->getInstance($addressInformation->getShippingMethodCode());
+
+        if (!$method) {
+            return [$cartId, $addressInformation];
+        }
+
+        $method->validateDeliveryOptions($deliveryOptions);
 
         $serializedDeliveryOptions = $deliveryOptions->toJson();
 

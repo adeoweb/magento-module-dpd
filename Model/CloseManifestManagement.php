@@ -47,6 +47,7 @@ class CloseManifestManagement implements CloseManifestManagementInterface
             $parcelManifestPrintRequest = $this->parcelManifestPrintRequestFactory->create();
             $parcelManifestPrintRequest->setDate($date->format('Y-m-d'));
             $parcelManifestPrintRequest->setType('manifest');
+            $parcelManifestPrintRequest->setFormat('pdf');
 
             $response = $this->carrierService->call($parcelManifestPrintRequest);
 

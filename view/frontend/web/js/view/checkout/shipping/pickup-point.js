@@ -15,6 +15,8 @@ define([
             template: 'AdeoWeb_Dpd/view/checkout/shipping/pickup-point',
             pickupPoints: ko.observableArray([]),
             selectedPickupPoint: ko.observable(null),
+            stateLoading: ko.observable(false),
+            stateEmpty: ko.observable(false),
             lastCountry: null,
         },
 
@@ -42,13 +44,18 @@ define([
                 let result = [];
 
                 this.lastCountry = quote.shippingAddress().countryId;
+                this.stateLoading(true);
+
+                dpdShippingData.setSelectedPickupPoint(0);
 
                 fetchPickupPointListAction.fetchByAddress(
                     quote.shippingAddress()).
                     done(function(response) {
+                        this.stateLoading(false);
                         this.pickupPoints([]);
 
                         if (response.length < 1) {
+                            this.stateEmpty(true);
                             return this;
                         }
 
@@ -63,6 +70,7 @@ define([
                             result[item.city]['items'].push(item);
                         }.bind(this));
 
+                        this.stateEmpty(false);
                         this.pickupPoints(_.sortBy(_.values(result), 'name'));
                     }.bind(this));
                 return this;

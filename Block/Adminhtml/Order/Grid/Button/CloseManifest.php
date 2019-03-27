@@ -19,7 +19,8 @@ class CloseManifest extends \Magento\Framework\View\Element\AbstractBlock implem
 
         return [
             'label' => __('Close DPD Manifest'),
-            'on_click' => "confirmSetLocation('{$message}', '{$this->getCloseManifestUrl()}')"
+            'on_click' => "confirmSetLocation('{$message}', '{$this->getCloseManifestUrl()}')",
+            'class' => 'action-secondary'
         ];
     }
 

@@ -71,9 +71,9 @@ class PickupPoint extends Template
     {
         $result = [];
 
-        $pickupPointList = $this->pickupPointManagement->getList([
-            'country' => $this->getQuote()->getShippingAddress()->getCountryId()
-        ]);
+        $pickupPointList = $this->pickupPointManagement->getList(
+            $this->getQuote()->getShippingAddress()->getCountryId()
+        );
 
         foreach ($pickupPointList as $pickupPoint) {
             $result[] = [

@@ -1,0 +1,123 @@
+Back,Back
+"Delete Location","Delete Location"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Save and Continue Edit","Save and Continue Edit"
+"Save Location","Save Location"
+"Select DPD Delivery Time:","Select DPD Delivery Time:"
+"Select DPD Pickup Point:","Select DPD Pickup Point:"
+"Call DPD Courier","Call DPD Courier"
+"Are you sure you want to close DPD manifest?","Are you sure you want to close DPD manifest?"
+"Close DPD Manifest","Close DPD Manifest"
+"Pickup Point","Pickup Point"
+"Delivery Time","Delivery Time"
+Add,Add
+Country,Country
+Price,Price
+"Only AJAX calls are permitted","Only AJAX calls are permitted"
+"DPD Courier called succesfully.","DPD Courier called succesfully."
+"Shipment ID is not specified","Shipment ID is not specified"
+"DPD Parcels were successfully canceled","DPD Parcels were successfully canceled"
+"Collection Request called succesfully.","Collection Request called succesfully."
+AdeoWeb,AdeoWeb
+Location,Location
+"We can't find a location to delete.","We can't find a location to delete."
+"You deleted the location.","You deleted the location."
+"Edit Location","Edit Location"
+"New Location","New Location"
+Locations,Locations
+"Edit Location %1","Edit Location %1"
+"DPD Locations","DPD Locations"
+"Please correct the data sent.","Please correct the data sent."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"You saved the location.","You saved the location."
+"Something went wrong while saving the location.","Something went wrong while saving the location."
+"DPD - Classic","DPD - Classic"
+"DPD - Pickup","DPD - Pickup"
+"DPD - Saturday","DPD - Saturday"
+"Parameter ""%1"" is missing from subject","Parameter ""%1"" is missing from subject"
+"Invalid pickup time value","Invalid pickup time value"
+"Incorrect pickup time","Incorrect pickup time"
+"No packages for request","No packages for request"
+"DPD Carrier method ""%1"" does not exist","DPD Carrier method ""%1"" does not exist"
+"Please select DPD pickup point.","Please select DPD pickup point."
+"No new shipments were created.","No new shipments were created."
+"Location is not specified","Location is not specified"
+"--Select a Warehouse--","--Select a Warehouse--"
+"Could not save the location: %1","Could not save the location: %1"
+"Location with id ""%1"" does not exist.","Location with id ""%1"" does not exist."
+"Could not delete the Location: %1","Could not delete the Location: %1"
+"Pickup point with id ""%1"" does not exist.","Pickup point with id ""%1"" does not exist."
+"Something went wrong while doing a request to DPD service. Please contact system administrator for more information.","Something went wrong while doing a request to DPD service. Please contact system administrator for more information."
+"DPD Request is not valid. Required parameter ""%1"" is missing","DPD Request is not valid. Required parameter ""%1"" is missing"
+"DPD Collection Request","DPD Collection Request"
+"Cancel DPD Parcels","Cancel DPD Parcels"
+"Entity not found","Entity not found"
+"No such entity","No such entity"
+"Invalid entity id","Invalid entity id"
+"Invalid response","Invalid response"
+Classic,Classic
+Warehouse,Warehouse
+Destination,Destination
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you want to delete a ""${ $.$data.name }"" record?","Are you sure you want to delete a ""${ $.$data.name }"" record?"
+Choose...,Choose...
+"Include DPD Return Labels?","Include DPD Return Labels?"
+"Select delivery time","Select delivery time"
+"Loading pickup points...","Loading pickup points..."
+"There are no DPD pickup points available in the chosen country. Please select a different shipping method.","There are no DPD pickup points available in the chosen country. Please select a different shipping method."
+"Select DPD Pickup Point","Select DPD Pickup Point"
+"Please select a pickup point","Please select a pickup point"
+"Field ","Field "
+" is required."," is required."
+DPD,DPD
+Enabled,Enabled
+Title,Title
+"Allowed Methods","Allowed Methods"
+"Sort Order","Sort Order"
+"Displayed Error Message","Displayed Error Message"
+"API Settings","API Settings"
+Username,Username
+Password,Password
+"API URL","API URL"
+"Debug mode","Debug mode"
+"DPD Classic Configuration","DPD Classic Configuration"
+Name,Name
+"Enable Free Shipping Threshold","Enable Free Shipping Threshold"
+"Free Shipping Amount Threshold","Free Shipping Amount Threshold"
+"Ship to Applicable Countries","Ship to Applicable Countries"
+"Ship to Specific Countries","Ship to Specific Countries"
+Restrictions,Restrictions
+"Enable Delivery Time Selection","Enable Delivery Time Selection"
+"DPD Pickup Configuration","DPD Pickup Configuration"
+"DPD Saturday Configuration","DPD Saturday Configuration"
+"Timeframes Configuration","Timeframes Configuration"
+Monday,Monday
+Tuesday,Tuesday
+Wednesday,Wednesday
+Thursday,Thursday
+Friday,Friday
+CRON,CRON
+"Pickup Point Update Frequency","Pickup Point Update Frequency"
+"General Information","General Information"
+Type,Type
+Address,Address
+City,City
+Postcode,Postcode
+"Additional Info","Additional Info"
+"Contact Name","Contact Name"
+Phone,Phone
++37060000000,+37060000000
+"Work Until","Work Until"
+18:00,18:00
+"Add new Location","Add new Location"
+"Delete items","Delete items"
+"Are you sure to delete?","Are you sure to delete?"
+ID,ID
+"Created At","Created At"
+"Updated At","Updated At"
+"Fill form bellow","Fill form bellow"
+"Sender Address","Sender Address"
+"Recipient Address","Recipient Address"
+"Package Info","Package Info"

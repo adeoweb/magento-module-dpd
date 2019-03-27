@@ -90,7 +90,7 @@ class PickupPointTest extends AbstractTest
 
         $this->pickupPointManagementMock->expects($this->atleastOnce())
             ->method('getList')
-            ->with(['country' => 'US'])
+            ->with('US')
             ->willReturn([
                 ['company' => 'SampleCompany1', 'pickup_point_id' => 1],
                 ['company' => 'SampleCompany2', 'pickup_point_id' => 2],

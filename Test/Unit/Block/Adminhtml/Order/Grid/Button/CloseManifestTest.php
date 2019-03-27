@@ -44,7 +44,8 @@ class CloseManifestTest extends AbstractTest
         $result = $this->subject->getButtonData();
         $expectedResult = [
             'label' => __('Close DPD Manifest'),
-            'on_click' => "confirmSetLocation('Are you sure you want to close DPD manifest?', 'http://testcase.com')"
+            'on_click' => "confirmSetLocation('Are you sure you want to close DPD manifest?', 'http://testcase.com')",
+            'class' => 'action-secondary'
         ];
 
         $this->assertEquals($result, $expectedResult);

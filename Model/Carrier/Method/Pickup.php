@@ -9,6 +9,7 @@ use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Helper\Carrier;
 
@@ -57,5 +58,21 @@ class Pickup extends AbstractMethod implements MethodInterface
         $createShipmentRequest->setFetchAllByCountryFlag(true);
 
         return $createShipmentRequest;
+    }
+
+    /**
+     * @param DataObject $deliveryOptions
+     * @return bool
+     * @throws LocalizedException
+     */
+    public function validateDeliveryOptions(DataObject $deliveryOptions)
+    {
+        $pickupPointId = $deliveryOptions->getPickupPointId();
+
+        if (!$pickupPointId) {
+            throw new LocalizedException(__('Please select DPD pickup point.'));
+        }
+
+        return parent::validateDeliveryOptions($deliveryOptions);
     }
 }

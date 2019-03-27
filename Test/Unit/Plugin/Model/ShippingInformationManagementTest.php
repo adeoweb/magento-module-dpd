@@ -42,6 +42,11 @@ class ShippingInformationManagementTest extends AbstractTest
      */
     private $shippingAddressMock;
 
+    /**
+     * @var MockObject
+     */
+    private $methodFactoryPoolMock;
+
     public function setUp()
     {
         parent::setUp();
@@ -52,10 +57,12 @@ class ShippingInformationManagementTest extends AbstractTest
 
         $this->quoteRepositoryMock = $this->createMock(\Magento\Quote\Api\CartRepositoryInterface::class);
         $this->loggerMock = $this->createMock(LoggerInterface::class);
+        $this->methodFactoryPoolMock = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\MethodFactoryPool::class);
 
         $this->subject = $this->objectManager->getObject(ShippingInformationManagement::class, [
             'quoteRepository' => $this->quoteRepositoryMock,
-            'logger' => $this->loggerMock
+            'logger' => $this->loggerMock,
+            'methodFactoryPool' => $this->methodFactoryPoolMock
         ]);
     }
 
@@ -131,6 +138,53 @@ class ShippingInformationManagementTest extends AbstractTest
         $this->addressInformationMock->expects($this->once())
             ->method('getShippingCarrierCode')
             ->willReturn('dpd');
+        $this->addressInformationMock->expects($this->once())
+            ->method('getShippingMethodCode')
+            ->willReturn('classic');
+
+        $quoteMock = $this->createPartialMock(Quote::class, []);
+
+        $this->quoteRepositoryMock->expects($this->once())
+            ->method('getActive')
+            ->with(1)
+            ->willReturn($quoteMock);
+
+        $extensionAttributesSubstitute = $this->objectManager->getObject(DataObject::class);
+        $extensionAttributesSubstitute->setDpdDeliveryOptions(new DataObject(['test' => 'test']));
+
+        $this->addressInformationMock->expects($this->once())
+            ->method('getShippingAddress')
+            ->willReturn($this->shippingAddressMock);
+
+        $this->shippingAddressMock->expects($this->once())
+            ->method('getExtensionAttributes')
+            ->willReturn($extensionAttributesSubstitute);
+
+        $methodInstance = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\Method\Classic::class);
+
+        $this->methodFactoryPoolMock->method('getInstance')
+            ->with('classic')
+            ->willReturn($methodInstance);
+
+        $quoteMock->setData('dpd_delivery_options', '{"test":"test"}');
+
+        $result = $this->subject->beforeSaveAddressInformation($this->subjectMock, 1, $this->addressInformationMock);
+        $expectedResult = [1, $expectedAddressInformation];
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testBeforeSaveAddressInformationWithDpdMethodNonExisting()
+    {
+        $expectedAddressInformation = clone $this->addressInformationMock;
+
+        $this->addressInformationMock->expects($this->once())
+            ->method('getShippingCarrierCode')
+            ->willReturn('dpd');
+        $this->addressInformationMock->expects($this->once())
+            ->method('getShippingMethodCode')
+            ->willReturn('classic');
+
 
         $quoteMock = $this->createPartialMock(Quote::class, []);
 
@@ -152,11 +206,16 @@ class ShippingInformationManagementTest extends AbstractTest
 
         $quoteMock->setData('dpd_delivery_options', '{"test":"test"}');
 
+        $this->methodFactoryPoolMock->method('getInstance')
+            ->with('classic')
+            ->willReturn(null);
+
         $result = $this->subject->beforeSaveAddressInformation($this->subjectMock, 1, $this->addressInformationMock);
         $expectedResult = [1, $expectedAddressInformation];
 
         $this->assertEquals($expectedResult, $result);
     }
+
 
     public function testBeforeSaveAddressInformationWithQuoteSaveException()
     {
@@ -165,6 +224,9 @@ class ShippingInformationManagementTest extends AbstractTest
         $this->addressInformationMock->expects($this->once())
             ->method('getShippingCarrierCode')
             ->willReturn('dpd');
+        $this->addressInformationMock->expects($this->once())
+            ->method('getShippingMethodCode')
+            ->willReturn('classic');
 
         $quoteMock = $this->createPartialMock(Quote::class, []);
 
@@ -194,6 +256,12 @@ class ShippingInformationManagementTest extends AbstractTest
             ->method('critical')
             ->with($quoteException);
 
+        $methodInstance = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\Method\Classic::class);
+
+        $this->methodFactoryPoolMock->method('getInstance')
+            ->with('classic')
+            ->willReturn($methodInstance);
+
         $result = $this->subject->beforeSaveAddressInformation($this->subjectMock, 1, $this->addressInformationMock);
         $expectedResult = [1, $expectedAddressInformation];
 
@@ -207,6 +275,9 @@ class ShippingInformationManagementTest extends AbstractTest
         $this->addressInformationMock->expects($this->once())
             ->method('getShippingCarrierCode')
             ->willReturn('dpd');
+        $this->addressInformationMock->expects($this->once())
+            ->method('getShippingMethodCode')
+            ->willReturn('classic');
 
         $quoteMock = $this->createPartialMock(Quote::class, []);
 
@@ -225,6 +296,12 @@ class ShippingInformationManagementTest extends AbstractTest
         $this->shippingAddressMock->expects($this->once())
             ->method('getExtensionAttributes')
             ->willReturn($extensionAttributesSubstitute);
+
+        $methodInstance = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\Method\Classic::class);
+
+        $this->methodFactoryPoolMock->method('getInstance')
+            ->with('classic')
+            ->willReturn($methodInstance);
 
         $result = $this->subject->beforeSaveAddressInformation($this->subjectMock, 1, $this->addressInformationMock);
         $expectedResult = [1, $expectedAddressInformation];

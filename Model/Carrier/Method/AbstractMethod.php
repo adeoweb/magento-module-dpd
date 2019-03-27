@@ -9,6 +9,7 @@ use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Sales\Model\Order;
@@ -358,6 +359,15 @@ abstract class AbstractMethod
         $order = $request->getOrderShipment()->getOrder();
 
         return $order->getPayment()->getMethod() === 'cashondelivery';
+    }
+
+    /**
+     * @param DataObject $deliveryOptions
+     * @return bool
+     */
+    public function validateDeliveryOptions(DataObject $deliveryOptions)
+    {
+        return true;
     }
 
     /**

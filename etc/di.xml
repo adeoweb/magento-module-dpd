@@ -54,6 +54,12 @@
         </arguments>
     </type>
 
+    <type name="AdeoWeb\Dpd\Plugin\Model\ShippingInformationManagement">
+        <arguments>
+            <argument name="methodFactoryPool" xsi:type="object">DpdMethodFactoryPool</argument>
+        </arguments>
+    </type>
+
     <virtualType name="DpdMethodFactoryPool" type="AdeoWeb\Dpd\Model\Carrier\MethodFactoryPool">
         <arguments>
             <argument name="methodFactories" xsi:type="array">

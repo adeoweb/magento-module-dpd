@@ -35,6 +35,12 @@ interface MethodInterface
     public function validate();
 
     /**
+     * @param DataObject $deliveryOptions
+     * @return mixed
+     */
+    public function validateDeliveryOptions(DataObject $deliveryOptions);
+
+    /**
      * @param CreateShipmentRequest $createShipmentRequest
      * @param DataObject $request
      * @return CreateShipmentRequest

@@ -10,6 +10,7 @@ use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class PickupTest extends AbstractTest
@@ -120,7 +121,7 @@ class PickupTest extends AbstractTest
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('getValue')
             ->withConsecutive(['carriers/dpd/title'], ['carriers/dpd/pickup/name'],
-                ['carriers/dpd/pickup/free_shipping_subtotal'],['carriers/dpd/pickup/free_shipping_subtotal'])
+                ['carriers/dpd/pickup/free_shipping_subtotal'], ['carriers/dpd/pickup/free_shipping_subtotal'])
             ->willReturnOnConsecutiveCalls('dpd', 'classic', 10, 10);
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
@@ -209,5 +210,22 @@ class PickupTest extends AbstractTest
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 
         $this->assertInstanceOf(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class, $result);
+    }
+
+    public function testValidateDeliveryOptionsWithInvalidPickupPointId()
+    {
+        $deliveryOptions = new DataObject(['pickup_point_id' => null]);
+
+        $this->expectException(LocalizedException::class);
+        $this->expectExceptionMessage('Please select DPD pickup point.');
+
+        return $this->subject->validateDeliveryOptions($deliveryOptions);
+    }
+
+    public function testValidateDeliveryOptions()
+    {
+        $deliveryOptions = new DataObject(['pickup_point_id' => 1]);
+
+        $this->assertTrue($this->subject->validateDeliveryOptions($deliveryOptions));
     }
 }
