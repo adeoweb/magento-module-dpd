@@ -5,6 +5,9 @@ define(
         return {
             getRules: function() {
                 return {
+                    'city': {
+                        'required': true
+                    },
                     'postcode': {
                         'required': true
                     },
