@@ -8,7 +8,7 @@ use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\HTTP\ZendClientFactory;
-use Magento\Framework\Module\ModuleListInterface;
+use Magento\Framework\Module\PackageInfo;
 use Psr\Log\LoggerInterface;
 
 class Dpd implements ServiceInterface
@@ -33,9 +33,9 @@ class Dpd implements ServiceInterface
     private $logger;
 
     /**
-     * @var ModuleListInterface
+     * @var PackageInfo
      */
-    private $moduleList;
+    private $packageInfo;
 
     /**
      * @var ProductMetadataInterface
@@ -51,14 +51,14 @@ class Dpd implements ServiceInterface
         Api $apiConfig,
         ResponseFactory $responseFactory,
         LoggerInterface $logger,
-        ModuleListInterface $moduleList,
+        PackageInfo $packageInfo,
         ProductMetadataInterface $productMetadata,
         ZendClientFactory $httpClientFactory
     ) {
         $this->apiConfig = $apiConfig;
         $this->responseFactory = $responseFactory;
         $this->logger = $logger;
-        $this->moduleList = $moduleList;
+        $this->packageInfo = $packageInfo;
         $this->productMetadata = $productMetadata;
         $this->httpClientFactory = $httpClientFactory;
     }
@@ -66,7 +66,7 @@ class Dpd implements ServiceInterface
     /**
      * @param RequestInterface $request
      * @return null|ResponseInterface|string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function call(RequestInterface $request)
     {
@@ -167,10 +167,10 @@ class Dpd implements ServiceInterface
      */
     private function getClientInfoParams()
     {
-        $module = $this->moduleList->getOne('AdeoWeb_Dpd');
+        $moduleVersion = $this->packageInfo->getVersion('AdeoWeb_Dpd');
 
         return [
-            'PluginVersion' => isset($module['setup_version']) ? $module['setup_version'] : '',
+            'PluginVersion' => $moduleVersion,
             'EshopVersion' => 'Magento ' . $this->productMetadata->getVersion(),
         ];
     }
