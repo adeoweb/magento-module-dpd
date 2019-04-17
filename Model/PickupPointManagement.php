@@ -5,32 +5,17 @@ namespace AdeoWeb\Dpd\Model;
 use AdeoWeb\Dpd\Api\PickupPointManagementInterface;
 use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface;
+use AdeoWeb\Dpd\Model\Provider\PickupPoint\AllowedCountries;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequest;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
 use AdeoWeb\Dpd\Model\PickupPoint\TableMaintainer;
 use Magento\Framework\App\CacheInterface;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\LocalizedException;
 
 class PickupPointManagement implements PickupPointManagementInterface
 {
-    const ALLOWED_COUNTRIES = [
-        'LT',
-        'LV',
-        'EE',
-        'DK',
-        'BE',
-        'FI',
-        'FR',
-        'DE',
-        'LU',
-        'NL',
-        'PT',
-        'ES',
-        'SE',
-        'CH',
-        'GB'
-    ];
-
     const CACHE_KEY = 'DPD_PICKUP_POINT_LIST_%s_%s';
 
     /**
@@ -68,6 +53,11 @@ class PickupPointManagement implements PickupPointManagementInterface
      */
     private $cache;
 
+    /**
+     * @var Provider\PickupPoint\AllowedCountries
+     */
+    private $pickupAllowedCountriesProvider;
+
     public function __construct(
         PickupPointRepositoryInterface $pickupPointRepository,
         BuilderInterface $searchCriteriaBuilder,
@@ -75,7 +65,8 @@ class PickupPointManagement implements PickupPointManagementInterface
         ServiceInterface $apiService,
         PickupPointSearchRequestFactory $pickupPointSearchRequestFactory,
         PickupPointFactory $pickupPointFactory,
-        CacheInterface $cache
+        CacheInterface $cache,
+        AllowedCountries $pickupAllowedCountriesProvider
     ) {
         $this->pickupPointRepository = $pickupPointRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
@@ -84,6 +75,7 @@ class PickupPointManagement implements PickupPointManagementInterface
         $this->pickupPointSearchRequestFactory = $pickupPointSearchRequestFactory;
         $this->pickupPointFactory = $pickupPointFactory;
         $this->cache = $cache;
+        $this->pickupAllowedCountriesProvider = $pickupAllowedCountriesProvider;
     }
 
     /**
@@ -121,8 +113,8 @@ class PickupPointManagement implements PickupPointManagementInterface
 
     /**
      * @return bool|array
-     * @throws \Magento\Framework\Exception\CouldNotSaveException
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws CouldNotSaveException
+     * @throws LocalizedException
      */
     public function update()
     {
@@ -130,7 +122,7 @@ class PickupPointManagement implements PickupPointManagementInterface
 
         $result = [];
 
-        foreach (self::ALLOWED_COUNTRIES as $countryCode) {
+        foreach ($this->getAllowedPickupPointCountries() as $countryCode) {
             /** @var PickupPointSearchRequest $request */
             $request = $this->pickupPointSearchRequestFactory->create();
             $request->setCountry($countryCode);
@@ -143,7 +135,13 @@ class PickupPointManagement implements PickupPointManagementInterface
                 continue;
             }
 
-            foreach ($pickupPointListResponse->getBody('parcelshops') as $pickupPointData) {
+            $response = $pickupPointListResponse->getBody('parcelshops');
+
+            if (!\is_array($response)) {
+                continue;
+            }
+
+            foreach ($response as $pickupPointData) {
                 $pickupPoint = $this->pickupPointFactory->createFromResponseData($pickupPointData);
 
                 $this->pickupPointRepository->save($pickupPoint);
@@ -151,5 +149,13 @@ class PickupPointManagement implements PickupPointManagementInterface
         }
 
         return $result ?: true;
+    }
+
+    /**
+     * @return array
+     */
+    private function getAllowedPickupPointCountries()
+    {
+        return $this->pickupAllowedCountriesProvider->get();
     }
 }

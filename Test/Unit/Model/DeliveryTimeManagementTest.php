@@ -56,12 +56,12 @@ class DeliveryTimeManagementTest extends AbstractTest
                             ],
                         1 =>
                             [
-                                'value' => '4',
+                                'value' => '5',
                                 'label' => '14:00 - 18:00',
                             ],
                         2 =>
                             [
-                                'value' => '6',
+                                'value' => '7',
                                 'label' => '18:00 - 22:00',
                             ],
                     ],
@@ -76,12 +76,12 @@ class DeliveryTimeManagementTest extends AbstractTest
                             ],
                         1 =>
                             [
-                                'value' => '4',
+                                'value' => '5',
                                 'label' => '14:00 - 18:00',
                             ],
                         2 =>
                             [
-                                'value' => '6',
+                                'value' => '7',
                                 'label' => '18:00 - 22:00',
                             ],
                     ],
@@ -96,12 +96,12 @@ class DeliveryTimeManagementTest extends AbstractTest
                             ],
                         1 =>
                             [
-                                'value' => '4',
+                                'value' => '5',
                                 'label' => '14:00 - 18:00',
                             ],
                         2 =>
                             [
-                                'value' => '6',
+                                'value' => '7',
                                 'label' => '18:00 - 22:00',
                             ],
                     ],

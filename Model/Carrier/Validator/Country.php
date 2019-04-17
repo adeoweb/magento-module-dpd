@@ -56,7 +56,7 @@ class Country implements ValidatorInterface
      */
     private function isSpecificCountriesAllowed($methodCode)
     {
-        return (bool) $this->scopeConfig->getValue(
+        return (bool)$this->scopeConfig->getValue(
             sprintf(self::XML_PATH_METHOD_SALLOWSPECIFIC, $methodCode),
             ScopeInterface::SCOPE_STORE
         );

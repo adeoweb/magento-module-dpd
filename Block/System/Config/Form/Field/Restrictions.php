@@ -3,9 +3,10 @@
 namespace AdeoWeb\Dpd\Block\System\Config\Form\Field;
 
 use AdeoWeb\Dpd\Block\Adminhtml\Form\Field\Country;
+use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\Exception\LocalizedException;
 
-class Restrictions extends \Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray
+class Restrictions extends AbstractFieldArray
 {
     /**
      * @var Country

@@ -2,10 +2,13 @@
 
 namespace AdeoWeb\Dpd\Model\Config\Source;
 
-class Generic implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
+use AdeoWeb\Dpd\Helper\Config;
+use Magento\Shipping\Model\Carrier\Source\GenericInterface;
+
+class Generic implements GenericInterface
 {
     /**
-     * @var \AdeoWeb\Dpd\Helper\Config
+     * @var Config
      */
     protected $carrierConfig;
 
@@ -14,7 +17,7 @@ class Generic implements \Magento\Shipping\Model\Carrier\Source\GenericInterface
      */
     protected $code = '';
 
-    public function __construct(\AdeoWeb\Dpd\Helper\Config $carrierConfig)
+    public function __construct(Config $carrierConfig)
     {
         $this->carrierConfig = $carrierConfig;
     }

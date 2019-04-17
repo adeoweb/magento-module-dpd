@@ -111,11 +111,11 @@
                     <field id="specificcountry" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="60">
                         <label>Ship to Specific Countries</label>
                         <can_be_empty>1</can_be_empty>
-                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                        <source_model>AdeoWeb\Dpd\Model\Config\Source\EuropeanCountries</source_model>
                     </field>
                     <field id="restrictions" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
                         <label>Restrictions</label>
-                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\Restrictions</frontend_model>
+                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\EuropeanRestrictions</frontend_model>
                         <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     </field>
                 </group>

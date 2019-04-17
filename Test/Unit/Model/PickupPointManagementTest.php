@@ -58,6 +58,11 @@ class PickupPointManagementTest extends AbstractTest
      */
     private $pickupPointFactoryMock;
 
+    /**
+     * @var MockObject
+     */
+    private $pickupAllowedCountriesProvider;
+
     public function setUp()
     {
         parent::setUp();
@@ -70,6 +75,7 @@ class PickupPointManagementTest extends AbstractTest
         $this->pickupPointSearchRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequest::class);
         $this->carrierService = $this->createMock(ServiceInterface::class);
         $this->pickupPointFactoryMock = $this->createMock(PickupPointFactory::class);
+        $this->pickupAllowedCountriesProvider = $this->createMock(\AdeoWeb\Dpd\Model\Provider\PickupPoint\AllowedCountries::class);
 
         $searchCriteriaBuilder = $this->createMock(\AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface::class);
         $searchCriteriaBuilder->expects($this->any())
@@ -87,7 +93,8 @@ class PickupPointManagementTest extends AbstractTest
             'searchCriteriaBuilder' => $searchCriteriaBuilder,
             'pickupPointSearchRequestFactory' => $pickupPointSearchRequestFactoryMock,
             'apiService' => $this->carrierService,
-            'pickupPointFactory' => $this->pickupPointFactoryMock
+            'pickupPointFactory' => $this->pickupPointFactoryMock,
+            'pickupAllowedCountriesProvider' => $this->pickupAllowedCountriesProvider
         ]);
     }
 
@@ -146,10 +153,38 @@ class PickupPointManagementTest extends AbstractTest
             ->method('getErrorMessage')
             ->willReturn('Some error');
 
+        $this->pickupAllowedCountriesProvider->method('get')
+            ->willReturn(['LT', 'US']);
+
         $result = $this->subject->update();
 
         $this->assertArrayHasKey('LT', $result);
         $this->assertEquals('Some error', $result['LT']);
+    }
+
+    public function testUpdateWithEmptyResponse()
+    {
+        $responseMock = $this->createMock(ResponseInterface::class);
+
+        $this->carrierService->expects($this->atleastOnce())
+            ->method('call')
+            ->willReturn($responseMock);
+
+        $responseMock->expects($this->atleastOnce())
+            ->method('hasError')
+            ->willReturn(false);
+
+        $responseMock->expects($this->atleastOnce())
+            ->method('getBody')
+            ->with('parcelshops')
+            ->willReturn('');
+
+        $this->pickupAllowedCountriesProvider->method('get')
+            ->willReturn(['LT', 'US']);
+
+        $result = $this->subject->update();
+
+        $this->assertTrue($result);
     }
 
     public function testUpdate()
@@ -172,6 +207,9 @@ class PickupPointManagementTest extends AbstractTest
         $this->pickupPointFactoryMock->expects($this->atleastOnce())
             ->method('createFromResponseData')
             ->willReturn($this->pickupPointMock);
+
+        $this->pickupAllowedCountriesProvider->method('get')
+            ->willReturn(['LT', 'US']);
 
         $result = $this->subject->update();
 

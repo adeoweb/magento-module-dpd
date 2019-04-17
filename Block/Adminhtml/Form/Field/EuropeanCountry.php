@@ -2,34 +2,31 @@
 
 namespace AdeoWeb\Dpd\Block\Adminhtml\Form\Field;
 
-use Magento\Directory\Model\Config\Source\CountryFactory;
+use AdeoWeb\Dpd\Model\Config\Source\EuropeanCountries;
 use Magento\Framework\View\Element\Context;
 use Magento\Framework\View\Element\Html\Select;
 
-class Country extends Select
+class EuropeanCountry extends Select
 {
     /**
-     * @var CountryFactory
+     * @var EuropeanCountries
      */
-    private $countrySourceFactory;
+    private $europeanCountriesSource;
 
     public function __construct(
         Context $context,
-        CountryFactory $countrySourceFactory,
+        EuropeanCountries $europeanCountriesSource,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
-        $this->countrySourceFactory = $countrySourceFactory;
+        $this->europeanCountriesSource = $europeanCountriesSource;
     }
 
     public function _toHtml()
     {
         if (!$this->getOptions()) {
-            /** @var \Magento\Directory\Model\Config\Source\Country $countrySource */
-            $countrySource = $this->countrySourceFactory->create();
-
-            foreach ($countrySource->toOptionArray() as $country) {
+            foreach ($this->europeanCountriesSource->toOptionArray() as $country) {
                 $this->addOption($country['value'], $country['label']);
             }
         }
