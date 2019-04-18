@@ -130,6 +130,7 @@
                     <item name="dataScope" xsi:type="string">postcode</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-number" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
@@ -173,9 +174,10 @@
                     <item name="source" xsi:type="string">Location</item>
                     <item name="sortOrder" xsi:type="number">100</item>
                     <item name="dataScope" xsi:type="string">phone</item>
-                    <item name="placeholder" xsi:type="string" translate="true">+37060000000</item>
+                    <item name="placeholder" xsi:type="string" translate="true">860000000</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-number" xsi:type="boolean">true</item>
                     </item>
                 </item>
             </argument>
