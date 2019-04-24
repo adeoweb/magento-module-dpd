@@ -3,5 +3,8 @@
 	<menu>
         <add id="Magento_Backend::stores_dpd" title="DPD" module="AdeoWeb_Dpd" sortOrder="999" parent="Magento_Backend::stores" resource="Magento_Backend::stores_settings"/>
 		<add id="AdeoWeb_Dpd::adeoweb_dpd_location" title="Locations" action="dpd/location/index" module="AdeoWeb_Dpd" parent="Magento_Backend::stores_dpd" resource="AdeoWeb_Dpd::dpd_location" sortOrder="10"/>
-	</menu>
+
+        <add id="Magento_Sales::sales_dpd" title="DPD" module="AdeoWeb_Dpd" sortOrder="999" parent="Magento_Sales::sales" resource="Magento_Backend::stores_settings"/>
+        <add id="AdeoWeb_Dpd::adeoweb_dpd_collection_request" title="Collection Request" action="dpd/collection_request/index" module="AdeoWeb_Dpd" parent="Magento_Sales::sales_dpd" resource="AdeoWeb_Dpd::dpd_collection_request" sortOrder="10"/>
+    </menu>
 </config>

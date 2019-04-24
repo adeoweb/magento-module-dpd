@@ -18,10 +18,17 @@ class CollectionRequestRequestTest extends AbstractTest
         $this->subject = $this->objectManager->getObject(CollectionRequestRequest::class);
     }
 
+    public function testReadOrderIdWithOptionalParam()
+    {
+        $subject = [];
+
+        $this->assertNull($this->subject->readOrderId($subject));
+    }
+
     public function testReadTotalWeightConvertedToFloat()
     {
         $subject = [
-            'total_weight' => 10
+            'total_weight' => 10,
         ];
 
         $this->assertSame(10.0, $this->subject->readTotalWeight($subject));
@@ -30,7 +37,7 @@ class CollectionRequestRequestTest extends AbstractTest
     public function testReadNumOfParcelsConvertedToInt()
     {
         $subject = [
-            'num_of_parcels' => '10'
+            'num_of_parcels' => '10',
         ];
 
         $this->assertSame(10, $this->subject->readNumOfParcels($subject));

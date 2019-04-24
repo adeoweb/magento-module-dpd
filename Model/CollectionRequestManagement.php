@@ -8,8 +8,11 @@ use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use AdeoWeb\Dpd\Helper\SubjectReader\CollectionRequestRequest;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CollectionRequestImportRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
+use DateTime;
+use Exception;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order\Address;
 
@@ -57,8 +60,8 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
     /**
      * @param array $data
      * @return bool
-     * @throws \Magento\Framework\Exception\LocalizedException
-     * @throws \Exception
+     * @throws LocalizedException
+     * @throws Exception
      */
     public function collectionRequest(array $data)
     {
@@ -68,14 +71,14 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
 
         $order = $this->loadOrder($data);
 
-        if ($this->collectionRequestRequestReader->readIsSenderUseShippingAddress($data)) {
+        if ($order && $this->collectionRequestRequestReader->readIsSenderUseShippingAddress($data)) {
             $senderAddressEntity = $order->getShippingAddress();
         } else {
             $locationId = $this->collectionRequestRequestReader->readSenderLocation($data);
             $senderAddressEntity = $this->loadLocation($locationId);
         }
 
-        if ($this->collectionRequestRequestReader->readIsRecipientUseShippingAddress($data)) {
+        if ($order && $this->collectionRequestRequestReader->readIsRecipientUseShippingAddress($data)) {
             $recipientAddressEntity = $order->getShippingAddress();
         } else {
             $locationId = $this->collectionRequestRequestReader->readRecipientLocation($data);
@@ -86,8 +89,8 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
         $senderAddressInfo = $this->getAddressInfo($senderAddressEntity);
         $recipientAddressInfo = $this->getAddressInfo($recipientAddressEntity);
 
-        $pickupNameParts = \str_split($senderAddressInfo->getData('name'), 35);
-        $recipientNameParts = \str_split($recipientAddressInfo->getData('name'), 35);
+        $pickupNameParts = str_split($senderAddressInfo->getData('name'), 35);
+        $recipientNameParts = str_split($recipientAddressInfo->getData('name'), 35);
 
         $collectionRequestImportRequest = $this->collectionRequestImportRequestFactory->create();
         $collectionRequestImportRequest->setPickupName(isset($pickupNameParts[0]) ? $pickupNameParts[0] : null);
@@ -114,8 +117,8 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
 
         $response = $this->carrierService->call($collectionRequestImportRequest);
 
-        if (\strpos($response, '201 OK') === false) {
-            throw new \Exception($response);
+        if (strpos($response, '201 OK') === false) {
+            throw new Exception($response);
         }
 
         return true;
@@ -149,17 +152,19 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
 
     /**
      * @param array $data
-     * @return \Magento\Sales\Api\Data\OrderInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return OrderInterface
+     * @throws LocalizedException
      */
     private function loadOrder(array $data)
     {
-        return $this->orderRepository->get($this->collectionRequestRequestReader->readOrderId($data));
+        $orderId = $this->collectionRequestRequestReader->readOrderId($data);
+
+        return $orderId ? $this->orderRepository->get($orderId): null;
     }
 
     /**
      * @param $locationId
-     * @return \AdeoWeb\Dpd\Api\Data\LocationInterface
+     * @return LocationInterface
      * @throws LocalizedException
      */
     private function loadLocation($locationId)
@@ -182,7 +187,7 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
         $totalWeight = $this->collectionRequestRequestReader->readTotalWeight($data);
         $pickupDate = $this->collectionRequestRequestReader->readPickupDate($data);
 
-        $pickupDate = \DateTime::createFromFormat('m/d/Y', $pickupDate);
+        $pickupDate = DateTime::createFromFormat('m/d/Y', $pickupDate);
 
         return '#' . $numOfParcel . 'cl#' . $pickupDate->format('Y-m-d') . '#' . $totalWeight . 'kg';
     }
