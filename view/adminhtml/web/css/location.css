@@ -1,0 +1,8 @@
+.customnotice .admin__field-note {
+    margin-top: 10px;
+    padding: 12px 20px 12px 12px;
+    display: block;
+    font-size: 1.3rem;
+    background: #fdf0d5;
+    color: #6f4400;
+}

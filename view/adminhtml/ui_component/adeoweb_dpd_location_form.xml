@@ -122,6 +122,7 @@
         <field name="postcode">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">AdeoWeb_Dpd/js/form/element/postcode</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="label" translate="true" xsi:type="string">Postcode</item>
                     <item name="formElement" xsi:type="string">input</item>
