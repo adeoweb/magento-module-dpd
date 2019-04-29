@@ -7,6 +7,21 @@
             <item name="dpd_call_courier" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Order\Grid\Button\CallCourier</item>
         </item>
     </argument>
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="dpd_mass_print_shipping_label">
+                <settings>
+                    <confirm>
+                        <message translate="true">Only created DPD labels will be printed. Other shipping method labels will be skipped. Are you sure?</message>
+                        <title translate="true">DPD Print Shipping Labels</title>
+                    </confirm>
+                    <url path="dpd/order/massPrintLabels"/>
+                    <type>print_shipping_label</type>
+                    <label translate="true">DPD Print Shipping Labels</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
     <modal name="dpd_call_courier_modal" component="AdeoWeb_Dpd/js/modal/dpd-call-courier-modal">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">

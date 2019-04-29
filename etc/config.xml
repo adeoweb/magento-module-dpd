@@ -10,6 +10,7 @@
                 <title>DPD</title>
                 <sort_order>20</sort_order>
                 <allowed_methods>classic,pickup,saturday</allowed_methods>
+                <print_label_format>A4</print_label_format>
                 <classic>
                     <name>Classic</name>
                     <delivery_times_enable>1</delivery_times_enable>

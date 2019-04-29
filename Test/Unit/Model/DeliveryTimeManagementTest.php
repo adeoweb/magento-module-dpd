@@ -51,15 +51,20 @@ class DeliveryTimeManagementTest extends AbstractTest
                     'expectedOutput' => [
                         0 =>
                             [
+                                'value' => '2',
+                                'label' => '8:00 - 18:00',
+                            ],
+                        1 =>
+                            [
                                 'value' => '1',
                                 'label' => '8:00 - 14:00',
                             ],
-                        1 =>
+                        2 =>
                             [
                                 'value' => '5',
                                 'label' => '14:00 - 18:00',
                             ],
-                        2 =>
+                        3 =>
                             [
                                 'value' => '7',
                                 'label' => '18:00 - 22:00',
@@ -71,15 +76,20 @@ class DeliveryTimeManagementTest extends AbstractTest
                     'expectedOutput' => [
                         0 =>
                             [
+                                'value' => '2',
+                                'label' => '8:00 - 18:00',
+                            ],
+                        1 =>
+                            [
                                 'value' => '1',
                                 'label' => '8:00 - 14:00',
                             ],
-                        1 =>
+                        2 =>
                             [
                                 'value' => '5',
                                 'label' => '14:00 - 18:00',
                             ],
-                        2 =>
+                        3 =>
                             [
                                 'value' => '7',
                                 'label' => '18:00 - 22:00',
@@ -91,15 +101,20 @@ class DeliveryTimeManagementTest extends AbstractTest
                     'expectedOutput' => [
                         0 =>
                             [
+                                'value' => '2',
+                                'label' => '8:00 - 18:00',
+                            ],
+                        1 =>
+                            [
                                 'value' => '1',
                                 'label' => '8:00 - 14:00',
                             ],
-                        1 =>
+                        2 =>
                             [
                                 'value' => '5',
                                 'label' => '14:00 - 18:00',
                             ],
-                        2 =>
+                        3 =>
                             [
                                 'value' => '7',
                                 'label' => '18:00 - 22:00',

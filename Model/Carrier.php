@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model;
 
+use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
 use AdeoWeb\Dpd\Helper\Config;
 use AdeoWeb\Dpd\Model\Carrier\MethodFactoryPool;
 use AdeoWeb\Dpd\Model\Service\Dpd;
@@ -63,14 +64,14 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
     private $dpdService;
 
     /**
-     * @var Dpd\Request\ParcelPrintRequestFactory
-     */
-    private $parcelPrintRequestFactory;
-
-    /**
      * @var ParcelStatusRequestFactory
      */
     private $parcelStatusRequestFactory;
+
+    /**
+     * @var PrintLabelManagementInterface
+     */
+    private $printLabelManagement;
 
     public function __construct(
         ScopeConfigInterface $scopeConfig,
@@ -92,8 +93,8 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
         MethodFactoryPool $methodFactoryPool,
         Dpd $dpdService,
         Dpd\Request\CreateShipmentRequestFactory $createShipmentRequestFactory,
-        Dpd\Request\ParcelPrintRequestFactory $parcelPrintRequest,
         ParcelStatusRequestFactory $parcelStatusRequestFactory,
+        PrintLabelManagementInterface $printLabelManagement,
         array $data = []
     ) {
         parent::__construct($scopeConfig, $rateErrorFactory, $logger, $xmlSecurity, $xmlElFactory, $rateFactory,
@@ -104,8 +105,8 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
         $this->methodFactoryPool = $methodFactoryPool;
         $this->createShipmentRequestFactory = $createShipmentRequestFactory;
         $this->dpdService = $dpdService;
-        $this->parcelPrintRequestFactory = $parcelPrintRequest;
         $this->parcelStatusRequestFactory = $parcelStatusRequestFactory;
+        $this->printLabelManagement = $printLabelManagement;
     }
 
     /**
@@ -259,12 +260,6 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
      */
     protected function doLabelRequest($parcelData)
     {
-        $parcelPrintRequest = $this->parcelPrintRequestFactory->create();
-        $parcelPrintRequest->setParcels($parcelData);
-        $parcelPrintRequest->setPrintFormat('A4');
-
-        $response = $this->dpdService->call($parcelPrintRequest);
-
-        return $response;
+        return $this->printLabelManagement->printLabels([$parcelData]);
     }
 }

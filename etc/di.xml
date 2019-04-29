@@ -13,6 +13,8 @@
                 type="AdeoWeb\Dpd\Model\PickupPointRepository"/>
     <preference for="AdeoWeb\Dpd\Api\PickupPointManagementInterface"
                 type="AdeoWeb\Dpd\Model\PickupPointManagement"/>
+    <preference for="AdeoWeb\Dpd\Api\PrintLabelManagementInterface"
+                type="AdeoWeb\Dpd\Model\PrintLabelManagement"/>
 
     <preference for="AdeoWeb\Dpd\Api\Data\Shipping\DeliveryOptionsInterface"
                 type="AdeoWeb\Dpd\Model\Shipping\DeliveryOptions"/>
@@ -161,5 +163,8 @@
     </type>
     <type name="Magento\Sales\Model\AdminOrder\Create">
         <plugin name="adeoweb_dpd_adminorder_create" type="AdeoWeb\Dpd\Plugin\Model\AdminOrder\Create"/>
+    </type>
+    <type name="Magento\Shipping\Controller\Adminhtml\Order\Shipment\PrintLabel">
+        <plugin name="adeoweb_dpd_adminorder_shipment_printlabel" type="AdeoWeb\Dpd\Plugin\Controller\Adminhtml\Order\Shipment\PrintLabel"/>
     </type>
 </config>

@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Test\Unit\Model;
 
+use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelPrintRequestFactory;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelStatusRequest;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelStatusRequestFactory;
@@ -61,6 +62,11 @@ class CarrierTest extends AbstractTest
      */
     private $parcelPrintRequestMock;
 
+    /**
+     * @var MockObject
+     */
+    private $parcelPrintManagementMock;
+
     public function setUp()
     {
         parent::setUp();
@@ -71,7 +77,7 @@ class CarrierTest extends AbstractTest
         $this->carrierServiceMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd::class);
         $this->parcelStatusRequestMock = $this->createMock(ParcelStatusRequest::class);
         $this->shipmentRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class);
-        $this->parcelPrintRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelPrintRequest::class);
+        $this->parcelPrintManagementMock = $this->createMock(PrintLabelManagementInterface::class);
 
         $createShipmentRequestFactoryMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequestFactory::class);
         $createShipmentRequestFactoryMock->expects($this->any())
@@ -95,11 +101,6 @@ class CarrierTest extends AbstractTest
             ->method('create')
             ->willReturn($this->trackStatusMock);
 
-        $parcelPrintRequestFactoryMock = $this->createMock(ParcelPrintRequestFactory::class);
-        $parcelPrintRequestFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturn($this->parcelPrintRequestMock);
-
         $this->subject = $this->objectManager->getObject(Carrier::class, [
             'scopeConfig' => $this->scopeConfigMock,
             'rateFactory' => $rateResultFactory,
@@ -108,7 +109,7 @@ class CarrierTest extends AbstractTest
             'trackStatusFactory' => $trackStatusFactoryMock,
             'dpdService' => $this->carrierServiceMock,
             'createShipmentRequestFactory' => $createShipmentRequestFactoryMock,
-            'parcelPrintRequestFactory' => $parcelPrintRequestFactoryMock,
+            'printLabelManagement' => $this->parcelPrintManagementMock
         ]);
     }
 
@@ -270,9 +271,11 @@ class CarrierTest extends AbstractTest
 
         $this->carrierServiceMock->expects($this->atLeastOnce())
             ->method('call')
-            ->withConsecutive([$this->shipmentRequestMock], [$this->parcelPrintRequestMock])
-            ->willReturnOnConsecutiveCalls($shipmentRequestResponseMock,
-                $this->throwException(new LocalizedException(__('Invalid response'))));
+            ->withConsecutive([$this->shipmentRequestMock])
+            ->willReturnOnConsecutiveCalls($shipmentRequestResponseMock);
+
+        $this->parcelPrintManagementMock->method('printLabels')
+            ->willThrowException(new LocalizedException(__('Invalid response')));
 
         $shipmentRequestResponseMock->expects($this->once())
             ->method('hasError')

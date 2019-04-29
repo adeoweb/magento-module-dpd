@@ -9,6 +9,7 @@ class Config
     const TYPE_CLASSIC_DELIVERY_TIME = 'classic_delivery_time';
     const TYPE_CLASSIC_DELIVERY_TIME_CITY = 'classic_delivery_time_city';
     const TYPE_AVAILABLE_TIMES = 'available_times';
+    const TYPE_AVAILABLE_PAGE_FORMATS = 'available_page_formats';
 
     /**
      * Get configuration data of carrier
@@ -147,6 +148,10 @@ class Config
                 '22:30' => '22:30',
                 '23:00' => '23:00',
                 '23:30' => '23:30',
+            ],
+            self::TYPE_AVAILABLE_PAGE_FORMATS => [
+                'A4' => 'A4',
+                'A6' => 'A6'
             ]
         ];
     }
