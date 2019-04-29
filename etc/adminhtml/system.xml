@@ -194,6 +194,72 @@
                     </group>
                 </group>
 
+                <group id="sameday" translate="label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="930">
+                    <label>DPD Same Day Configuration</label>
+                    <field id="name" type="text" translate="label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                        <label>Name</label>
+                    </field>
+                    <field id="price" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="20">
+                        <label>Price</label>
+                        <validate>validate-number validate-zero-or-greater</validate>
+                    </field>
+                    <field id="free_shipping_enable" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="30">
+                        <label>Enable Free Shipping Threshold</label>
+                        <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    </field>
+                    <field id="free_shipping_subtotal" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="40">
+                        <label>Free Shipping Amount Threshold</label>
+                        <validate>validate-number validate-zero-or-greater</validate>
+                        <depends>
+                            <field id="free_shipping_enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="sallowspecific" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="50">
+                        <label>Ship to Applicable Countries</label>
+                        <frontend_class>shipping-applicable-country</frontend_class>
+                        <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                    </field>
+                    <field id="specificcountry" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="60">
+                        <label>Ship to Specific Countries</label>
+                        <can_be_empty>1</can_be_empty>
+                        <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    </field>
+                    <field id="restrictions" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
+                        <label>Restrictions</label>
+                        <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\Restrictions</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    </field>
+                    <group id="timeframe" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="70">
+                        <label>Timeframes Configuration</label>
+                        <comment>NOTE: Set time in Website timezone.</comment>
+                        <field id="monday" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10">
+                            <label>Monday</label>
+                            <can_be_empty>1</can_be_empty>
+                            <source_model>AdeoWeb\Dpd\Model\Config\Source\AvailableTimes</source_model>
+                        </field>
+                        <field id="tuesday" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="20">
+                            <label>Tuesday</label>
+                            <can_be_empty>1</can_be_empty>
+                            <source_model>AdeoWeb\Dpd\Model\Config\Source\AvailableTimes</source_model>
+                        </field>
+                        <field id="wednesday" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="30">
+                            <label>Wednesday</label>
+                            <can_be_empty>1</can_be_empty>
+                            <source_model>AdeoWeb\Dpd\Model\Config\Source\AvailableTimes</source_model>
+                        </field>
+                        <field id="thursday" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="40">
+                            <label>Thursday</label>
+                            <can_be_empty>1</can_be_empty>
+                            <source_model>AdeoWeb\Dpd\Model\Config\Source\AvailableTimes</source_model>
+                        </field>
+                        <field id="friday" type="multiselect" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="50" >
+                            <label>Friday</label>
+                            <can_be_empty>1</can_be_empty>
+                            <source_model>AdeoWeb\Dpd\Model\Config\Source\AvailableTimes</source_model>
+                        </field>
+                    </group>
+                </group>
+
                 <group id="cron" translate="label" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="940">
                     <label>CRON</label>
 

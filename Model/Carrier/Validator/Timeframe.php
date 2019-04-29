@@ -1,6 +1,6 @@
 <?php
 
-namespace AdeoWeb\Dpd\Model\Carrier\Validator\Saturday;
+namespace AdeoWeb\Dpd\Model\Carrier\Validator;
 
 use AdeoWeb\Dpd\Model\Carrier\ValidatorInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -41,7 +41,10 @@ class Timeframe implements ValidatorInterface
         $timezone = new \DateTimeZone($this->timezone->getConfigTimezone());
         $now = new \DateTime('now', $timezone);
 
-        $availableTimes = \explode(',', $this->getAvailableTimesConfig($now->format('l')));
+        $availableTimes = \explode(',', $this->getAvailableTimesConfig(
+            $context['method_code'],
+            $now->format('l')
+        ));
         $availableTimes = \array_filter($availableTimes);
 
         foreach ($availableTimes as $availableTime) {
@@ -58,15 +61,16 @@ class Timeframe implements ValidatorInterface
     }
 
     /**
+     * @param $method
      * @param string $dayOfWeek
      * @return string
      */
-    private function getAvailableTimesConfig($dayOfWeek)
+    private function getAvailableTimesConfig($method, $dayOfWeek)
     {
         $dayOfWeek = \strtolower($dayOfWeek);
 
         return $this->scopeConfig->getValue(
-            \sprintf('carriers/dpd/saturday/timeframe/%s', $dayOfWeek),
+            \sprintf('carriers/dpd/%s/timeframe/%s', $method, $dayOfWeek),
             ScopeInterface::SCOPE_WEBSITE
         );
     }

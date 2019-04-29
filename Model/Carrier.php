@@ -247,7 +247,7 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
         $response = $this->dpdService->call($createShipmentRequest);
 
         if ($response->hasError()) {
-            throw new \Exception($response->getErrorMessage());
+            throw new LocalizedException(__('API Error: ' . $response->getErrorMessage()));
         }
 
         return $response->getBody('pl_number');

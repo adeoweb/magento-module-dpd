@@ -1,8 +1,8 @@
 <?php
 
-namespace AdeoWeb\Dpd\Test\Unit\Model\Carrier\Validator\Saturday;
+namespace AdeoWeb\Dpd\Test\Unit\Model\Carrier\Validator;
 
-use AdeoWeb\Dpd\Model\Carrier\Validator\Saturday\Timeframe;
+use AdeoWeb\Dpd\Model\Carrier\Validator\Timeframe;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DataObject;

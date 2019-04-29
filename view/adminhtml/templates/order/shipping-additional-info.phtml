@@ -5,13 +5,15 @@
 </div>
 <script>
     require(['jquery'], function ($) {
-        $('.shipping-description-title')
-        .after($('#shipping-additional-info'));
+        $(window).ready(function() {
+            $('.shipping-description-title')
+            .after($('#shipping-additional-info'));
 
-        $('.order-shipping-method')
-        .after($('#shipping-additional-info'));
+            $('.order-shipping-method')
+            .after($('#shipping-additional-info'));
 
-        $('.order-shipping-method .admin__page-section-item-content')
-        .after($('#shipping-additional-info'));
+            $('.order-shipping-method .admin__page-section-item-content')
+            .after($('#shipping-additional-info'));
+        });
     });
 </script>

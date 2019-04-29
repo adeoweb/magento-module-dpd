@@ -68,6 +68,7 @@
                 <item name="classic" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Method\ClassicFactory</item>
                 <item name="pickup" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Method\PickupFactory</item>
                 <item name="saturday" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Method\SaturdayFactory</item>
+                <item name="sameday" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Method\SamedayFactory</item>
             </argument>
         </arguments>
     </virtualType>
@@ -87,6 +88,11 @@
             <argument name="method" xsi:type="const">AdeoWeb\Dpd\Model\Carrier\Method\Saturday::CODE</argument>
         </arguments>
     </virtualType>
+    <virtualType name="DpdSamedayMethodRestrictionsConfig" type="AdeoWeb\Dpd\Config\Restrictions">
+        <arguments>
+            <argument name="method" xsi:type="const">AdeoWeb\Dpd\Model\Carrier\Method\Sameday::CODE</argument>
+        </arguments>
+    </virtualType>
 
     <type name="AdeoWeb\Dpd\Model\Carrier\Method\Classic">
         <arguments>
@@ -102,7 +108,15 @@
         <arguments>
             <argument name="restrictionsConfig" xsi:type="object">DpdSaturdayMethodRestrictionsConfig</argument>
             <argument name="validators" xsi:type="array">
-                <item name="timeframe" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Validator\Saturday\Timeframe</item>
+                <item name="timeframe" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Validator\Timeframe</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="AdeoWeb\Dpd\Model\Carrier\Method\Sameday">
+        <arguments>
+            <argument name="restrictionsConfig" xsi:type="object">DpdSamedayMethodRestrictionsConfig</argument>
+            <argument name="validators" xsi:type="array">
+                <item name="timeframe" xsi:type="object">AdeoWeb\Dpd\Model\Carrier\Validator\Timeframe</item>
             </argument>
         </arguments>
     </type>

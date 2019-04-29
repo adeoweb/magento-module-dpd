@@ -37,7 +37,8 @@ class ConfigTest extends AbstractTest
         $expectedResult = [
             'classic' => __('DPD - Classic'),
             'pickup' => __('DPD - Pickup'),
-            'saturday' => __('DPD - Saturday')
+            'saturday' => __('DPD - Saturday'),
+            'sameday' => __('DPD - Same Day')
         ];
 
         $this->assertEquals($expectedResult, $result);

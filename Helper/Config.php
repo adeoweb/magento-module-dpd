@@ -48,7 +48,8 @@ class Config
             self::TYPE_METHOD => [
                 'classic' => __('DPD - Classic'),
                 'pickup' => __('DPD - Pickup'),
-                'saturday' => __('DPD - Saturday')
+                'saturday' => __('DPD - Saturday'),
+                'sameday' => __('DPD - Same Day')
             ],
             self::TYPE_METHOD_JS_COMPONENTS => [
                 'classic' => [
