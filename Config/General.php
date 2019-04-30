@@ -5,6 +5,9 @@ namespace AdeoWeb\Dpd\Config;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class General
 {
     const XML_PATH_PRINT_LABEL_FORMAT = 'adeoweb_dpd/general/print_label_format';

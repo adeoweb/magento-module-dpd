@@ -24,10 +24,6 @@ class PageFormat implements ArrayInterface
     {
         $options = $this->carrierConfig->getCode(Config::TYPE_AVAILABLE_PAGE_FORMATS);
 
-        if (empty($options)) {
-            return [];
-        }
-
         $result = [];
 
         foreach ($options as $key => $option) {
