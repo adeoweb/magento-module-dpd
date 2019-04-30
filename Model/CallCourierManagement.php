@@ -73,7 +73,7 @@ class CallCourierManagement implements CallCourierManagementInterface
 
         $senderWorkUntil = $this->formatDate(
             $this->callCourierRequestReader->readPickupDate($data),
-            $warehouse->getWorkUntil()
+            $this->callCourierRequestReader->readWorkUntil($data)
         );
 
         $orderNr = $this->callCourierOrderCountConfig->register();

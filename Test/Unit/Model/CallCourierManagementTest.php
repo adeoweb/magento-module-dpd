@@ -108,6 +108,10 @@ class CallCourierManagementTest extends AbstractTest
             ->willReturn('00:00');
 
         $this->callCourierRequestReaderMock->expects($this->atLeastOnce())
+            ->method('readWorkUntil')
+            ->willReturn('18:00');
+
+        $this->callCourierRequestReaderMock->expects($this->atLeastOnce())
             ->method('readWarehouseId')
             ->willReturn(1);
 
@@ -117,10 +121,6 @@ class CallCourierManagementTest extends AbstractTest
             ->method('getById')
             ->with(1)
             ->willReturn($locationMock);
-
-        $locationMock->expects($this->once())
-            ->method('getWorkUntil')
-            ->willReturn('23:59');
 
         $pickupOrderSaveRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequest::class);
 
@@ -148,6 +148,10 @@ class CallCourierManagementTest extends AbstractTest
             ->willReturn('00:00');
 
         $this->callCourierRequestReaderMock->expects($this->atLeastOnce())
+            ->method('readWorkUntil')
+            ->willReturn('18:00');
+
+        $this->callCourierRequestReaderMock->expects($this->atLeastOnce())
             ->method('readWarehouseId')
             ->willReturn(1);
 
@@ -157,10 +161,6 @@ class CallCourierManagementTest extends AbstractTest
             ->method('getById')
             ->with(1)
             ->willReturn($locationMock);
-
-        $locationMock->expects($this->once())
-            ->method('getWorkUntil')
-            ->willReturn('23:59');
 
         $pickupOrderSaveRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequest::class);
 

@@ -104,6 +104,20 @@
                     </item>
                 </argument>
             </field>
+            <field name="work_until" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string">Warehouse Work Until</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="value" xsi:type="string">18:00</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                            <item name="time" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
             <field name="num_of_parcels" formElement="input">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">

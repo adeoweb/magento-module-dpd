@@ -2,12 +2,14 @@
 
 namespace AdeoWeb\Dpd\Helper\SubjectReader;
 
+use Magento\Framework\Exception\LocalizedException;
+
 class CallCourierRequest extends AbstractSubjectReader
 {
     /**
      * @param array $subject
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      * @codeCoverageIgnore
      */
     public function readWarehouseId($subject)
@@ -18,7 +20,7 @@ class CallCourierRequest extends AbstractSubjectReader
     /**
      * @param array $subject
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      * @codeCoverageIgnore
      */
     public function readPickupDate($subject)
@@ -29,7 +31,7 @@ class CallCourierRequest extends AbstractSubjectReader
     /**
      * @param array $subject
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      * @codeCoverageIgnore
      */
     public function readPickupTime($subject)
@@ -41,6 +43,17 @@ class CallCourierRequest extends AbstractSubjectReader
      * @param array $subject
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
+     * @codeCoverageIgnore
+     */
+    public function readWorkUntil($subject)
+    {
+        return $this->read('work_until', null, $subject);
+    }
+
+    /**
+     * @param array $subject
+     * @return string
+     * @throws LocalizedException
      */
     public function readTotalWeight($subject)
     {
@@ -50,7 +63,7 @@ class CallCourierRequest extends AbstractSubjectReader
     /**
      * @param array $subject
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function readNumOfParcels($subject)
     {
@@ -60,7 +73,7 @@ class CallCourierRequest extends AbstractSubjectReader
     /**
      * @param array $subject
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      * @codeCoverageIgnore
      */
     public function readComment($subject)
