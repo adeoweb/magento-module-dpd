@@ -135,6 +135,16 @@
                         <frontend_model>AdeoWeb\Dpd\Block\System\Config\Form\Field\EuropeanRestrictions</frontend_model>
                         <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     </field>
+                    <field id="google_maps_enabled" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="80">
+                        <label>Use Google Maps</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="google_maps_api_key" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="90">
+                        <label>Google Maps API Key</label>
+                        <depends>
+                            <field id="google_maps_enabled">1</field>
+                        </depends>
+                    </field>
                 </group>
 
                 <group id="saturday" translate="label" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="930">

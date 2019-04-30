@@ -34,7 +34,7 @@ class LayoutProcessorTest extends AbstractTest
 
         $this->subject = $this->objectManager->getObject(LayoutProcessor::class, [
             'scopeConfig' => $this->scopeConfigMock,
-            'carrierConfig' => $carrierConfig
+            'carrierConfig' => $carrierConfig,
         ]);
     }
 
@@ -96,22 +96,43 @@ class LayoutProcessorTest extends AbstractTest
             ->willReturn('classic,pickup');
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('isSetFlag')
-            ->with('carriers/dpd/classic/delivery_times_enable')
-            ->willReturn(true);
+            ->withConsecutive(['carriers/dpd/classic/delivery_times_enable'],
+                ['carriers/dpd/pickup/google_maps_enabled'])
+            ->willReturnOnConsecutiveCalls(true, true);
 
         $result = $this->subject->afterProcess($this->subjectMock, $jsLayoutResult);
         $expectedResult = $jsLayoutResult;
         $expectedResult['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shippingAdditional']['children'] = array (
+        ['shippingAddress']['children']['shippingAdditional']['children'] = [
             'dpd_method_classic_component_delivery-time' =>
-                array (
+                [
                     'component' => 'AdeoWeb_Dpd/js/view/checkout/shipping/delivery-time',
-                ),
+                ],
             'dpd_method_pickup_component_0' =>
-                array (
+                [
                     'component' => 'AdeoWeb_Dpd/js/view/checkout/shipping/pickup-point',
-                ),
-        );
+                    'googleMapsEnabled' => true,
+                    'countryCenters' =>
+                        [
+                            'LT' =>
+                                [
+                                    'lat' => '55.1694',
+                                    'lng' => '23.8813',
+                                ],
+                            'LV' =>
+                                [
+                                    'lat' => '56.8796',
+                                    'lng' => '24.6032',
+                                ],
+                            'EE' =>
+                                [
+                                    'lat' => '58.5953',
+                                    'lng' => '25.0136',
+                                ],
+                        ],
+                    'activeIconImage' => null,
+                ],
+        ];
 
         $this->assertEquals($expectedResult, $result);
     }

@@ -4,6 +4,7 @@ namespace AdeoWeb\Dpd\Plugin\Block\Checkout;
 
 use AdeoWeb\Dpd\Helper\Config;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\View\Asset\Repository;
 use Magento\Store\Model\ScopeInterface;
 
 class LayoutProcessor
@@ -18,12 +19,19 @@ class LayoutProcessor
      */
     private $carrierConfig;
 
+    /**
+     * @var Repository
+     */
+    private $assetRepository;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        Config $carrierConfig
+        Config $carrierConfig,
+        Repository $assetRepository
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->carrierConfig = $carrierConfig;
+        $this->assetRepository = $assetRepository;
     }
 
     public function afterProcess(
@@ -60,9 +68,15 @@ class LayoutProcessor
                     continue;
                 }
 
-                $layoutConfiguration['dpd_method_' . $methodCode . '_component_' . $key] = [
-                    'component' => $component
+                $componentSettings = [
+                    'component' => $component,
                 ];
+
+                if ($methodCode === 'pickup') {
+                    $componentSettings = $this->addPickupPointComponentContext($componentSettings);
+                }
+
+                $layoutConfiguration['dpd_method_' . $methodCode . '_component_' . $key] = $componentSettings;
             }
         }
 
@@ -70,7 +84,8 @@ class LayoutProcessor
         ['shippingAddress']['children']['shippingAdditional']['children'];
 
         $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shippingAdditional']['children'] = \array_merge($previousConfig, $layoutConfiguration);
+        ['shippingAddress']['children']['shippingAdditional']['children'] = \array_merge($previousConfig,
+            $layoutConfiguration);
 
         return $jsLayout;
     }
@@ -92,6 +107,29 @@ class LayoutProcessor
     {
         return $this->scopeConfig->isSetFlag(
             'carriers/dpd/classic/delivery_times_enable',
+            ScopeInterface::SCOPE_WEBSITE
+        );
+    }
+
+    /**
+     * @param array $componentSettings
+     * @return array
+     */
+    private function addPickupPointComponentContext(array $componentSettings)
+    {
+        $result = [
+            'googleMapsEnabled' => $this->isPickupPointGoogleMapsEnabled(),
+            'countryCenters' => $this->carrierConfig->getCode(Config::TYPE_PICKUP_POINT_MAP_COUNTRY_CENTERS),
+            'activeIconImage' => $this->assetRepository->getUrl('AdeoWeb_Dpd::images/green-marker.png')
+        ];
+
+        return array_merge($componentSettings, $result);
+    }
+
+    private function isPickupPointGoogleMapsEnabled()
+    {
+        return $this->scopeConfig->isSetFlag(
+            'carriers/dpd/pickup/google_maps_enabled',
             ScopeInterface::SCOPE_WEBSITE
         );
     }

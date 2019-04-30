@@ -40,7 +40,7 @@ class Update extends Command
         $result = $this->pickupPointManagement->update();
 
         if (!\is_array($result)) {
-            $output->writeln('DPD Pickup Point list was successfully updated!');
+            $output->writeln('DPD Pickup Point list was successfully updated! Do not forget to clean Magento cache.');
 
             return true;
         }

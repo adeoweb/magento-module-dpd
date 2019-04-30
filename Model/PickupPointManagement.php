@@ -10,6 +10,7 @@ use AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequest;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
 use AdeoWeb\Dpd\Model\PickupPoint\TableMaintainer;
+use Magento\Framework\App\Cache\Type\Block;
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
@@ -106,7 +107,7 @@ class PickupPointManagement implements PickupPointManagementInterface
             $result[] = $item->toArray();
         }
 
-        $this->cache->save(\json_encode($result), $cacheKey);
+        $this->cache->save(\json_encode($result), $cacheKey, [Block::CACHE_TAG]);
 
         return $result;
     }

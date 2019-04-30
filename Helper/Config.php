@@ -10,6 +10,7 @@ class Config
     const TYPE_CLASSIC_DELIVERY_TIME_CITY = 'classic_delivery_time_city';
     const TYPE_AVAILABLE_TIMES = 'available_times';
     const TYPE_AVAILABLE_PAGE_FORMATS = 'available_page_formats';
+    const TYPE_PICKUP_POINT_MAP_COUNTRY_CENTERS = 'pickup_point_map_country_centers';
 
     /**
      * Get configuration data of carrier
@@ -153,6 +154,11 @@ class Config
             self::TYPE_AVAILABLE_PAGE_FORMATS => [
                 'A4' => 'A4',
                 'A6' => 'A6'
+            ],
+            self::TYPE_PICKUP_POINT_MAP_COUNTRY_CENTERS => [
+                'LT' => ['lat' => '55.1694', 'lng' => '23.8813'],
+                'LV' => ['lat' => '56.8796', 'lng' => '24.6032'],
+                'EE' => ['lat' => '58.5953', 'lng' => '25.0136'],
             ]
         ];
     }

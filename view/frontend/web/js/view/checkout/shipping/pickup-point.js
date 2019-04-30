@@ -6,8 +6,17 @@ define([
     'Magento_Checkout/js/model/quote',
     'AdeoWeb_Dpd/js/action/fetch-pickup-point-list',
     'AdeoWeb_Dpd/js/dpd-shipping-data',
-], function($, ko, _, Component, quote, fetchPickupPointListAction,
-            dpdShippingData) {
+    './pickup-point-map',
+], function(
+    $,
+    ko,
+    _,
+    Component,
+    quote,
+    fetchPickupPointListAction,
+    dpdShippingData,
+    pickupPointMap,
+) {
     'use strict';
 
     return Component.extend({
@@ -18,7 +27,11 @@ define([
             stateLoading: ko.observable(false),
             stateEmpty: ko.observable(false),
             lastCountry: null,
+            countryCenters: [],
+            activeIconImage: null,
         },
+
+        rawPickupPoints: [],
 
         initialize: function() {
             this._super();
@@ -33,6 +46,18 @@ define([
             });
 
             return this;
+        },
+
+        initMap: function() {
+            pickupPointMap.activeIconImage = this.activeIconImage;
+
+            pickupPointMap.initMap(this.selectedPickupPoint);
+
+            this.updateMapCenter();
+
+            if (this.rawPickupPoints.length > 0) {
+                pickupPointMap.updateMarkers(this.rawPickupPoints);
+            }
         },
 
         initPickupPointsObservable: function() {
@@ -72,9 +97,29 @@ define([
 
                         this.stateEmpty(false);
                         this.pickupPoints(_.sortBy(_.values(result), 'name'));
+                        this.rawPickupPoints = response;
+
+                        if (pickupPointMap.isMapInitialized) {
+                            pickupPointMap.updateMarkers(response);
+                            this.updateMapCenter();
+                        }
                     }.bind(this));
                 return this;
             }.bind(this));
+        },
+
+        updateMapCenter: function() {
+            if (!pickupPointMap.isMapInitialized) {
+                return null;
+            }
+
+            let countryCenter = {lat: 54.5260, lng: 15.2551};
+
+            if (this.lastCountry && this.countryCenters[this.lastCountry]) {
+                countryCenter = this.countryCenters[this.lastCountry];
+            }
+
+            pickupPointMap.setCenter(countryCenter);
         },
 
         evaluateUpdates: function(address) {
@@ -83,6 +128,6 @@ define([
 
         formatPickupPointLabel: function(item) {
             return item.company + ', ' + item.street;
-        }
+        },
     });
 });
