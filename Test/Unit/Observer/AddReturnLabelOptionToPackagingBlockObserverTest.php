@@ -3,14 +3,14 @@
 namespace AdeoWeb\Dpd\Test\Unit\Observer;
 
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
-use AdeoWeb\Dpd\Observer\AddReturnLabelOptionToPackagingBlockObserver;
+use AdeoWeb\Dpd\Observer\AddServicesOptionToPackagingBlockObserver;
 use Magento\Framework\DataObject;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class AddReturnLabelOptionToPackagingBlockObserverTest extends AbstractTest
 {
     /**
-     * @var AddReturnLabelOptionToPackagingBlockObserver
+     * @var AddServicesOptionToPackagingBlockObserver
      */
     private $subject;
 
@@ -35,7 +35,7 @@ class AddReturnLabelOptionToPackagingBlockObserverTest extends AbstractTest
             ->method('getEvent')
             ->willReturn($this->eventMock);
 
-        $this->subject = $this->objectManager->getObject(AddReturnLabelOptionToPackagingBlockObserver::class);
+        $this->subject = $this->objectManager->getObject(AddServicesOptionToPackagingBlockObserver::class);
     }
 
     public function testExecuteWithWrongBlockType()
@@ -73,10 +73,10 @@ class AddReturnLabelOptionToPackagingBlockObserverTest extends AbstractTest
             ->method('getLayout')
             ->willReturn($layoutMock);
 
-        $returnLabelMock = $this->createMock(\AdeoWeb\Dpd\Block\Adminhtml\Order\Packaging\ReturnLabelField::class);
+        $returnLabelMock = $this->createMock(\AdeoWeb\Dpd\Block\Adminhtml\Order\Packaging\Services::class);
         $layoutMock->expects($this->atLeastOnce())
             ->method('createBlock')
-            ->with(\AdeoWeb\Dpd\Block\Adminhtml\Order\Packaging\ReturnLabelField::class)
+            ->with(\AdeoWeb\Dpd\Block\Adminhtml\Order\Packaging\Services::class)
             ->willReturn($returnLabelMock);
 
         $returnLabelMock->expects($this->atLeastOnce())

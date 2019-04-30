@@ -25,10 +25,18 @@
                     <label>Label Printing Format</label>
                     <source_model>AdeoWeb\Dpd\Model\Config\Source\PageFormat</source_model>
                 </field>
-                <field id="sort_order" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                <field id="auto_include_return_label" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="50">
+                    <label>Auto Include DPD Return Label</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_document_return" type="select" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="60">
+                    <label>Auto DPD Document Return Service</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sort_order" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="70">
                     <label>Sort Order</label>
                 </field>
-                <field id="specificerrmsg" type="textarea" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                <field id="specificerrmsg" type="textarea" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="80">
                     <label>Displayed Error Message</label>
                 </field>
 

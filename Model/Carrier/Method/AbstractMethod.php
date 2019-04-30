@@ -6,15 +6,21 @@ use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Model\Carrier\ValidatorInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
+use Exception;
+use InvalidArgumentException;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Model\Quote\Address\RateRequest;
+use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Sales\Model\Order;
 use Magento\Shipping\Helper\Carrier;
 use Magento\Store\Model\ScopeInterface;
+use Zend_Measure_Weight;
+use function sprintf;
+use function is_numeric;
+use function count;
 
 abstract class AbstractMethod
 {
@@ -100,7 +106,7 @@ abstract class AbstractMethod
     public function getLabel()
     {
         $methodTitle = $this->scopeConfig->getValue(
-            \sprintf(self::XML_PATH_METHOD_TITLE, $this->getCode()),
+            sprintf(self::XML_PATH_METHOD_TITLE, $this->getCode()),
             ScopeInterface::SCOPE_STORE
         );
 
@@ -124,8 +130,8 @@ abstract class AbstractMethod
     }
 
     /**
-     * @return \Magento\Quote\Model\Quote\Address\RateResult\Method
-     * @throws \Exception
+     * @return Method
+     * @throws Exception
      */
     public function getRateResult()
     {
@@ -152,7 +158,7 @@ abstract class AbstractMethod
     {
         foreach ($this->validators as $validator) {
             if (!$validator instanceof ValidatorInterface) {
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     'Validator must be instance of ' . ValidatorInterface::class
                 );
             }
@@ -172,14 +178,14 @@ abstract class AbstractMethod
      * @param CreateShipmentRequest $createShipmentRequest
      * @param DataObject $request
      * @return CreateShipmentRequest
-     * @throws \Exception
+     * @throws Exception
      */
     public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request)
     {
         /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
 
-        $packageCount = \count($request->getData('packages'));
+        $packageCount = count($request->getData('packages'));
         $parcelType = $this->getParcelType($request);
 
         $createShipmentRequest->setName1($request->getData('recipient_contact_person_name'));
@@ -238,7 +244,7 @@ abstract class AbstractMethod
 
     /**
      * @return float
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getPackageValue()
     {
@@ -248,7 +254,7 @@ abstract class AbstractMethod
 
     /**
      * @return float
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getPrice()
     {
@@ -268,7 +274,7 @@ abstract class AbstractMethod
 
     /**
      * @return string|null
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getRestrictedPrice()
     {
@@ -287,7 +293,7 @@ abstract class AbstractMethod
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function isFreeShipping()
     {
@@ -297,7 +303,7 @@ abstract class AbstractMethod
 
         $freeShippingValue = $this->getFreeShippingOrderValue();
 
-        return (\is_numeric($freeShippingValue) && $this->getPackageValue() >= $freeShippingValue);
+        return (is_numeric($freeShippingValue) && $this->getPackageValue() >= $freeShippingValue);
     }
 
     /**
@@ -324,7 +330,7 @@ abstract class AbstractMethod
             $totalWeightKilogram += $this->carrierHelper->convertMeasureWeight(
                 $params['weight'],
                 $params['weight_units'],
-                \Zend_Measure_Weight::KILOGRAM
+                Zend_Measure_Weight::KILOGRAM
             );
         }
         return sprintf('%.3f', $totalWeightKilogram / $splitInto);
@@ -346,6 +352,10 @@ abstract class AbstractMethod
             $result .= '-RETURN';
         }
 
+        if ($this->httpRequest->getParam('dpd_document_return_service') == '1') {
+            $result .= '-DOCRET';
+        }
+
         return $result;
     }
 
@@ -355,7 +365,7 @@ abstract class AbstractMethod
      */
     protected function isCod(DataObject $request)
     {
-        /** @var \Magento\Sales\Model\Order $order */
+        /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
 
         return $order->getPayment()->getMethod() === 'cashondelivery';
@@ -376,7 +386,7 @@ abstract class AbstractMethod
      */
     protected function getDeliveryOptions(DataObject $request)
     {
-        /** @var \Magento\Sales\Model\Order $order */
+        /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
 
         return Serializer::unserialize($order->getData('dpd_delivery_options'));

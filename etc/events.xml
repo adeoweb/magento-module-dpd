@@ -7,6 +7,6 @@
         <observer name="adeoweb_dpd_payment_method_is_active_restrict_cod" instance="AdeoWeb\Dpd\Observer\RestrictCodForDpdShippingObserver"/>
     </event>
     <event name="view_block_abstract_to_html_after">
-        <observer name="adeoweb_dpd_view_block_abstract_to_html_after_return_label" instance="AdeoWeb\Dpd\Observer\AddReturnLabelOptionToPackagingBlockObserver"/>
+        <observer name="adeoweb_dpd_view_block_abstract_to_html_after_dpd_services" instance="AdeoWeb\Dpd\Observer\AddServicesOptionToPackagingBlockObserver"/>
     </event>
 </config>

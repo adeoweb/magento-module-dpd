@@ -207,10 +207,10 @@ class ClassicTest extends AbstractTest
             'weight_units' => 'KG'
         ]]]);
 
-        $this->requestMock->expects($this->once())
+        $this->requestMock
             ->method('getParam')
-            ->with('dpd_include_return_labels')
-            ->willReturn('1');
+            ->withConsecutive(['dpd_include_return_labels'], ['dpd_document_return_service'])
+            ->willReturnOnConsecutiveCalls('1', '1');
 
 
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
@@ -244,10 +244,10 @@ class ClassicTest extends AbstractTest
             'weight_units' => 'KG'
         ]]]);
 
-        $this->requestMock->expects($this->once())
+        $this->requestMock
             ->method('getParam')
-            ->with('dpd_include_return_labels')
-            ->willReturn('1');
+            ->withConsecutive(['dpd_include_return_labels'], ['dpd_document_return_service'])
+            ->willReturnOnConsecutiveCalls('1', '1');
 
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 

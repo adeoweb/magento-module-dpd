@@ -42,7 +42,7 @@ class CallCourierRequest extends AbstractSubjectReader
     /**
      * @param array $subject
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      * @codeCoverageIgnore
      */
     public function readWorkUntil($subject)
