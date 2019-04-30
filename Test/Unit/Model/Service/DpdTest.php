@@ -2,13 +2,20 @@
 
 namespace Model\Service;
 
+use AdeoWeb\Dpd\Config\Api;
 use AdeoWeb\Dpd\Model\Service\Dpd;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 use AdeoWeb\Dpd\Model\Service\ResponseInterface;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\HTTP\ZendClient;
+use Magento\Framework\HTTP\ZendClientFactory;
+use Magento\Framework\Validator\Url;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
+use Zend_Http_Exception;
+use Zend_Http_Response;
 
 class DpdTest extends AbstractTest
 {
@@ -46,8 +53,8 @@ class DpdTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->apiConfigMock = $this->createMock(\AdeoWeb\Dpd\Config\Api::class);
-        $this->httpClientMock = $this->createMock(\Magento\Framework\HTTP\ZendClient::class);
+        $this->apiConfigMock = $this->createMock(Api::class);
+        $this->httpClientMock = $this->createMock(ZendClient::class);
         $this->loggerMock = $this->createMock(LoggerInterface::class);
         $this->responseMock = $this->createMock(ResponseInterface::class);
 
@@ -55,15 +62,20 @@ class DpdTest extends AbstractTest
             'create' => $this->responseMock
         ]);
 
-        $httpClientFactory = $this->createConfiguredMock(\Magento\Framework\HTTP\ZendClientFactory::class, [
+        $httpClientFactory = $this->createConfiguredMock(ZendClientFactory::class, [
             'create' => $this->httpClientMock
+        ]);
+
+        $urlValidator = $this->createConfiguredMock(Url::class, [
+            'isValid' => true
         ]);
 
         $this->subject = $this->objectManager->getObject(Dpd::class, [
             'apiConfig' => $this->apiConfigMock,
             'httpClientFactory' => $httpClientFactory,
             'logger' => $this->loggerMock,
-            'responseFactory' => $this->responseFactoryMock
+            'responseFactory' => $this->responseFactoryMock,
+            'urlValidator' => $urlValidator
         ]);
     }
 
@@ -71,7 +83,7 @@ class DpdTest extends AbstractTest
     {
         $requestMock = $this->createMock(RequestInterface::class);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('DPD Module is not configured. API Username or/and password missing');
 
         return $this->subject->call($requestMock);
@@ -86,7 +98,7 @@ class DpdTest extends AbstractTest
         $this->apiConfigMock->method('getUsername')->willReturn('testUsername');
         $this->apiConfigMock->method('getPassword')->willReturn('testPass');
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('DPD Module is not configured. API Url missing');
 
         return $this->subject->call($requestMock);
@@ -104,7 +116,7 @@ class DpdTest extends AbstractTest
 
         $this->httpClientMock->expects($this->once())
             ->method('request')
-            ->willThrowException(new \Zend_Http_Exception('Invalid data'));
+            ->willThrowException(new Zend_Http_Exception('Invalid data'));
 
         $this->loggerMock->expects($this->atleastOnce())
             ->method('debug');
@@ -127,7 +139,7 @@ class DpdTest extends AbstractTest
         $this->apiConfigMock->method('getUrl')->willReturn('http://testapi.com');
         $this->apiConfigMock->method('isDebugMode')->willReturn(true);
 
-        $responseMock = $this->createMock(\Zend_Http_Response::class);
+        $responseMock = $this->createMock(Zend_Http_Response::class);
         $responseMock->method('getBody')->willReturn('Test Response');
 
         $this->httpClientMock->expects($this->once())
@@ -149,7 +161,7 @@ class DpdTest extends AbstractTest
         $this->apiConfigMock->method('getUrl')->willReturn('http://testapi.com');
         $this->apiConfigMock->method('isDebugMode')->willReturn(true);
 
-        $responseMock = $this->createMock(\Zend_Http_Response::class);
+        $responseMock = $this->createMock(Zend_Http_Response::class);
         $responseMock->method('getBody')->willReturn('{"a": "b"}');
 
         $this->httpClientMock->expects($this->once())

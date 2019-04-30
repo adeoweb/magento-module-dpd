@@ -9,6 +9,7 @@ use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\HTTP\ZendClientFactory;
 use Magento\Framework\Module\PackageInfo;
+use Magento\Framework\Validator\Url;
 use Psr\Log\LoggerInterface;
 
 class Dpd implements ServiceInterface
@@ -47,13 +48,19 @@ class Dpd implements ServiceInterface
      */
     private $httpClientFactory;
 
+    /**
+     * @var Url
+     */
+    private $urlValidator;
+
     public function __construct(
         Api $apiConfig,
         ResponseFactory $responseFactory,
         LoggerInterface $logger,
         PackageInfo $packageInfo,
         ProductMetadataInterface $productMetadata,
-        ZendClientFactory $httpClientFactory
+        ZendClientFactory $httpClientFactory,
+        Url $urlValidator
     ) {
         $this->apiConfig = $apiConfig;
         $this->responseFactory = $responseFactory;
@@ -61,6 +68,7 @@ class Dpd implements ServiceInterface
         $this->packageInfo = $packageInfo;
         $this->productMetadata = $productMetadata;
         $this->httpClientFactory = $httpClientFactory;
+        $this->urlValidator = $urlValidator;
     }
 
     /**
@@ -72,14 +80,14 @@ class Dpd implements ServiceInterface
     {
         $config = [
             'verifypeer' => false,
-            'timeout' => 300
+            'timeout' => 300,
         ];
 
         $requestParams = $this->getRequestParams($request);
 
         try {
             $client = $this->httpClientFactory->create([
-                'uri' => $this->getEndpointUrl($request)
+                'uri' => $this->getEndpointUrl($request),
             ]);
             $client->setConfig($config);
             $client->setUrlEncodeBody(false);
@@ -118,8 +126,8 @@ class Dpd implements ServiceInterface
     {
         $apiUrl = $this->apiConfig->getUrl();
 
-        if (!$apiUrl) {
-            throw new \RuntimeException('DPD Module is not configured. API Url missing');
+        if (!$apiUrl || !$this->urlValidator->isValid($apiUrl)) {
+            throw new \RuntimeException('DPD Module is not configured. API URL is missing or invalid.');
         }
 
         if (\substr($apiUrl, -1) !== '/') {

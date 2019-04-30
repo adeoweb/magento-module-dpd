@@ -51,6 +51,7 @@
                     </field>
                     <field id="url" type="text" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="30">
                         <label>API URL</label>
+                        <validate>validate-url</validate>
                     </field>
                     <field id="debug" type="select" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="40">
                         <label>Debug mode</label>
