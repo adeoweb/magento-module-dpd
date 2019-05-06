@@ -14,10 +14,10 @@ Add,Add
 Country,Country
 Price,Price
 "Only AJAX calls are permitted","Only AJAX calls are permitted"
-"DPD Courier called succesfully.","DPD Courier called succesfully."
+"DPD Courier called successfully.","DPD Courier called successfully."
 "Shipment ID is not specified","Shipment ID is not specified"
 "DPD Parcels were successfully canceled","DPD Parcels were successfully canceled"
-"Collection Request called succesfully.","Collection Request called succesfully."
+"Collection Request called successfully.","Collection Request called successfully."
 AdeoWeb,AdeoWeb
 Location,Location
 "We can't find a location to delete.","We can't find a location to delete."
@@ -121,4 +121,4 @@ ID,ID
 "Sender Address","Sender Address"
 "Recipient Address","Recipient Address"
 "Package Info","Package Info"
-"DPD Collection Request succesfully called", "DPD Collection Request succesfully called"
+"DPD Collection Request successfully called", "DPD Collection Request successfully called"

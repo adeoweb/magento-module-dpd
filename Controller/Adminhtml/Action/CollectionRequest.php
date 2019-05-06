@@ -51,7 +51,7 @@ class CollectionRequest extends \Magento\Backend\App\Action
         }
 
         if (!$result['error']) {
-            $result['message'] = __('DPD Collection Request succesfully called');
+            $result['message'] = __('DPD Collection Request successfully called');
         }
 
         return $this->resultJsonFactory->create()->setData($result);

@@ -44,7 +44,7 @@ class Send extends Action
             return $this->resultRedirectFactory->create()->setPath('*/*/index');
         }
 
-        $this->messageManager->addSuccessMessage(__('DPD Collection Request succesfully called'));
+        $this->messageManager->addSuccessMessage(__('DPD Collection Request successfully called'));
 
         return $this->resultRedirectFactory->create()->setPath('sales/order/index');
     }

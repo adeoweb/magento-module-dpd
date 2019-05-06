@@ -107,7 +107,7 @@ class CollectionRequestTest extends AbstractTest
 
         $this->jsonMock->expects($this->once())
             ->method('setData')
-            ->with(['error' => false, 'message' => __('DPD Collection Request succesfully called')]);
+            ->with(['error' => false, 'message' => __('DPD Collection Request successfully called')]);
 
         $this->subject->execute();
 

@@ -53,7 +53,7 @@ class CallCourier extends Action
         }
 
         if (!$result['error']) {
-            $result['message'] = __('DPD Courier called succesfully.');
+            $result['message'] = __('DPD Courier called successfully.');
         }
 
         return $this->resultJsonFactory->create()->setData($result);

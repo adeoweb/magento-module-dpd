@@ -107,7 +107,7 @@ class CallCourierTest extends AbstractTest
 
         $this->jsonMock->expects($this->once())
             ->method('setData')
-            ->with(['error' => false, 'message' => __('DPD Courier called succesfully.')]);
+            ->with(['error' => false, 'message' => __('DPD Courier called successfully.')]);
 
         $this->subject->execute();
 
