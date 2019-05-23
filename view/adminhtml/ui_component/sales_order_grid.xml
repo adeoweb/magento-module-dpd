@@ -80,6 +80,7 @@
             <field name="pickup_date" formElement="date">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
+                        <item name="component" xsi:type="string">AdeoWeb_Dpd/js/form/element/future-date</item>
                         <item name="label" xsi:type="string">Pickup Date</item>
                         <item name="formElement" xsi:type="string">date</item>
                         <item name="visible" xsi:type="boolean">true</item>

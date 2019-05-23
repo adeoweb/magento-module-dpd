@@ -1,4 +1,8 @@
-define(['jquery', 'Magento_Ui/js/form/element/date', 'moment'], function($, DateElement, moment) {
+define([
+    'jquery',
+    'Magento_Ui/js/form/element/date',
+    'moment'
+], function($, DateElement, moment) {
     'use strict';
 
     return DateElement.extend({
@@ -7,6 +11,8 @@ define(['jquery', 'Magento_Ui/js/form/element/date', 'moment'], function($, Date
 
             this.options.minDate = '+1d';
             this.options.beforeShowDay = $.datepicker.noWeekends;
+
+            return this;
         },
 
         getInitialValue: function() {
