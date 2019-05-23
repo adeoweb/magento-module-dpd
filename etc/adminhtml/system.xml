@@ -36,9 +36,6 @@
                 <field id="sort_order" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="70">
                     <label>Sort Order</label>
                 </field>
-                <field id="specificerrmsg" type="textarea" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="80">
-                    <label>Displayed Error Message</label>
-                </field>
 
                 <group id="api" translate="label" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="900">
                     <label>API Settings</label>
