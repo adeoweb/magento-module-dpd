@@ -94,7 +94,7 @@
             <field name="pickup_time" formElement="input">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
-                        <item name="label" xsi:type="string">Pickup Time</item>
+                        <item name="label" xsi:type="string">Pickup Time From</item>
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">09:20</item>
@@ -108,7 +108,7 @@
             <field name="work_until" formElement="input">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
-                        <item name="label" xsi:type="string">Warehouse Work Until</item>
+                        <item name="label" xsi:type="string">Pickup Time To</item>
                         <item name="formElement" xsi:type="string">input</item>
                         <item name="visible" xsi:type="boolean">true</item>
                         <item name="value" xsi:type="string">18:00</item>
