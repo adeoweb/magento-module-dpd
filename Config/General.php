@@ -10,7 +10,7 @@ use Magento\Store\Model\ScopeInterface;
  */
 class General
 {
-    const XML_PATH_PRINT_LABEL_FORMAT = 'adeoweb_dpd/general/print_label_format';
+    const XML_PATH_PRINT_LABEL_FORMAT = 'carriers/dpd/print_label_format';
 
     /**
      * @var ScopeConfigInterface
