@@ -16,6 +16,7 @@ interface PickupPointInterface
     const PHONE = 'phone';
     const LONGITUDE = 'longitude';
     const LATITUDE = 'latitude';
+    const OPENING_HOURS = 'opening_hours';
 
     const TYPE_LOCKER = 1;
     const TYPE_PARCELSHOP = 2;
@@ -152,4 +153,15 @@ interface PickupPointInterface
      * @return PickupPointInterface
      */
     public function setLatitude($latitude);
+
+    /**
+     * @return array
+     */
+    public function getOpeningHours();
+
+    /**
+     * @param array $openingHours
+     * @return PickupPointInterface
+     */
+    public function setOpeningHours($openingHours);
 }

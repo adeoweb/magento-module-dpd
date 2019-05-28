@@ -12,6 +12,8 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class PickupPoint extends AbstractDb
 {
+    protected $_serializableFields = ['opening_hours' => [null, []]];
+
     /**
      * {@inheritDoc}
      */

@@ -43,7 +43,7 @@ define([
                 if (value !== undefined) {
                     dpdShippingData.setSelectedPickupPoint(value);
                 }
-            });
+            }.bind(this));
 
             return this;
         },
@@ -127,7 +127,25 @@ define([
         },
 
         formatPickupPointLabel: function(item) {
-            return item.company + ', ' + item.street;
+            return item.company + ', ' + item.street + ', ' + item.city + ' ' + item.postcode;
         },
+
+        getSelectedPickupPointText: function () {
+            return ko.computed(function() {
+                let pickupPointId = this.selectedPickupPoint();
+
+                let pickupPoint = _.find(this.rawPickupPoints, function(item) {
+                    if (item.pickup_point_id === pickupPointId.toString()) {
+                        return item;
+                    }
+                }.bind(this));
+
+                if (!pickupPoint) {
+                    return false;
+                }
+
+                return this.formatPickupPointLabel(pickupPoint);
+            }.bind(this));
+        }
     });
 });

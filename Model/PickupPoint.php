@@ -226,4 +226,21 @@ class PickupPoint extends AbstractModel implements PickupPointInterface
     {
         return $this->setData('latitude', $latitude);
     }
+
+    /**
+     * @return array
+     */
+    public function getOpeningHours()
+    {
+        return $this->getData('opening_hours');
+    }
+
+    /**
+     * @param array $openingHours
+     * @return PickupPoint
+     */
+    public function setOpeningHours($openingHours)
+    {
+        return $this->setData('opening_hours', $openingHours);
+    }
 }

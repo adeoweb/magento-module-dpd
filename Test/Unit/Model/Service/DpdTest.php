@@ -99,7 +99,7 @@ class DpdTest extends AbstractTest
         $this->apiConfigMock->method('getPassword')->willReturn('testPass');
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('DPD Module is not configured. API Url missing');
+        $this->expectExceptionMessage('DPD Module is not configured. API URL is missing or invalid.');
 
         return $this->subject->call($requestMock);
     }

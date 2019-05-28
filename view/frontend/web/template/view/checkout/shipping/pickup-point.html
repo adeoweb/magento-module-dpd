@@ -7,8 +7,8 @@
               data-bind="i18n: 'There are no DPD pickup points available in the chosen country. Please select a different shipping method.'"></span>
     </div>
     <div data-bind="visible: !stateLoading() && !stateEmpty()">
-        <div><label for="dpd-pickup-point-select" data-bind="i18n: 'Select DPD Pickup Point'"></label>:</div>
         <div data-bind="visible: !googleMapsEnabled">
+            <div><label for="dpd-pickup-point-select" data-bind="i18n: 'Select DPD Pickup Point'"></label>:</div>
             <div>
                 <select id="dpd-pickup-point-select" data-validate="{required:true}"
                         data-bind="foreach: pickupPoints, value: selectedPickupPoint">
@@ -19,7 +19,10 @@
             </div>
         </div>
         <div data-bind="visible: googleMapsEnabled">
-            <div id="dpd-pickup-point-map" style="width: 100%; height: 500px" afterRender="initMap"></div>
+            <div id="dpd-pickup-point-map" afterRender="initMap"></div>
+            <div id="dpd-pickup-point-selected" data-bind="visible: selectedPickupPoint()">
+                <span class="label" data-bind="i18n: 'Selected DPD Pickup Point'"></span>: <span data-bind="text: getSelectedPickupPointText()"></span>
+            </div>
         </div>
     </div>
 </div>

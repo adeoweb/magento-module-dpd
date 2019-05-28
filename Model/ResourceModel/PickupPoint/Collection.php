@@ -22,4 +22,18 @@ class Collection extends AbstractCollection
             PickupPointResource::class
         );
     }
+
+    /**
+     * @return Collection
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+
+        foreach ($this as $item) {
+            $this->_resource->unserializeFields($item);
+        }
+
+        return $this;
+    }
 }

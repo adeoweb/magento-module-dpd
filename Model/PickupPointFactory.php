@@ -67,6 +67,7 @@ class PickupPointFactory
         $object->setPhone($responseData->getData('phone'));
         $object->setLongitude($responseData->getData('longitude'));
         $object->setLatitude($responseData->getData('latitude'));
+        $object->setOpeningHours($responseData->getData('openingHours'));
 
         $type = $this->typeResolver->resolve($object);
         if ($type) {

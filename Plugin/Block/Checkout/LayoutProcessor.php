@@ -120,7 +120,7 @@ class LayoutProcessor
         $result = [
             'googleMapsEnabled' => $this->isPickupPointGoogleMapsEnabled(),
             'countryCenters' => $this->carrierConfig->getCode(Config::TYPE_PICKUP_POINT_MAP_COUNTRY_CENTERS),
-            'activeIconImage' => $this->assetRepository->getUrl('AdeoWeb_Dpd::images/green-marker.png')
+            'activeIconImage' => $this->assetRepository->getUrl('AdeoWeb_Dpd::images/dpd-marker.png')
         ];
 
         return array_merge($componentSettings, $result);

@@ -128,6 +128,7 @@ class PickupPointManagement implements PickupPointManagementInterface
             $request = $this->pickupPointSearchRequestFactory->create();
             $request->setCountry($countryCode);
             $request->setFetchAllByCountryFlag(true);
+            $request->setRetrieveOpeningHoursFlag(true);
 
             $pickupPointListResponse = $this->apiService->call($request);
 
