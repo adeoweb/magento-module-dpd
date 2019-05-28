@@ -4,6 +4,7 @@ namespace AdeoWeb\Dpd\Helper;
 
 class Config
 {
+    const TYPE_API_URL = 'api_url';
     const TYPE_METHOD = 'method';
     const TYPE_METHOD_JS_COMPONENTS = 'method_js_components';
     const TYPE_CLASSIC_DELIVERY_TIME = 'classic_delivery_time';
@@ -46,6 +47,15 @@ class Config
     protected function getCodes()
     {
         return [
+            self::TYPE_API_URL => [
+                '' => __('--Please Select--'),
+                'https://ee.integration.dpd.eo.pl/' => __('TEST - Estonia'),
+                'https://lv.integration.dpd.eo.pl/' => __('TEST - Latvia'),
+                'https://lt.integration.dpd.eo.pl/' => __('TEST - Lithuania'),
+                'https://integration.dpd.ee:8443/' => __('Estonia'),
+                'https://integration.dpd.lv:8443/' => __('Latvia'),
+                'https://integration.dpd.lt:8443/' => __('Lithuania')
+            ],
             self::TYPE_METHOD => [
                 'classic' => __('DPD - Classic'),
                 'pickup' => __('DPD - Pickup'),
