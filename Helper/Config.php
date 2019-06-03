@@ -49,12 +49,9 @@ class Config
         return [
             self::TYPE_API_URL => [
                 '' => __('--Please Select--'),
-                'https://ee.integration.dpd.eo.pl/' => __('TEST - Estonia'),
-                'https://lv.integration.dpd.eo.pl/' => __('TEST - Latvia'),
-                'https://lt.integration.dpd.eo.pl/' => __('TEST - Lithuania'),
                 'https://integration.dpd.ee:8443/' => __('Estonia'),
                 'https://integration.dpd.lv:8443/' => __('Latvia'),
-                'https://integration.dpd.lt:8443/' => __('Lithuania')
+                'https://integracijos.dpd.lt/' => __('Lithuania')
             ],
             self::TYPE_METHOD => [
                 'classic' => __('DPD - Classic'),
