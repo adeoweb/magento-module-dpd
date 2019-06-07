@@ -168,7 +168,7 @@ class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
      */
     public function setParcelsCount($parcelsCount)
     {
-        return $this->setData('parcelsCount', $parcelsCount, 2);
+        return $this->setData('parcelsCount', $parcelsCount, 5);
     }
 
     /**
@@ -177,7 +177,7 @@ class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
      */
     public function setPalletsCount($palletsCount)
     {
-        return $this->setData('palletsCount', $palletsCount, 2);
+        return $this->setData('palletsCount', $palletsCount, 5);
     }
 
     /**
