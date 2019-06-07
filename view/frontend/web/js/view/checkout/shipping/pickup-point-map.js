@@ -31,7 +31,10 @@ define([
             this.isMapInitialized = true;
 
             this.initAddressChangeEvent();
-            this.setCenterByAddress(quote.shippingAddress());
+
+            if (quote.shippingAddress().city) {
+                this.setCenterByAddress(quote.shippingAddress());
+            }
         },
 
         initAddressChangeEvent: function() {

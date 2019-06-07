@@ -51,7 +51,7 @@ class Classic extends AbstractMethod implements MethodInterface
 
         $deliveryOptions = $this->getDeliveryOptions($request);
 
-        if (!isset($deliveryOptions['delivery_time'])) {
+        if (!isset($deliveryOptions['delivery_time']) || $deliveryOptions['delivery_time'] === 0) {
             return $createShipmentRequest;
         }
 
