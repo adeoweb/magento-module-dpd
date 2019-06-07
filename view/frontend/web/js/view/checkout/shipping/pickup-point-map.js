@@ -2,8 +2,9 @@ define([
     'jquery',
     'underscore',
     'Magento_Checkout/js/model/quote',
+    'AdeoWeb_Dpd/js/dpd-shipping-data',
     'mage/translate',
-], function($, _, quote) {
+], function($, _, quote, dpdShippingData) {
     'use strict';
 
     return {
@@ -41,7 +42,9 @@ define([
             quote.shippingAddress.subscribe(function() {
                 let shippingAddress = quote.shippingAddress();
 
-                this.setCenterByAddress(shippingAddress);
+                if (!dpdShippingData.getSelectedPickupPoint()) {
+                    this.setCenterByAddress(shippingAddress);
+                }
             }.bind(this));
         },
 
@@ -66,7 +69,8 @@ define([
                 address.countryId;
 
             if (address.street.length) {
-                formattedAddress = address.street.join(', ') + ', ' + formattedAddress;
+                formattedAddress = address.street.join(', ') + ', ' +
+                    formattedAddress;
             }
 
             this.geocoder.geocode({
@@ -89,6 +93,8 @@ define([
             this.resetMarkers();
 
             let self = this;
+
+            let selectedPickupPoint = dpdShippingData.getSelectedPickupPoint();
 
             _.each(pickupPoints, function(pickupPoint) {
                 let markerPosition = new google.maps.LatLng(
@@ -118,6 +124,11 @@ define([
                     self.infoWindow.open(self.map, marker);
                 });
 
+                if (pickupPoint.pickup_point_id === selectedPickupPoint) {
+                    new google.maps.event.trigger(marker, 'click');
+                    this.setCenter(marker.position);
+                }
+
                 this.markers.push(marker);
             }.bind(this));
         },
@@ -131,7 +142,8 @@ define([
                 markerData.postcode + '</p>';
 
             if (markerData.opening_hours.length) {
-                content += '<p><b>' + $.mage.__('Opening Hours') + '</b><br>' +
+                content += '<div><b>' + $.mage.__('Opening Hours') +
+                    '</b><br>' +
                     '<table>';
 
                 _.each(markerData.opening_hours, function(item) {
@@ -139,18 +151,20 @@ define([
 
                     content += '<tr>' +
                         '<td>' + weekday + '</td>' +
-                        '<td>' + item.openMorning + '-' + item.closeMorning + '</td>' +
-                        '<td>' + item.openAfternoon + '-' + item.closeAfternoon + '</td>' +
-                        '</tr>'
+                        '<td>' + item.openMorning + '-' + item.closeMorning +
+                        '</td>' +
+                        '<td>' + item.openAfternoon + '-' +
+                        item.closeAfternoon + '</td>' +
+                        '</tr>';
                 }.bind(this));
 
-                content += '</table></p>';
+                content += '</table></div>';
             }
 
             this.infoWindow.setContent(
                 '<div class="dpd-pickup-point-map-marker-container">' +
                 content +
-                '</div>'
+                '</div>',
             );
         },
 
@@ -181,6 +195,6 @@ define([
                 default:
                     return code;
             }
-        }
+        },
     };
 });

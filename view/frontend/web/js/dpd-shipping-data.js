@@ -7,6 +7,7 @@ define([
     let getEmptyObject = function() {
         return {
             'selectedPickupPoint': null,
+            'selectedPickupPointText': null,
             'selectedDeliveryTime': null,
         };
     };
@@ -39,6 +40,18 @@ define([
 
         getSelectedPickupPoint: function() {
             return getData().selectedPickupPoint;
+        },
+
+        setSelectedPickupPointText: function(data) {
+            let obj = getData();
+
+            obj.selectedPickupPointText = data;
+
+            saveData(obj);
+        },
+
+        getSelectedPickupPointText: function() {
+            return getData().selectedPickupPointText;
         },
 
         setSelectedDeliveryTime: function(data) {

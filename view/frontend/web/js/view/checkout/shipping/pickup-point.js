@@ -42,6 +42,7 @@ define([
             this.selectedPickupPoint.subscribe(function(value) {
                 if (value !== undefined) {
                     dpdShippingData.setSelectedPickupPoint(value);
+                    dpdShippingData.setSelectedPickupPointText(this.getSelectedPickupPointText()());
                 }
             }.bind(this));
 
@@ -68,10 +69,12 @@ define([
 
                 let result = [];
 
+                if (this.lastCountry) {
+                    dpdShippingData.setSelectedPickupPoint(0);
+                }
+
                 this.lastCountry = quote.shippingAddress().countryId;
                 this.stateLoading(true);
-
-                dpdShippingData.setSelectedPickupPoint(0);
 
                 fetchPickupPointListAction.fetchByAddress(
                     quote.shippingAddress()).
