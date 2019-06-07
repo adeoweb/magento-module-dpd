@@ -47,5 +47,11 @@
         jQuery('.action-create-label').on('click', function() {
             updateCreateLabelParameters();
         });
+
+        jQuery('.order-history-comments-actions > button.submit-button').on('click', function() {
+           if (jQuery('#create_shipping_label').is(':checked')) {
+               updateCreateLabelParameters();
+           }
+        });
     });
 </script>
