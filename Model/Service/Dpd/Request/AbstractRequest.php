@@ -46,6 +46,8 @@ abstract class AbstractRequest
             $value = \substr($value, 0, $maxLength);
         }
 
+        $value = \str_replace('+', '%2B', $value);
+
         $this->data[$param] = $value;
 
         return $this;
