@@ -77,7 +77,7 @@ class RestrictCodForDpdShippingObserver implements ObserverInterface
             return $checkResult->setData('is_available', false);
         }
 
-        $pickupPointIdentifier = \substr($pickupPoint->getApiId(),0 ,4);
+        $pickupPointIdentifier = \substr($pickupPoint->getApiId(), 0, 4);
 
         if (!\in_array($pickupPointIdentifier, $this->allowedPickupPointIdentifiers)) {
             return $checkResult->setData('is_available', false);

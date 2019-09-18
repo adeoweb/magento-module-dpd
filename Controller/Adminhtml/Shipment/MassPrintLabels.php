@@ -77,7 +77,6 @@ class MassPrintLabels extends Action
                 DirectoryList::VAR_DIR,
                 'application/pdf'
             );
-
         } catch (Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
 

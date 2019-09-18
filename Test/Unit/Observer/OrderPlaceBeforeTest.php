@@ -56,7 +56,6 @@ class OrderPlaceBeforeTest extends AbstractTest
         $expectedResult = null;
 
         $this->assertEquals($expectedResult, $result);
-
     }
 
     public function testExecute()

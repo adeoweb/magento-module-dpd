@@ -7,14 +7,14 @@ use Magento\Framework\Exception\LocalizedException;
 abstract class AbstractSubjectReader
 {
     /**
-     * @param $key
-     * @param null $zone
+     * @param string $key
+     * @param null|string $zone
      * @param array $subject
      * @param bool $optional
-     * @return mixed
+     * @return string
      * @throws LocalizedException
      */
-    public function read($key, $zone = null, array $subject, $optional = false)
+    public function read($key, $zone = null, array $subject = [], $optional = false)
     {
         if ($zone && isset($subject[$zone])) {
             $subject = $subject[$zone];

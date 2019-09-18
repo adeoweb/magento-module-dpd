@@ -57,6 +57,7 @@ class Delete extends Location
     }
 
     /**
+     * {@override}
      * @return bool
      * @codeCoverageIgnore
      */

@@ -70,7 +70,6 @@ class PickupPoint extends AbstractModel implements PickupPointInterface
     public function setType($type)
     {
         return $this->setData('type', $type);
-
     }
 
     /**
@@ -88,7 +87,6 @@ class PickupPoint extends AbstractModel implements PickupPointInterface
     public function setCompany($company)
     {
         return $this->setData('company', $company);
-
     }
 
     /**

@@ -59,6 +59,5 @@ class MethodFactoryPool
         }
 
         return $method;
-
     }
 }

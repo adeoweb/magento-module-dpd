@@ -9,6 +9,11 @@ use PHPUnit\Framework\MockObject\MockObject;
 class RestrictionsTest extends AbstractTest
 {
     /**
+     * @var MockObject|\AdeoWeb\Dpd\Helper\Config\Serializer
+     */
+    private $serializerMock;
+
+    /**
      * @var Restrictions
      */
     private $subject;
@@ -24,20 +29,27 @@ class RestrictionsTest extends AbstractTest
 
         $this->scopeConfigMock = $this->createMock(\Magento\Framework\App\Config\ScopeConfigInterface::class);
 
-        $serializer = $this->objectManager->getObject(\AdeoWeb\Dpd\Helper\Config\Serializer::class);
+        $this->serializerMock = $this->createMock(\AdeoWeb\Dpd\Helper\Config\Serializer::class);
 
         $this->subject = $this->objectManager->getObject(Restrictions::class, [
             'scopeConfig' => $this->scopeConfigMock,
-            'serializer' => $serializer
+            'serializer' => $this->serializerMock
         ]);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testGetByCountryWithInvalidConfigSettings()
     {
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
             ->with('carriers/dpd/classic/restrictions', 'website')
             ->willReturn('s:4:"test";');
+
+        $this->serializerMock->expects($this->any())
+            ->method('unserialize')
+            ->will($this->returnValueMap([['s:4:"test";', 'test']]));
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Invalid method configuration');
@@ -52,6 +64,13 @@ class RestrictionsTest extends AbstractTest
             ->with('carriers/dpd/classic/restrictions', 'website')
             ->willReturn('a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}');
 
+        $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
+            [
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
+                [['country' => 'US', 'price' => 10], ['country' => 'CA', 'price' => 15]]
+            ]
+        ]));
+
         $result = $this->subject->getByCountry('LT');
         $expectedValue = null;
 
@@ -65,8 +84,15 @@ class RestrictionsTest extends AbstractTest
             ->with('carriers/dpd/classic/restrictions', 'website')
             ->willReturn('a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}');
 
+        $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
+            [
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
+                [['country' => 'US', 'price' => 10], ['country' => 'CA', 'price' => 15]]
+            ]
+        ]));
+
         $result = $this->subject->getByCountry('US');
-        $expectedValue =['country' => 'US', 'price' => 10];
+        $expectedValue = ['country' => 'US', 'price' => 10];
 
         $this->assertEquals($expectedValue, $result);
     }

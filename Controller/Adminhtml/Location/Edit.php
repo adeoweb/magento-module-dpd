@@ -82,6 +82,7 @@ class Edit extends \AdeoWeb\Dpd\Controller\Adminhtml\Location
     }
 
     /**
+     * {@override}
      * @return bool
      * @codeCoverageIgnore
      */

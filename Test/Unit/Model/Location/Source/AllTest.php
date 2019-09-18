@@ -67,4 +67,3 @@ class AllTest extends AbstractTest
         $this->assertEquals($expectedResult, $result);
     }
 }
-

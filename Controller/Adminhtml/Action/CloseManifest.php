@@ -70,6 +70,7 @@ class CloseManifest extends Action
     }
 
     /**
+     * {@override}
      * @return bool
      * @codeCoverageIgnore
      */

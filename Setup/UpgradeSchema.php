@@ -49,7 +49,9 @@ class UpgradeSchema implements UpgradeSchemaInterface
     {
         $table = $installer->getTable(Schema::TABLE_DPD_PICKUP_POINT);
 
-        $installer->getConnection()->addColumn($table, 'opening_hours',
+        $installer->getConnection()->addColumn(
+            $table,
+            'opening_hours',
             [
                 'type' => Table::TYPE_TEXT,
                 'nullable' => true,

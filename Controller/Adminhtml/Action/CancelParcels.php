@@ -69,6 +69,7 @@ class CancelParcels extends Action
     }
 
     /**
+     * {@override}
      * @return bool
      * @codeCoverageIgnore
      */

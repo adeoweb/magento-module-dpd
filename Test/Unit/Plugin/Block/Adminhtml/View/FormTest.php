@@ -53,5 +53,4 @@ class FormTest extends AbstractTest
 
         $this->subject->afterGetPrintLabelButton($subjectMock, $methodResult);
     }
-
 }

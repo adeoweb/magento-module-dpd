@@ -19,7 +19,7 @@ class LocationTest extends AbstractTest
         $this->subject = $this->objectManager->getObject(Location::class);
     }
 
-    public function test_beforeSave()
+    public function testBeforeSave()
     {
         $location = $this->objectManager->getObject(\AdeoWeb\Dpd\Model\Location::class, []);
 

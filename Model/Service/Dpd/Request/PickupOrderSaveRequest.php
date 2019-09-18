@@ -114,7 +114,7 @@ class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
      */
     public function setSenderAddAddress($senderAddAddress)
     {
-        return $this->setData('senderAddAddress', $senderAddAddress,100);
+        return $this->setData('senderAddAddress', $senderAddAddress, 100);
     }
 
     /**

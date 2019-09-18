@@ -107,5 +107,4 @@ class CancelParcelsTest extends AbstractTest
 
         $this->subject->execute();
     }
-
 }

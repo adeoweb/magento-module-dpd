@@ -80,12 +80,14 @@ class LayoutProcessor
             }
         }
 
-        $previousConfig = $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shippingAdditional']['children'];
+        $previousConfig = $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']
+        ['children']['shippingAddress']['children']['shippingAdditional']['children'];
 
         $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-        ['shippingAddress']['children']['shippingAdditional']['children'] = \array_merge($previousConfig,
-            $layoutConfiguration);
+        ['shippingAddress']['children']['shippingAdditional']['children'] = \array_merge(
+            $previousConfig,
+            $layoutConfiguration
+        );
 
         return $jsLayout;
     }

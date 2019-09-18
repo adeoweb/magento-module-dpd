@@ -74,7 +74,8 @@ class MassPrintLabelsTest extends AbstractTest
             $this->shipmentMock
         ]);
 
-        $orderCollectionFactoryMock = $this->createConfiguredMock(CollectionFactory::class,
+        $orderCollectionFactoryMock = $this->createConfiguredMock(
+            CollectionFactory::class,
             [
                 'create' => $this->orderCollectionMock,
             ]

@@ -31,7 +31,8 @@ class Restrictions extends AbstractFieldArray
     {
         if (!$this->countryRenderer) {
             $this->countryRenderer = $this->getLayout()->createBlock(
-                Country::class, '',
+                Country::class,
+                '',
                 ['data' => ['is_render_to_js_template' => true]]
             );
         }
@@ -40,13 +41,15 @@ class Restrictions extends AbstractFieldArray
     }
 
     /**
+     * {@override}
      * @return void
      * @throws LocalizedException
      */
     protected function _prepareToRender()
     {
         $this->addColumn(
-            'country', [
+            'country',
+            [
                 'label' => __('Country'),
                 'renderer' => $this->getCountryRenderer(),
             ]

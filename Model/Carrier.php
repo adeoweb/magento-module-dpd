@@ -97,9 +97,24 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
         PrintLabelManagementInterface $printLabelManagement,
         array $data = []
     ) {
-        parent::__construct($scopeConfig, $rateErrorFactory, $logger, $xmlSecurity, $xmlElFactory, $rateFactory,
-            $rateMethodFactory, $trackFactory, $trackErrorFactory, $trackStatusFactory, $regionFactory, $countryFactory,
-            $currencyFactory, $directoryData, $stockRegistry, $data);
+        parent::__construct(
+            $scopeConfig,
+            $rateErrorFactory,
+            $logger,
+            $xmlSecurity,
+            $xmlElFactory,
+            $rateFactory,
+            $rateMethodFactory,
+            $trackFactory,
+            $trackErrorFactory,
+            $trackStatusFactory,
+            $regionFactory,
+            $countryFactory,
+            $currencyFactory,
+            $directoryData,
+            $stockRegistry,
+            $data
+        );
 
         $this->carrierConfig = $carrierConfig;
         $this->methodFactoryPool = $methodFactoryPool;

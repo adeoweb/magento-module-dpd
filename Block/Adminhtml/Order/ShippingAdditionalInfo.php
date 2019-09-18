@@ -30,11 +30,17 @@ class ShippingAdditionalInfo extends Template
      */
     private $carrierConfig;
 
+    /**
+     * @var Serializer
+     */
+    private $serializer;
+
     public function __construct(
         Template\Context $context,
         Registry $registry,
         PickupPointRepositoryInterface $pickupPointRepository,
         Config $carrierConfig,
+        Serializer $serializer,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -42,6 +48,7 @@ class ShippingAdditionalInfo extends Template
         $this->registry = $registry;
         $this->pickupPointRepository = $pickupPointRepository;
         $this->carrierConfig = $carrierConfig;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -69,7 +76,7 @@ class ShippingAdditionalInfo extends Template
      */
     public function getDeliveryOptions()
     {
-        return Serializer::unserialize($this->getOrder()->getData('dpd_delivery_options'));
+        return $this->serializer->unserialize($this->getOrder()->getData('dpd_delivery_options'));
     }
 
     /**
@@ -89,7 +96,8 @@ class ShippingAdditionalInfo extends Template
                         $result[] = [
                             'label' => __('Pickup Point'),
                             'value' => '(' . $pickupPoint->getApiId() . ') ' . $pickupPoint->getCompany() . ', ' .
-                                $pickupPoint->getStreet() . ', ' . $pickupPoint->getPostcode() . ', ' . $pickupPoint->getCity()
+                                $pickupPoint->getStreet() . ', ' . $pickupPoint->getPostcode() . ', ' .
+                                $pickupPoint->getCity()
                         ];
                     }
                     break;

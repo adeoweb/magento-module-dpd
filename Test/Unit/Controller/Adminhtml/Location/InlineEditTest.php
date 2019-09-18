@@ -128,5 +128,4 @@ class InlineEditTest extends AbstractTest
 
         return $this->subject->execute();
     }
-
 }

@@ -134,8 +134,12 @@ class ClassicTest extends AbstractTest
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('getValue')
-            ->withConsecutive(['carriers/dpd/title'], ['carriers/dpd/classic/name'],
-                ['carriers/dpd/classic/free_shipping_subtotal'],['carriers/dpd/classic/free_shipping_subtotal'])
+            ->withConsecutive(
+                ['carriers/dpd/title'],
+                ['carriers/dpd/classic/name'],
+                ['carriers/dpd/classic/free_shipping_subtotal'],
+                ['carriers/dpd/classic/free_shipping_subtotal']
+            )
             ->willReturnOnConsecutiveCalls('dpd', 'classic', 20, 20);
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
@@ -166,8 +170,12 @@ class ClassicTest extends AbstractTest
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('getValue')
-            ->withConsecutive(['carriers/dpd/title'], ['carriers/dpd/classic/name'],
-                ['carriers/dpd/classic/free_shipping_subtotal'],['carriers/dpd/classic/free_shipping_subtotal'])
+            ->withConsecutive(
+                ['carriers/dpd/title'],
+                ['carriers/dpd/classic/name'],
+                ['carriers/dpd/classic/free_shipping_subtotal'],
+                ['carriers/dpd/classic/free_shipping_subtotal']
+            )
             ->willReturnOnConsecutiveCalls('dpd', 'classic', 10, 20);
 
         $this->scopeConfigMock->expects($this->atLeastOnce())

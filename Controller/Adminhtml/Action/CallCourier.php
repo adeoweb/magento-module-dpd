@@ -60,6 +60,7 @@ class CallCourier extends Action
     }
 
     /**
+     * {@override}
      * @return bool
      * @codeCoverageIgnore
      */

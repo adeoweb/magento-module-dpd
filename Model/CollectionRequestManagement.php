@@ -104,8 +104,8 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
         $collectionRequestImportRequest->setPickupPhone($senderAddressInfo->getData('phone'));
         $collectionRequestImportRequest->setPickupEmail($senderAddressInfo->getData('email'));
 
-        $collectionRequestImportRequest->setRecipientName(isset($recipientNameParts[0]) ? $recipientNameParts[0] : null );
-        $collectionRequestImportRequest->setRecipientName2(isset($recipientNameParts[1]) ? $recipientNameParts[1] : null );
+        $collectionRequestImportRequest->setRecipientName(isset($recipientNameParts[0]) ? $recipientNameParts[0] : null);
+        $collectionRequestImportRequest->setRecipientName2(isset($recipientNameParts[1]) ? $recipientNameParts[1] : null);
         $collectionRequestImportRequest->setRecipientStreet($recipientAddressInfo->getData('street'));
         $collectionRequestImportRequest->setRecipientPostCode($recipientAddressInfo->getData('postcode'));
         $collectionRequestImportRequest->setRecipientCountry($recipientAddressInfo->getData('country'));
@@ -159,7 +159,7 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
     {
         $orderId = $this->collectionRequestRequestReader->readOrderId($data);
 
-        return $orderId ? $this->orderRepository->get($orderId): null;
+        return $orderId ? $this->orderRepository->get($orderId) : null;
     }
 
     /**

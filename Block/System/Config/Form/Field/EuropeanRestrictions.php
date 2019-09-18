@@ -16,7 +16,8 @@ class EuropeanRestrictions extends Restrictions
     {
         if (!$this->countryRenderer) {
             $this->countryRenderer = $this->getLayout()->createBlock(
-                EuropeanCountry::class, '',
+                EuropeanCountry::class,
+                '',
                 ['data' => ['is_render_to_js_template' => true]]
             );
         }

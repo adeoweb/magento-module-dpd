@@ -33,10 +33,12 @@ class WarehouseTest extends AbstractTest
         $this->locationRepositoryMock = $this->createMock(LocationRepositoryInterface::class);
         $this->searchCriteriaBuilderMock = $this->createMock(\Magento\Framework\Api\SearchCriteriaBuilder::class);
 
-        $searchCriteriaBuilderFactory = $this->createConfiguredMock(\Magento\Framework\Api\SearchCriteriaBuilderFactory::class,
+        $searchCriteriaBuilderFactory = $this->createConfiguredMock(
+            \Magento\Framework\Api\SearchCriteriaBuilderFactory::class,
             [
                 'create' => $this->searchCriteriaBuilderMock,
-            ]);
+            ]
+        );
 
         $this->subject = $this->objectManager->getObject(Warehouse::class, [
             'locationRepository' => $this->locationRepositoryMock,
@@ -79,4 +81,3 @@ class WarehouseTest extends AbstractTest
         $this->assertEquals($expectedResult, $result);
     }
 }
-

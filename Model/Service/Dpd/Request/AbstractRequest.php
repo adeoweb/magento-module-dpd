@@ -63,8 +63,10 @@ abstract class AbstractRequest
 
         foreach ($this->params as $param) {
             if (\array_search($param, $this->requiredParams) !== false && empty($this->data[$param])) {
-                throw new LocalizedException(__('DPD Request is not valid. Required parameter "%1" is missing',
-                    $param));
+                throw new LocalizedException(__(
+                    'DPD Request is not valid. Required parameter "%1" is missing',
+                    $param
+                ));
             }
 
             if (empty($this->data[$param])) {

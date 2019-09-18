@@ -4,6 +4,7 @@ namespace AdeoWeb\Dpd\Model\Carrier\Method;
 
 use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Config\Restrictions;
+use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Model\Carrier\MethodInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -30,11 +31,12 @@ class Pickup extends AbstractMethod implements MethodInterface
         MethodFactory $rateMethodFactory,
         RequestInterface $request,
         Carrier $carrierHelper,
+        Serializer $serializer,
         PickupPointRepositoryInterface $pickupPointRepository,
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
-        parent::__construct($scopeConfig, $rateMethodFactory, $request, $carrierHelper, $restrictionsConfig, $validators);
+        parent::__construct($scopeConfig, $rateMethodFactory, $request, $carrierHelper, $serializer, $restrictionsConfig, $validators);
 
         $this->pickupPointRepository = $pickupPointRepository;
     }

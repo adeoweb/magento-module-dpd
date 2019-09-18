@@ -58,5 +58,4 @@ class EuropeanRestrictionsTest extends AbstractTest
 
         $this->assertInstanceOf(DataObject::class, $result[0]);
     }
-
 }

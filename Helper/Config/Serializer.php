@@ -2,16 +2,29 @@
 
 namespace AdeoWeb\Dpd\Helper\Config;
 
+use Magento\Framework\Serialize\Serializer\Serialize;
+
 /**
  * Compatibility between Magento versions
  */
 class Serializer
 {
     /**
-     * @param $value
+     * @var Serializer
+     */
+    private $serializer;
+
+    public function __construct(
+        Serialize $serializer
+    ) {
+        $this->serializer = $serializer;
+    }
+
+    /**
+     * @param string $value
      * @return array
      */
-    public static function unserialize($value)
+    public function unserialize($value)
     {
         if (empty($value)) {
             return [];
@@ -21,11 +34,11 @@ class Serializer
             return \json_decode($value, true);
         }
 
-        return \unserialize($value);
+        return $this->serializer->unserialize($value);
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return bool
      */
     public static function isJson($value)

@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Quote\Model\Quote\Address\RateResult\Method;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
@@ -74,11 +75,17 @@ abstract class AbstractMethod
      */
     protected $restrictionsConfig;
 
+    /**
+     * @var Serializer
+     */
+    protected $serializer;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         MethodFactory $rateMethodFactory,
         RequestInterface $request,
         Carrier $carrierHelper,
+        Serializer $serializer,
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
@@ -88,6 +95,7 @@ abstract class AbstractMethod
         $this->httpRequest = $request;
         $this->carrierHelper = $carrierHelper;
         $this->restrictionsConfig = $restrictionsConfig;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -383,12 +391,13 @@ abstract class AbstractMethod
     /**
      * @param DataObject $request
      * @return array
+     * @throws LocalizedException
      */
     protected function getDeliveryOptions(DataObject $request)
     {
         /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
 
-        return Serializer::unserialize($order->getData('dpd_delivery_options'));
+        return $this->serializer->unserialize($order->getData('dpd_delivery_options'));
     }
 }

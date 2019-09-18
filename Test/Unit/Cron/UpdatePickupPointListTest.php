@@ -31,7 +31,8 @@ class UpdatePickupPointListTest extends AbstractTest
         $this->pickupPointManagementMock = $this->createMock(\AdeoWeb\Dpd\Api\PickupPointManagementInterface::class);
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
-        $this->subject = $this->objectManager->getObject(UpdatePickupPointList::class,
+        $this->subject = $this->objectManager->getObject(
+            UpdatePickupPointList::class,
             [
                 'pickupPointManagement' => $this->pickupPointManagementMock,
                 'logger' => $this->loggerMock,

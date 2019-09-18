@@ -6,6 +6,9 @@ use Magento\Framework\View\LayoutInterface;
 
 class View
 {
+    const ACTION_NAME = 'openModal';
+    const TARGET_NAME = 'sales_order_view_shipment_grid.sales_order_view_shipment_grid.dpd_collection_request_modal';
+
     /**
      * @param \Magento\Sales\Block\Adminhtml\Order\View $subject
      * @param LayoutInterface $layout
@@ -30,8 +33,8 @@ class View
                             'Magento_Ui/js/form/button-adapter' => [
                                 'actions' => [
                                     [
-                                        'targetName' => 'sales_order_view_shipment_grid.sales_order_view_shipment_grid.dpd_collection_request_modal',
-                                        'actionName' => 'openModal'
+                                        'targetName' => self::TARGET_NAME,
+                                        'actionName' => self::ACTION_NAME
                                     ]
                                 ]
                             ]

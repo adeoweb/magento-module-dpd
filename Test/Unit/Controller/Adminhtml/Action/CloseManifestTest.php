@@ -87,5 +87,4 @@ class CloseManifestTest extends AbstractTest
 
         $this->subject->execute();
     }
-
 }

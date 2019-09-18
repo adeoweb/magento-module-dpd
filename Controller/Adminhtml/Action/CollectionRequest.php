@@ -58,6 +58,7 @@ class CollectionRequest extends \Magento\Backend\App\Action
     }
 
     /**
+     * {@override}
      * @return bool
      * @codeCoverageIgnore
      */

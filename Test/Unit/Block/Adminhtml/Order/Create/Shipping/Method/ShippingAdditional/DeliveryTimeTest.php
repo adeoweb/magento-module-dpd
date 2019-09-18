@@ -37,7 +37,7 @@ class DeliveryTimeTest extends AbstractTest
         ]);
     }
 
-    public function test_toHtmlWithNonApplicableShippingMethod()
+    public function testToHtmlWithNonApplicableShippingMethod()
     {
         $shippingAddressMock = $this->createMock(\Magento\Quote\Model\Quote\Address::class);
         $shippingAddressMock->expects($this->atleastOnce())
@@ -54,7 +54,7 @@ class DeliveryTimeTest extends AbstractTest
         $this->assertEquals($result, $expectedResult);
     }
 
-    public function test_toHtmlWithApplicableShippingMethodAndIncorrectCity()
+    public function testToHtmlWithApplicableShippingMethodAndIncorrectCity()
     {
         $shippingAddressMock = $this->createMock(\Magento\Quote\Model\Quote\Address::class);
         $shippingAddressMock->expects($this->atleastOnce())
@@ -74,7 +74,7 @@ class DeliveryTimeTest extends AbstractTest
         $this->assertEquals($result, $expectedResult);
     }
 
-    public function test_toHtml()
+    public function testToHtml()
     {
         $shippingAddressMock = $this->createMock(\Magento\Quote\Model\Quote\Address::class);
         $shippingAddressMock->expects($this->atleastOnce())

@@ -29,7 +29,7 @@ class IndexTest extends AbstractTest
             ->method('create')
             ->willReturn($this->pageMock);
 
-        $this->subject = $this->objectManager->getObject(Index::class,[
+        $this->subject = $this->objectManager->getObject(Index::class, [
             'resultPageFactory' => $pageFactoryMock
         ]);
     }

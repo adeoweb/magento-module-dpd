@@ -175,6 +175,5 @@ class DpdTest extends AbstractTest
         $result = $this->subject->call($requestMock);
 
         $this->assertInstanceOf(ResponseInterface::class, $result);
-
     }
 }

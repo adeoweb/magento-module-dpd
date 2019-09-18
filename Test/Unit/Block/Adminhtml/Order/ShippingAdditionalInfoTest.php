@@ -6,9 +6,7 @@ use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
 use AdeoWeb\Dpd\Block\Adminhtml\Order\ShippingAdditionalInfo;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Sales\Api\Data\CreditmemoInterface;
 use Magento\Sales\Api\Data\OrderInterface;
-use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Creditmemo;
 use Magento\Sales\Model\Order\Invoice;
@@ -17,6 +15,11 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class ShippingAdditionalInfoTest extends AbstractTest
 {
+    /**
+     * @var MockObject|\AdeoWeb\Dpd\Helper\Config\Serializer
+     */
+    protected $serializerMock;
+
     /**
      * @var ShippingAdditionalInfo
      */
@@ -40,10 +43,12 @@ class ShippingAdditionalInfoTest extends AbstractTest
         $this->pickupPointRepositoryMock = $this->createMock(\AdeoWeb\Dpd\Api\PickupPointRepositoryInterface::class);
 
         $carrierConfigMock = $this->objectManager->getObject(\AdeoWeb\Dpd\Helper\Config::class);
+        $this->serializerMock = $this->createMock(\AdeoWeb\Dpd\Helper\Config\Serializer::class);
 
         $this->subject = $this->objectManager->getObject(ShippingAdditionalInfo::class, [
             'registry' => $this->registryMock,
             'carrierConfig' => $carrierConfigMock,
+            'serializer' => $this->serializerMock,
             'pickupPointRepository' => $this->pickupPointRepositoryMock
         ]);
     }
@@ -151,6 +156,10 @@ class ShippingAdditionalInfoTest extends AbstractTest
             ->with('2')
             ->willThrowException(new NoSuchEntityException());
 
+        $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
+            ['{"pickup_point_id": "2", "delivery_time": "1"}', ['pickup_point_id' => '2', 'delivery_time' => '1']]
+        ]));
+
         $result = $this->subject->getAdditionalInfo();
         $expectedResult = array(
             0 =>
@@ -170,6 +179,10 @@ class ShippingAdditionalInfoTest extends AbstractTest
             ->method('getData')
             ->with('dpd_delivery_options')
             ->willReturn('{"pickup_point_id": "1", "delivery_time": "1"}');
+
+        $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
+            ['{"pickup_point_id": "1", "delivery_time": "1"}', ['pickup_point_id' => '1', 'delivery_time' => '1']]
+        ]));
 
         $this->registryMock->expects($this->atleastOnce())
             ->method('registry')
@@ -215,7 +228,7 @@ class ShippingAdditionalInfoTest extends AbstractTest
         $this->assertEquals($result, $expectedResult);
     }
 
-    public function test_toHtmlWithNonApplicableCarrier()
+    public function testToHtmlWithNonApplicableCarrier()
     {
         $orderMock = $this->createMock(Order::class);
         $orderMock->expects($this->atLeastOnce())
@@ -233,7 +246,7 @@ class ShippingAdditionalInfoTest extends AbstractTest
         $this->assertEquals($result, $expectedResult);
     }
 
-    public function test_toHtml()
+    public function testToHtml()
     {
         $orderMock = $this->createMock(Order::class);
         $orderMock->expects($this->atLeastOnce())

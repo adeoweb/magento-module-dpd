@@ -16,6 +16,11 @@ use PHPUnit\Framework\MockObject\MockObject;
 class PickupTest extends AbstractTest
 {
     /**
+     * @var MockObject|\AdeoWeb\Dpd\Helper\Config\Serializer
+     */
+    private $serializerMock;
+
+    /**
      * @var Pickup
      */
     private $subject;
@@ -68,6 +73,7 @@ class PickupTest extends AbstractTest
         $this->requestMock = $this->createMock(Http::class);
         $this->restrictionsConfig = $this->createMock(\AdeoWeb\Dpd\Config\Restrictions::class);
         $this->pickupPointRepositoryMock = $this->createMock(PickupPointRepositoryInterface::class);
+        $this->serializerMock = $this->createMock(\AdeoWeb\Dpd\Helper\Config\Serializer::class);
 
         $rateMethodFactoryMock = $this->createConfiguredMock(
             \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory::class,
@@ -81,6 +87,7 @@ class PickupTest extends AbstractTest
             'scopeConfig' => $this->scopeConfigMock,
             'request' => $this->requestMock,
             'carrierConfig' => $carrierConfig,
+            'serializer' => $this->serializerMock,
             'restrictionsConfig' => null,
             'pickupPointRepository' => $this->pickupPointRepositoryMock,
             'validators' => [$this->validatorMock],
@@ -97,8 +104,11 @@ class PickupTest extends AbstractTest
 
         $this->scopeConfigMock->expects($this->any())
             ->method('getValue')
-            ->withConsecutive(['carriers/dpd/title'], ['carriers/dpd/pickup/name'],
-                ['carriers/dpd/pickup/price'])
+            ->withConsecutive(
+                ['carriers/dpd/title'],
+                ['carriers/dpd/pickup/name'],
+                ['carriers/dpd/pickup/price']
+            )
             ->willReturnOnConsecutiveCalls('dpd', 'classic', 10, 20);
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
@@ -120,8 +130,12 @@ class PickupTest extends AbstractTest
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('getValue')
-            ->withConsecutive(['carriers/dpd/title'], ['carriers/dpd/pickup/name'],
-                ['carriers/dpd/pickup/free_shipping_subtotal'], ['carriers/dpd/pickup/free_shipping_subtotal'])
+            ->withConsecutive(
+                ['carriers/dpd/title'],
+                ['carriers/dpd/pickup/name'],
+                ['carriers/dpd/pickup/free_shipping_subtotal'],
+                ['carriers/dpd/pickup/free_shipping_subtotal']
+            )
             ->willReturnOnConsecutiveCalls('dpd', 'classic', 10, 10);
 
         $this->scopeConfigMock->expects($this->atLeastOnce())
@@ -186,6 +200,10 @@ class PickupTest extends AbstractTest
             ->method('getData')
             ->with('dpd_delivery_options')
             ->willReturn('{"pickup_point_id": 1}');
+
+        $this->serializerMock->expects($this->any())
+            ->method('unserialize')
+            ->will($this->returnValueMap([['{"pickup_point_id": 1}', ['pickup_point_id' => 1]]]));
 
         $orderShipmentMock = $this->createPartialMock(DataObject::class, []);
         $orderShipmentMock->setData('order', $orderMock);

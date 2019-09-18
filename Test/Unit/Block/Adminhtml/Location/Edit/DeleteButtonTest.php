@@ -59,8 +59,8 @@ class DeleteButtonTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
             'label' => __('Delete Location'),
             'class' => 'delete',
             'on_click' => 'deleteConfirm(\'' . __(
-                    'Are you sure you want to do this?'
-                ) . '\', \'http://testcase.com/\')',
+                'Are you sure you want to do this?'
+            ) . '\', \'http://testcase.com/\')',
             'sort_order' => 20,
         ];
 

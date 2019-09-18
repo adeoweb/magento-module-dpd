@@ -96,8 +96,10 @@ class LayoutProcessorTest extends AbstractTest
             ->willReturn('classic,pickup');
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('isSetFlag')
-            ->withConsecutive(['carriers/dpd/classic/delivery_times_enable'],
-                ['carriers/dpd/pickup/google_maps_enabled'])
+            ->withConsecutive(
+                ['carriers/dpd/classic/delivery_times_enable'],
+                ['carriers/dpd/pickup/google_maps_enabled']
+            )
             ->willReturnOnConsecutiveCalls(true, true);
 
         $result = $this->subject->afterProcess($this->subjectMock, $jsLayoutResult);

@@ -2,7 +2,6 @@
 
 namespace AdeoWeb\Dpd\Test\Unit\Block\Adminhtml\Form\Field;
 
-
 use AdeoWeb\Dpd\Block\Adminhtml\Form\Field\Country;
 use Magento\Directory\Model\Config\Source\CountryFactory;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -46,7 +45,7 @@ class CountryTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
         ]);
     }
 
-    public function test_toHtml()
+    public function testToHtml()
     {
         $this->countryMock->expects($this->atleastOnce())
             ->method('toOptionArray')

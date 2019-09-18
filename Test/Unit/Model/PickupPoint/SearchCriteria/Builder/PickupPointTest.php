@@ -36,17 +36,21 @@ class TypeTest extends AbstractTest
         $this->filterBuilderMock = $this->createMock(\Magento\Framework\Api\FilterBuilder::class);
         $this->sortOrderBuilderMock = $this->createMock(\Magento\Framework\Api\SortOrderBuilder::class);
 
-        $searchCriteriaBuilderFactoryMock = $this->createConfiguredMock(\Magento\Framework\Api\SearchCriteriaBuilderFactory::class,
+        $searchCriteriaBuilderFactoryMock = $this->createConfiguredMock(
+            \Magento\Framework\Api\SearchCriteriaBuilderFactory::class,
             [
                 'create' => $this->searchCriteriaBuilderMock,
-            ]);
+            ]
+        );
         $filterBuilderFactoryMock = $this->createConfiguredMock(\Magento\Framework\Api\FilterBuilderFactory::class, [
             'create' => $this->filterBuilderMock,
         ]);
-        $sortOrderBuilderFactoryMock = $this->createConfiguredMock(\Magento\Framework\Api\SortOrderBuilderFactory::class,
+        $sortOrderBuilderFactoryMock = $this->createConfiguredMock(
+            \Magento\Framework\Api\SortOrderBuilderFactory::class,
             [
                 'create' => $this->sortOrderBuilderMock,
-            ]);
+            ]
+        );
 
         $this->subject = $this->objectManager->getObject(PickupPoint::class, [
             'searchCriteriaBuilderFactory' => $searchCriteriaBuilderFactoryMock,

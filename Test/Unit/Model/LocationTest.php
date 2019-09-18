@@ -36,10 +36,12 @@ class LocationTest extends AbstractTest
                 'name' => 'TestName',
             ]);
 
-        $dataObjectHelper = $this->objectManager->getObject(\Magento\Framework\Api\DataObjectHelper::class,
+        $dataObjectHelper = $this->objectManager->getObject(
+            \Magento\Framework\Api\DataObjectHelper::class,
             [
                 'joinProcessor' => $joinProcessorMock,
-            ]);
+            ]
+        );
 
         $this->subject = $this->objectManager->getObject(Location::class, [
             'locationDataFactory' => $locationDataFactoryMock,

@@ -191,6 +191,5 @@ class CollectionRequestManagementTest extends AbstractTest
             ->willReturn('201 OK');
 
         $this->assertTrue($this->subject->collectionRequest($requestData));
-
     }
 }
