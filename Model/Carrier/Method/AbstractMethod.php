@@ -35,6 +35,9 @@ abstract class AbstractMethod
     const XML_PATH_METHOD_MAX_WEIGHT = 'carriers/dpd/%s/max_weight';
     const XML_PATH_METHOD_TITLE = 'carriers/dpd/%s/name';
 
+    const FIELD_DEST_COUNTRY_ID = 'dest_country_id';
+    const FIELD_PACKAGE_WEIGHT = 'package_weight';
+
     /**
      * @var string
      */
@@ -290,13 +293,10 @@ abstract class AbstractMethod
             return null;
         }
 
-        $restrictions = $this->restrictionsConfig->getByCountry($this->request->getData('dest_country_id'));
-
-        if (!isset($restrictions['price']) || empty($restrictions['price'])) {
-            return null;
-        }
-
-        return $restrictions['price'];
+        return $this->restrictionsConfig->getByCountryWeight(
+            $this->request->getData(self::FIELD_DEST_COUNTRY_ID),
+            $this->request->getData(self::FIELD_PACKAGE_WEIGHT)
+        );
     }
 
     /**

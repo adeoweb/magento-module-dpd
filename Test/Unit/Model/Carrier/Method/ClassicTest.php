@@ -153,7 +153,7 @@ class ClassicTest extends AbstractTest
             ->willReturn(10);
 
         $this->restrictionsConfig->expects($this->atleastOnce())
-            ->method('getByCountry')
+            ->method('getByCountryWeight')
             ->willReturn(['price' => 20]);
 
         $result = $this->subject->getRateResult();

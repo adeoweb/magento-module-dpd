@@ -1,0 +1,83 @@
+<?php /** @var \AdeoWeb\Dpd\Block\System\Config\Form\Field\WeightPrice $block */ ?>
+<?php $htmlId = $block->getHtmlId() ? $block->getHtmlId() : '_' . uniqid(); ?>
+<script>
+    require([
+        'mage/template',
+        'prototype'
+    ], function (mageTemplate) {
+        // create row creator
+        window.arrayRow<?php echo $htmlId ?> = {
+
+            // define row prototypeJS template
+            template: mageTemplate(
+                '<tr id="<%- _countrypriceid %>">'
+                <?php foreach ($block->getColumns() as $columnName => $column): ?>
+                + '<td>'
+                + '<?php echo $block->renderCellTemplate($columnName) ?>'
+                + '<\/td>'
+                <?php endforeach; ?>
+
+                <?php if ($block->isAddAfter()): ?>
+                + '<td><button class="action-add" type="button" id="addAfterBtn<%- _countrypriceid %>"><span><?php echo __('Add after') ?><\/span><\/button><\/td>'
+                <?php endif; ?>
+
+                + '<td class="col-actions"><button onclick="arrayRow<?php echo $htmlId ?>.del(\'<%- _countrypriceid %>\')" class="action-delete" type="button"><span><?php echo __('Delete') ?><\/span><\/button><\/td>'
+                + '<\/tr>'
+            ),
+
+            add: function (rowData, insertAfterId, rowId) {
+                // generate default template data
+                var templateValues;
+
+                // Prepare template values
+                if (rowData) {
+                    templateValues = rowData;
+                } else {
+                    var d = new Date();
+                    templateValues = {
+                        <?php foreach ($block->getColumns() as $columnName => $column): ?>
+                        '<?php echo $columnName ?>': '',
+                        'option_extra_attrs': {},
+                        <?php endforeach; ?>
+                        _countrypriceid: '_' + d.getTime() + '_' + d.getMilliseconds(),
+                        _id: rowId
+                    };
+                }
+
+                // Insert new row after specified row or at the bottom
+                if (insertAfterId) {
+                    Element.insert($(insertAfterId), {after: this.template(templateValues)});
+                } else {
+                    Element.insert($('addRow' + templateValues._id), {bottom: this.template(templateValues)});
+                }
+
+                // Add event for {addAfterBtn} button
+                <?php if ($block->isAddAfter()): ?>
+                Event.observe('addAfterBtn' + templateValues._countrypriceid, 'click', this.add.bind(this, false, templateValues._countrypriceid));
+                <?php endif; ?>
+            },
+
+            del: function (rowId) {
+                $(rowId).remove();
+            }
+        };
+
+        window.initWeightPrice<?php echo $htmlId ?> = function (rowId) {
+            // bind add action to "Add" button in last row
+            Event.observe('addToEndBtn' + rowId, 'click', arrayRow<?php echo $htmlId ?>.add.bind(arrayRow<?php echo $htmlId ?>, false, false, rowId));
+
+            // add existing rows
+            <?php foreach ($block->getArrayRows() as $rowId => $row): ?>
+            var row = <?php echo $row->toJson(); ?>;
+            if (row._id == rowId) {
+                arrayRow<?php echo $htmlId ?>.add(row, false, rowId);
+            }
+            <?php endforeach;?>
+
+            // Toggle the grid availability, if element is disabled (depending on scope)
+            <?php if ($block->getElement()->getDisabled()):?>
+            toggleValueElements({checked: true}, $('grid' + rowId).parentNode);
+            <?php endif;?>
+        }
+    });
+</script>

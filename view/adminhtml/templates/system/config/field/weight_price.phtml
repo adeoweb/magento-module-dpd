@@ -1,0 +1,28 @@
+<?php /** @var \AdeoWeb\Dpd\Block\System\Config\Form\Field\WeightPrice $block */?>
+<?php $colspan = $block->isAddAfter() ? 2 : 1; ?>
+
+<div class="design_theme_ua_regexp" id="grid<%- _id %>">
+    <div class="admin__control-table-wrapper">
+        <table class="admin__control-table" id="<?php echo $block->getElement()->getId() ?>">
+            <thead>
+            <tr>
+                <?php foreach ($block->getColumns() as $columnName => $column): ?>
+                    <th><?php echo $column['label'] ?></th>
+                <?php endforeach;?>
+                <th class="col-actions" colspan="<?php echo $colspan ?>"><?php echo __('Action') ?></th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td colspan="<?= count($block->getColumns())+$colspan ?>" class="col-actions-add">
+                    <button id="addToEndBtn<%- _id %>" class="action-add" title="<?php echo __('Add') ?>" type="button">
+                        <span><?php echo $block->getAddButtonLabel() ?></span>
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
+            <tbody id="addRow<%- _id %>"></tbody>
+        </table>
+    </div>
+    <input type="hidden" name="<?php echo $block->getElement()->getName() ?>[__empty]" value="" />
+</div>

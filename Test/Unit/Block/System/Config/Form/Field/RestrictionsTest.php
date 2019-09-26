@@ -25,13 +25,20 @@ class RestrictionsTest extends AbstractTest
 
         $this->layoutMock = $this->createMock(\Magento\Framework\View\LayoutInterface::class);
 
+        $weightPriceMock = $this->createMock(\AdeoWeb\Dpd\Model\Adminhtml\System\Config\WeightPrice::class);
+        $weightPriceFactoryMock = $this->createMock(\AdeoWeb\Dpd\Model\Adminhtml\System\Config\WeightPriceFactory::class);
+        $weightPriceFactoryMock->expects($this->any())
+            ->method('create')
+            ->willReturn($weightPriceMock);
+
         $contextMock = $this->createMock(\Magento\Backend\Block\Template\Context::class);
         $contextMock->expects($this->any())
             ->method('getLayout')
             ->willReturn($this->layoutMock);
 
         $this->subject = $this->objectManager->getObject(Restrictions::class, [
-            'context' => $contextMock
+            'context' => $contextMock,
+            'weightPriceFactory' => $weightPriceFactoryMock
         ]);
     }
 
@@ -44,9 +51,9 @@ class RestrictionsTest extends AbstractTest
         $this->subject->addColumn('price', []);
 
         $result = $this->subject->renderCellTemplate('price');
-        $expectedResult = '<input type="text" id="<%- _id %>_price" name="test[<%- _id %>][price]" value="<%- price %>"  class="input-text required-entry validate-number" style="width:50px"/>';
+        $expectedResult = '<input type="text" id="<%- _id %>_price" name="test[<%- _id %>][price]" value="<%- price %>"  class="input-text"/>';
 
-        $this->assertEquals($result, $expectedResult);
+        $this->assertEquals($expectedResult, $result);
     }
 
     public function testGetArrayRows()
@@ -78,8 +85,29 @@ class RestrictionsTest extends AbstractTest
     {
         $elementMock = $this->createMock(\Magento\Framework\Data\Form\Element\AbstractElement::class);
 
+        $weightPriceRendererMock = $this->createMock(\AdeoWeb\Dpd\Block\System\Config\Form\Field\WeightPrice::class);
+        $countryRendererMock = $this->createMock(\AdeoWeb\Dpd\Block\Adminhtml\Form\Field\Country::class);
+
+        $this->layoutMock->expects($this->any())
+            ->method('createBlock')
+            ->will($this->returnValueMap([
+                [
+                    \AdeoWeb\Dpd\Block\Adminhtml\Form\Field\Country::class,
+                    '',
+                    ['data' => ['is_render_to_js_template' => true]],
+                    $countryRendererMock
+                ],
+                [
+                    \AdeoWeb\Dpd\Block\System\Config\Form\Field\WeightPrice::class,
+                    '',
+                    ['data' => ['is_render_to_js_template' => true]],
+                    $weightPriceRendererMock
+                ]
+            ]));
+
         $this->expectException(\Error::class);
         $this->expectExceptionMessage('Call to a member function dispatch() on null');
+
         return $this->subject->render($elementMock);
     }
 }
