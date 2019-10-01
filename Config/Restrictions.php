@@ -67,7 +67,7 @@ class Restrictions
     private function getCountryWeightPrices($selectedCountry)
     {
         $countryPrices = $this->getConfigValue();
-        if (!$countryPrices) {
+        if (!is_array($countryPrices)) {
             return null;
         }
 

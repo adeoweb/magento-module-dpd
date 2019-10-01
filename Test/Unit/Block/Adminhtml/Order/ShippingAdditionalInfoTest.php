@@ -102,7 +102,6 @@ class ShippingAdditionalInfoTest extends AbstractTest
             ->withConsecutive(['current_order'], ['current_shipment'], ['current_creditmemo'])
             ->willReturnOnConsecutiveCalls(null, null, $creditmemoMock);
 
-
         $result = $this->subject->getOrder();
         $expectedResult = $orderMock;
 
@@ -161,13 +160,13 @@ class ShippingAdditionalInfoTest extends AbstractTest
         ]));
 
         $result = $this->subject->getAdditionalInfo();
-        $expectedResult = array(
+        $expectedResult = [
             0 =>
-                array(
+                [
                     'label' => __('Delivery Time'),
                     'value' => '8:00 - 14:00',
-                ),
-        );
+                ],
+        ];
 
         $this->assertEquals($result, $expectedResult);
     }

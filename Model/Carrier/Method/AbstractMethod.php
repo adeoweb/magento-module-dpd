@@ -262,7 +262,6 @@ abstract class AbstractMethod
         return $this->request->getPackageValue();
     }
 
-
     /**
      * @return float
      * @throws Exception

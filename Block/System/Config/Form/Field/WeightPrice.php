@@ -86,7 +86,7 @@ class WeightPrice extends AbstractFieldArray
      */
     protected function _toHtml()
     {
-        return $this->getIsRemoveNewLines() ? str_replace(array("\n", "\r"), '', parent::_toHtml()) : parent::_toHtml();
+        return $this->getIsRemoveNewLines() ? str_replace(["\n", "\r"], '', parent::_toHtml()) : parent::_toHtml();
     }
 
     /**

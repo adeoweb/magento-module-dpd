@@ -30,7 +30,7 @@ class Serializer
             return [];
         }
 
-        if (self::isJson($value)) {
+        if ($this->isJson($value)) {
             return \json_decode($value, true);
         }
 
@@ -41,7 +41,7 @@ class Serializer
      * @param string $value
      * @return bool
      */
-    public static function isJson($value)
+    public function isJson($value)
     {
         \json_decode($value, true);
 

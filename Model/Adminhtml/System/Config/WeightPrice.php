@@ -46,9 +46,9 @@ class WeightPrice
         return $this;
     }
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
-        return $this->value;
+        return (array)$this->value;
     }
 
     public function getWeightPrices(): array

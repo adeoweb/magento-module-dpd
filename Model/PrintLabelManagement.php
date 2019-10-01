@@ -7,7 +7,6 @@ use AdeoWeb\Dpd\Config\General;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelPrintRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
-use Magento\Framework\Exception\LocalizedException;
 
 class PrintLabelManagement implements PrintLabelManagementInterface
 {
@@ -26,14 +25,21 @@ class PrintLabelManagement implements PrintLabelManagementInterface
      */
     private $dpdService;
 
+    /**
+     * @var Serializer
+     */
+    private $serializer;
+
     public function __construct(
         ParcelPrintRequestFactory $parcelPrintRequestFactory,
         General $moduleConfig,
-        ServiceInterface $dpdService
+        ServiceInterface $dpdService,
+        Serializer $serializer
     ) {
         $this->parcelPrintRequestFactory = $parcelPrintRequestFactory;
         $this->moduleConfig = $moduleConfig;
         $this->dpdService = $dpdService;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -53,7 +59,7 @@ class PrintLabelManagement implements PrintLabelManagementInterface
 
         $response = $this->dpdService->call($parcelPrintRequest);
 
-        if (strpos($response, '%PDF-') !== 0 && Serializer::isJson($response)) {
+        if (strpos($response, '%PDF-') !== 0 && $this->serializer->isJson($response)) {
             $result = \json_decode($response, true);
 
             if (isset($result['errlog'])) {

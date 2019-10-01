@@ -36,7 +36,15 @@ class Pickup extends AbstractMethod implements MethodInterface
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
-        parent::__construct($scopeConfig, $rateMethodFactory, $request, $carrierHelper, $serializer, $restrictionsConfig, $validators);
+        parent::__construct(
+            $scopeConfig,
+            $rateMethodFactory,
+            $request,
+            $carrierHelper,
+            $serializer,
+            $restrictionsConfig,
+            $validators
+        );
 
         $this->pickupPointRepository = $pickupPointRepository;
     }

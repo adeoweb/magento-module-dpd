@@ -29,12 +29,20 @@ class PrintLabelManagementTest extends AbstractTest
 
         $parcelPrintRequestMock = $this->createMock(ParcelPrintRequest::class);
 
+        $serializerMock = $this->createMock(\AdeoWeb\Dpd\Helper\Config\Serializer::class);
+        $serializerMock->expects($this->any())
+            ->method('isJson')
+            ->will($this->returnValueMap([
+                ['{"errlog": "Invalid request"}', true]
+            ]));
+
         $parcelPrintRequestFactoryMock = $this->createConfiguredMock(ParcelPrintRequestFactory::class, [
             'create' => $parcelPrintRequestMock
         ]);
 
         $this->subject = $this->objectManager->getObject(PrintLabelManagement::class, [
             'parcelPrintRequestFactory' => $parcelPrintRequestFactoryMock,
+            'serializer' => $serializerMock,
             'dpdService' => $this->serviceMock
         ]);
     }

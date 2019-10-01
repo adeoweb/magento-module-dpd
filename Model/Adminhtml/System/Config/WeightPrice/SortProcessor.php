@@ -12,14 +12,14 @@ class SortProcessor
 
     public function processAsc(array $data): array
     {
-        uasort($data, array($this, 'sortAsc'));
+        uasort($data, [$this, 'sortAsc']);
 
         return $data;
     }
 
     public function processDesc(array $data): array
     {
-        uasort($data, array($this, 'sortDesc'));
+        uasort($data, [$this, 'sortDesc']);
 
         return $data;
     }
