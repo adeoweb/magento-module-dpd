@@ -143,5 +143,7 @@ class MassPrintLabelsTest extends AbstractTest
         $this->shipmentMock->method('getTracks')->willReturn([$shipmentTrackMock]);
 
         $this->subject->execute();
+
+        $this->assertTrue(true);
     }
 }

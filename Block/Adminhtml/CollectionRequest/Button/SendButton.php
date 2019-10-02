@@ -5,9 +5,6 @@ namespace AdeoWeb\Dpd\Block\Adminhtml\CollectionRequest\Button;
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
-/**
- * @codeCoverageIgnore
- */
 class SendButton extends AbstractBlock implements ButtonProviderInterface
 {
     /**

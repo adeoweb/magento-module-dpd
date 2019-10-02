@@ -5,9 +5,6 @@ namespace AdeoWeb\Dpd\Block\Checkout;
 use Magento\Framework\View\Element\Template;
 use Magento\Store\Model\ScopeInterface;
 
-/**
- * @codeCoverageIgnore
- */
 class Scripts extends Template
 {
     const XML_PATH_DPD_PICKUP_POINT_GOOGLE_MAPS_ENABLED = 'carriers/dpd/pickup/google_maps_enabled';

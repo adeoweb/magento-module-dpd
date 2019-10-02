@@ -2,12 +2,20 @@
 
 namespace AdeoWeb\Dpd\Test\Unit\Model\Carrier\Method;
 
+use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Helper\Config;
+use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Model\Carrier\Method\Classic;
+use AdeoWeb\Dpd\Model\Carrier\ValidatorInterface;
+use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\DataObject;
+use Magento\Quote\Model\Quote\Address\RateRequest;
+use Magento\Quote\Model\Quote\Address\RateResult\Method;
+use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
+use Magento\Sales\Model\Order;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class ClassicTest extends AbstractTest
@@ -51,27 +59,27 @@ class ClassicTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->rateMethodMock = $this->createPartialMock(\Magento\Quote\Model\Quote\Address\RateResult\Method::class, [
-            'setPrice',
-        ]);
-        $this->rateRequestMock = $this->createMock(\Magento\Quote\Model\Quote\Address\RateRequest::class);
-        $this->validatorMock = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\ValidatorInterface::class);
+        $this->rateMethodMock = $this->createPartialMock(Method::class, ['setPrice',]);
+        $this->rateRequestMock = $this->createMock(RateRequest::class);
+        $this->validatorMock = $this->createMock(ValidatorInterface::class);
         $this->scopeConfigMock = $this->createMock(ScopeConfigInterface::class);
         $this->requestMock = $this->createMock(Http::class);
-        $this->restrictionsConfig = $this->createMock(\AdeoWeb\Dpd\Config\Restrictions::class);
+        $this->restrictionsConfig = $this->createMock(Restrictions::class);
 
-        $rateMethodFactoryMock = $this->createConfiguredMock(
-            \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory::class,
-            ['create' => $this->rateMethodMock]
-        );
-
+        $rateMethodFactoryMock = $this->createConfiguredMock(MethodFactory::class, ['create' => $this->rateMethodMock]);
         $carrierConfig = $this->objectManager->getObject(Config::class);
+
+        $serializerMock = $this->createMock(Serializer::class);
+        $serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
+            ['{"delivery_time": 1}', ['delivery_time' => 1]]
+        ]));
 
         $this->subject = $this->objectManager->getObject(Classic::class, [
             'rateMethodFactory' => $rateMethodFactoryMock,
             'scopeConfig' => $this->scopeConfigMock,
             'request' => $this->requestMock,
             'carrierConfig' => $carrierConfig,
+            'serializer' => $serializerMock,
             'restrictionsConfig' => $this->restrictionsConfig,
             'validators' => [$this->validatorMock],
         ]);
@@ -195,13 +203,13 @@ class ClassicTest extends AbstractTest
 
     public function testProcessShipmentRequest()
     {
-        $createShipmentRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class);
+        $createShipmentRequestMock = $this->createMock(CreateShipmentRequest::class);
         $requestMock = $this->createPartialMock(DataObject::class, []);
 
         $paymentMock = $this->createPartialMock(DataObject::class, []);
         $paymentMock->setData('method', 'cashondelivery');
 
-        $orderMock = $this->createMock(\Magento\Sales\Model\Order::class);
+        $orderMock = $this->createMock(Order::class);
         $orderMock->expects($this->atleastOnce())
             ->method('getPayment')
             ->willReturn($paymentMock);
@@ -210,31 +218,34 @@ class ClassicTest extends AbstractTest
         $orderShipmentMock->setData('order', $orderMock);
 
         $requestMock->setData('order_shipment', $orderShipmentMock);
-        $requestMock->setData('packages', [['params' => [
-            'weight' => 10.00,
-            'weight_units' => 'KG'
-        ]]]);
+        $requestMock->setData('packages', [
+            [
+                'params' => [
+                    'weight' => 10.00,
+                    'weight_units' => 'KG'
+                ]
+            ]
+        ]);
 
         $this->requestMock
             ->method('getParam')
             ->withConsecutive(['dpd_include_return_labels'], ['dpd_document_return_service'])
             ->willReturnOnConsecutiveCalls('1', '1');
 
-
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 
-        $this->assertInstanceOf(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class, $result);
+        $this->assertInstanceOf(CreateShipmentRequest::class, $result);
     }
 
     public function testProcessShipmentRequestWithDeliveryTime()
     {
-        $createShipmentRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class);
+        $createShipmentRequestMock = $this->createMock(CreateShipmentRequest::class);
         $requestMock = $this->createPartialMock(DataObject::class, []);
 
         $paymentMock = $this->createPartialMock(DataObject::class, []);
         $paymentMock->setData('method', 'cashondelivery');
 
-        $orderMock = $this->createMock(\Magento\Sales\Model\Order::class);
+        $orderMock = $this->createMock(Order::class);
         $orderMock->expects($this->atleastOnce())
             ->method('getPayment')
             ->willReturn($paymentMock);
@@ -247,10 +258,14 @@ class ClassicTest extends AbstractTest
         $orderShipmentMock->setData('order', $orderMock);
 
         $requestMock->setData('order_shipment', $orderShipmentMock);
-        $requestMock->setData('packages', [['params' => [
-            'weight' => 10.00,
-            'weight_units' => 'KG'
-        ]]]);
+        $requestMock->setData('packages', [
+            [
+                'params' => [
+                    'weight' => 10.00,
+                    'weight_units' => 'KG'
+                ]
+            ]
+        ]);
 
         $this->requestMock
             ->method('getParam')
@@ -259,6 +274,6 @@ class ClassicTest extends AbstractTest
 
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 
-        $this->assertInstanceOf(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class, $result);
+        $this->assertInstanceOf(CreateShipmentRequest::class, $result);
     }
 }

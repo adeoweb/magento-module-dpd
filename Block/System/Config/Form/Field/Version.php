@@ -8,7 +8,6 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
 use Magento\Framework\Module\PackageInfo;
 
 /**
- * Class Version
  * @codeCoverageIgnore
  */
 class Version extends Field

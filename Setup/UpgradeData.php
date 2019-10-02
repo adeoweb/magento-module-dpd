@@ -9,6 +9,9 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\UpgradeDataInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class UpgradeData implements UpgradeDataInterface
 {
     /**

@@ -10,6 +10,8 @@ use Magento\Framework\Exception\LocalizedException;
 use \Magento\Framework\Data\Form\Element\Text;
 
 /**
+ * @codeCoverageIgnore
+ *
  * @method bool getIsRemoveNewLines()
  * @method string getHtmlId()
  * @method string getName()
