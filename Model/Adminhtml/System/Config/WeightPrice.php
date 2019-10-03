@@ -60,6 +60,9 @@ class WeightPrice
         }
 
         foreach ($weightPrices as $countryId => $countryWeightPrice) {
+            if (!is_array($countryWeightPrice) || !is_string($countryId)) {
+                continue;
+            }
             $row = $this->getCountryWeightPriceRow($countryWeightPrice, $countryId);
             if (empty($row)) {
                 continue;
@@ -71,7 +74,7 @@ class WeightPrice
         return $result;
     }
 
-    private function getCountryWeightPriceRow(?array $countryWeightPrice, ?string $countryId): array
+    private function getCountryWeightPriceRow(array $countryWeightPrice, string $countryId): array
     {
         $result = [];
         $weightPrice = $countryWeightPrice[self::FIELD_WEIGHT_PRICE] ?? null;
