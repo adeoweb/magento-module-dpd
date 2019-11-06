@@ -19,13 +19,20 @@ pipeline {
     stage('Test unit') {
       steps {
         sh 'mkdir results'
+        sh './vendor/bin/phpcs --standard=./ruleset.xml --report=checkstyle --report-file=results/checkstyle.xml || true'
         sh './vendor/bin/phpunit --log-junit=results/phpunit.xml'
       }
     }
   }
   post {
     always {
-      junit '**/results/*.xml'
+      junit '**/results/phpunit.xml'
+      recordIssues(
+        enabledForFailure: true,
+        aggregatingResults: true,
+        tools: [phpCodeSniffer(pattern: 'results/checkstyle.xml')],
+        qualityGates: [[threshold: 1, type: 'TOTAL_ERROR', unstable: true]]
+      )
     }
   }
 }
