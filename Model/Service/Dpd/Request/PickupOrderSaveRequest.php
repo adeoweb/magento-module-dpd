@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**
@@ -11,6 +12,11 @@ use AdeoWeb\Dpd\Model\Service\RequestInterface;
 class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
 {
     const ENDPOINT = 'pickupOrderSave_';
+
+    /**
+     * @var Utils
+     */
+    private $utils;
 
     protected $params = [
         'orderNr',
@@ -44,6 +50,12 @@ class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
         'weight',
         'parcelsCount'
     ];
+
+    public function __construct(
+        Utils $utils
+    ) {
+        $this->utils = $utils;
+    }
 
     /**
      * @param string $orderNr
@@ -105,7 +117,7 @@ class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface
      */
     public function setSenderPostalCode($senderPostalCode)
     {
-        return $this->setData('senderPostalCode', $senderPostalCode, 10);
+        return $this->setData('senderPostalCode', $this->utils->formatPostcode($senderPostalCode), 10);
     }
 
     /**

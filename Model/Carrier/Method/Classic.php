@@ -5,6 +5,7 @@ namespace AdeoWeb\Dpd\Model\Carrier\Method;
 use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Helper\Config;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Carrier\MethodInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -28,6 +29,10 @@ class Classic extends AbstractMethod implements MethodInterface
      * @var Config
      */
     private $carrierConfig;
+    /**
+     * @var Utils
+     */
+    private $utils;
 
     public function __construct(
         ScopeConfigInterface $scopeConfig,
@@ -36,6 +41,7 @@ class Classic extends AbstractMethod implements MethodInterface
         Carrier $carrierHelper,
         Config $carrierConfig,
         Serializer $serializer,
+        Utils $utils,
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
@@ -45,11 +51,13 @@ class Classic extends AbstractMethod implements MethodInterface
             $request,
             $carrierHelper,
             $serializer,
+            $utils,
             $restrictionsConfig,
             $validators
         );
 
         $this->carrierConfig = $carrierConfig;
+        $this->utils = $utils;
     }
 
     /**

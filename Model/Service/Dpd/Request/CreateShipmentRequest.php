@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**

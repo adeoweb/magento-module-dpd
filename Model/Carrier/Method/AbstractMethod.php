@@ -4,6 +4,7 @@ namespace AdeoWeb\Dpd\Model\Carrier\Method;
 
 use AdeoWeb\Dpd\Config\Restrictions;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Carrier\ValidatorInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use Exception;
@@ -59,6 +60,11 @@ abstract class AbstractMethod
     protected $request;
 
     /**
+     * @var Restrictions
+     */
+    protected $restrictionsConfig;
+
+    /**
      * @var array
      */
     private $validators;
@@ -74,14 +80,14 @@ abstract class AbstractMethod
     private $httpRequest;
 
     /**
-     * @var Restrictions
-     */
-    protected $restrictionsConfig;
-
-    /**
      * @var Serializer
      */
     protected $serializer;
+
+    /**
+     * @var Utils
+     */
+    private $utils;
 
     public function __construct(
         ScopeConfigInterface $scopeConfig,
@@ -89,6 +95,7 @@ abstract class AbstractMethod
         RequestInterface $request,
         Carrier $carrierHelper,
         Serializer $serializer,
+        Utils $utils,
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
@@ -99,6 +106,7 @@ abstract class AbstractMethod
         $this->carrierHelper = $carrierHelper;
         $this->restrictionsConfig = $restrictionsConfig;
         $this->serializer = $serializer;
+        $this->utils = $utils;
     }
 
     /**
@@ -198,12 +206,13 @@ abstract class AbstractMethod
 
         $packageCount = count($request->getData('packages'));
         $parcelType = $this->getParcelType($request);
+        $postcode = $this->utils->formatPostcode($request->getData('recipient_address_postal_code'));
 
         $createShipmentRequest->setName1($request->getData('recipient_contact_person_name'));
         $createShipmentRequest->setName2($request->getData('recipient_contact_company_name'));
         $createShipmentRequest->setStreet($request->getData('recipient_address_street'));
         $createShipmentRequest->setCity($request->getData('recipient_address_city'));
-        $createShipmentRequest->setPostcode($request->getData('recipient_address_postal_code'));
+        $createShipmentRequest->setPostcode($postcode);
         $createShipmentRequest->setCountry($request->getData('recipient_address_country_code'));
         $createShipmentRequest->setPhone($request->getData('recipient_contact_phone_number'));
         $createShipmentRequest->setEmail($request->getData('recipient_email'));

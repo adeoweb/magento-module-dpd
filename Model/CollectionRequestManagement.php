@@ -6,6 +6,7 @@ use AdeoWeb\Dpd\Api\CollectionRequestManagementInterface;
 use AdeoWeb\Dpd\Api\Data\LocationInterface;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use AdeoWeb\Dpd\Helper\SubjectReader\CollectionRequestRequest;
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CollectionRequestImportRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
 use DateTime;
@@ -43,18 +44,25 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
      */
     private $locationRepository;
 
+    /**
+     * @var Utils
+     */
+    private $utils;
+
     public function __construct(
         CollectionRequestRequest $collectionRequestRequestReader,
         CollectionRequestImportRequestFactory $collectionRequestImportRequestFactory,
         ServiceInterface $carrierService,
         OrderRepositoryInterface $orderRepository,
-        LocationRepositoryInterface $locationRepository
+        LocationRepositoryInterface $locationRepository,
+        Utils $utils
     ) {
         $this->collectionRequestRequestReader = $collectionRequestRequestReader;
         $this->collectionRequestImportRequestFactory = $collectionRequestImportRequestFactory;
         $this->carrierService = $carrierService;
         $this->orderRepository = $orderRepository;
         $this->locationRepository = $locationRepository;
+        $this->utils = $utils;
     }
 
     /**
@@ -85,12 +93,13 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
             $recipientAddressEntity = $this->loadLocation($locationId);
         }
 
-
         $senderAddressInfo = $this->getAddressInfo($senderAddressEntity);
         $recipientAddressInfo = $this->getAddressInfo($recipientAddressEntity);
 
         $pickupNameParts = str_split($senderAddressInfo->getData('name'), 35);
         $recipientNameParts = str_split($recipientAddressInfo->getData('name'), 35);
+        $pickupPostCode = $this->utils->formatPostcode($senderAddressInfo->getData('postcode'));
+        $recipientPostCode = $this->utils->formatPostcode($recipientAddressInfo->getData('postcode'));
 
         $collectionRequestImportRequest = $this->collectionRequestImportRequestFactory->create();
         $collectionRequestImportRequest->setPickupName(isset($pickupNameParts[0]) ? $pickupNameParts[0] : null);
@@ -98,16 +107,16 @@ class CollectionRequestManagement implements CollectionRequestManagementInterfac
         $collectionRequestImportRequest->setPickupName2(isset($pickupNameParts[2]) ? $pickupNameParts[2] : null);
         $collectionRequestImportRequest->setPickupName3(isset($pickupNameParts[3]) ? $pickupNameParts[3] : null);
         $collectionRequestImportRequest->setPickupStreet($senderAddressInfo->getData('street'));
-        $collectionRequestImportRequest->setPickupPostCode($senderAddressInfo->getData('postcode'));
+        $collectionRequestImportRequest->setPickupPostCode($pickupPostCode);
         $collectionRequestImportRequest->setPickupCountry($senderAddressInfo->getData('country'));
         $collectionRequestImportRequest->setPickupCity($senderAddressInfo->getData('city'));
         $collectionRequestImportRequest->setPickupPhone($senderAddressInfo->getData('phone'));
         $collectionRequestImportRequest->setPickupEmail($senderAddressInfo->getData('email'));
 
-        $collectionRequestImportRequest->setRecipientName(isset($recipientNameParts[0]) ? $recipientNameParts[0] : null);
-        $collectionRequestImportRequest->setRecipientName2(isset($recipientNameParts[1]) ? $recipientNameParts[1] : null);
+        $collectionRequestImportRequest->setRecipientName($recipientNameParts[0] ?? null);
+        $collectionRequestImportRequest->setRecipientName2($recipientNameParts[1] ?? null);
         $collectionRequestImportRequest->setRecipientStreet($recipientAddressInfo->getData('street'));
-        $collectionRequestImportRequest->setRecipientPostCode($recipientAddressInfo->getData('postcode'));
+        $collectionRequestImportRequest->setRecipientPostCode($recipientPostCode);
         $collectionRequestImportRequest->setRecipientCountry($recipientAddressInfo->getData('country'));
         $collectionRequestImportRequest->setRecipientCity($recipientAddressInfo->getData('city'));
         $collectionRequestImportRequest->setRecipientPhone($recipientAddressInfo->getData('phone'));

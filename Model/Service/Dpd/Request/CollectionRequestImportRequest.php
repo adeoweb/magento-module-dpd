@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**
@@ -190,7 +191,7 @@ class CollectionRequestImportRequest extends AbstractRequest implements RequestI
      */
     public function setRecipientPostCode($recipientPostCode)
     {
-        return $this->setData('rpostal', $recipientPostCode, 8);
+        return $this->setData('rpostal', $this->utils->formatPostcode($recipientPostCode), 8);
     }
 
     /**

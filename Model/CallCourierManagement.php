@@ -6,6 +6,7 @@ use AdeoWeb\Dpd\Api\CallCourierManagementInterface;
 use AdeoWeb\Dpd\Api\Data\LocationInterface;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
 use AdeoWeb\Dpd\Helper\SubjectReader\CallCourierRequest;
+use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Config\CallCourierOrderCount;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
@@ -38,18 +39,25 @@ class CallCourierManagement implements CallCourierManagementInterface
      */
     private $callCourierOrderCountConfig;
 
+    /**
+     * @var Utils
+     */
+    private $utils;
+
     public function __construct(
         PickupOrderSaveRequestFactory $pickupOrderSaveRequestFactory,
         ServiceInterface $carrierService,
         LocationRepositoryInterface $locationRepository,
         CallCourierRequest $callCourierRequestReader,
-        CallCourierOrderCount $callCourierOrderCountConfig
+        CallCourierOrderCount $callCourierOrderCountConfig,
+        Utils $utils
     ) {
         $this->pickupOrderSaveRequestFactory = $pickupOrderSaveRequestFactory;
         $this->carrierService = $carrierService;
         $this->locationRepository = $locationRepository;
         $this->callCourierRequestReader = $callCourierRequestReader;
         $this->callCourierOrderCountConfig = $callCourierOrderCountConfig;
+        $this->utils = $utils;
     }
 
     /**
@@ -77,6 +85,7 @@ class CallCourierManagement implements CallCourierManagementInterface
         );
 
         $orderNr = $this->callCourierOrderCountConfig->register();
+        $senderPostalCode = $this->utils->formatPostcode($warehouse->getPostcode());
 
         $pickupOrderSaveRequest = $this->pickupOrderSaveRequestFactory->create();
         $pickupOrderSaveRequest->setOrderNr($orderNr);
@@ -84,7 +93,7 @@ class CallCourierManagement implements CallCourierManagementInterface
         $pickupOrderSaveRequest->setSenderAddress($warehouse->getAddress());
         $pickupOrderSaveRequest->setSenderCity($warehouse->getCity());
         $pickupOrderSaveRequest->setSenderCountry($warehouse->getCountry());
-        $pickupOrderSaveRequest->setSenderPostalCode($warehouse->getPostcode());
+        $pickupOrderSaveRequest->setSenderPostalCode($senderPostalCode);
         $pickupOrderSaveRequest->setSenderAddAddress($warehouse->getAdditionalInfo());
         $pickupOrderSaveRequest->setSenderContact($warehouse->getContactName());
         $pickupOrderSaveRequest->setSenderPhone($warehouse->getPhone());
