@@ -18,6 +18,10 @@ define([
         defaultZoom: 7,
 
         initMap: function(selectedPickupPointObservable) {
+            if (!window.google) {
+                return;
+            }
+
             this.map = new google.maps.Map(
                 document.getElementById('dpd-pickup-point-map'), {
                     zoom: this.defaultZoom,
@@ -126,7 +130,10 @@ define([
 
                 if (pickupPoint.pickup_point_id === selectedPickupPoint) {
                     new google.maps.event.trigger(marker, 'click');
-                    this.setCenter(marker.position);
+                    this.setCenter({
+                        lat: marker.position.lat(),
+                        lng: marker.position.lng()}
+                    );
                 }
 
                 this.markers.push(marker);
