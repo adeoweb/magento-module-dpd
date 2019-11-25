@@ -26,6 +26,20 @@ pipeline {
   }
   post {
     always {
+      ViolationsToBitbucketServer([
+        bitbucketServerUrl: 'https://dev.adeoweb.biz:8453/',
+        projectKey: 'DPD',
+        pullRequestId: env.CHANGE_ID,
+        repoSlug: 'dpd-magento-2',
+        credentialsId: 'bitbucketPullRequestCommenter',
+        createCommentWithAllSingleFileComments: false,
+        createSingleFileComments: true,
+        keepOldComments: false,
+        commentTemplate: """**Rule**: {{violation.rule}}\n**Severity**: {{violation.severity}}\n**File**: {{violation.file}} L{{violation.startLine}}\n\n{{violation.message}}""",
+        violationConfigs: [
+          [parser: "CHECKSTYLE", reporter: "PHP_CodeSniffer", pattern: ".*/results/checkstyle\\.xml\$"]
+        ]
+      ])
       junit '**/results/phpunit.xml'
       recordIssues(
         enabledForFailure: true,
