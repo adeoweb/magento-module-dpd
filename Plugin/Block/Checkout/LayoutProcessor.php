@@ -49,8 +49,7 @@ class LayoutProcessor
      */
     private function appendDpdMethodComponents(array $jsLayout)
     {
-        if (!isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
-            ['shippingAddress']['children']['shippingAdditional']['children'])) {
+        if (!isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']['children'])) {
             return null;
         }
 

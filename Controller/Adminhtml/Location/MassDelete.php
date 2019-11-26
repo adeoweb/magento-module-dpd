@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AdeoWeb\Dpd\Controller\Adminhtml\Location;
 
 use AdeoWeb\Dpd\Api\Data\LocationInterface;

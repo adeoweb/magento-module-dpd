@@ -33,7 +33,7 @@ class CloseManifestManagement implements CloseManifestManagementInterface
      */
     public function closeManifest()
     {
-        $today = new \DateTime;
+        $today = new \DateTime();
         $dates = [
             $today,
             (clone $today)->modify('+1 day'),

@@ -7,7 +7,7 @@ namespace AdeoWeb\Dpd\Block\System\Config\Form\Field;
 use AdeoWeb\Dpd\Model\Adminhtml\System\Config\WeightPrice as WeightPriceModel;
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\Exception\LocalizedException;
-use \Magento\Framework\Data\Form\Element\Text;
+use Magento\Framework\Data\Form\Element\Text;
 
 /**
  * @codeCoverageIgnore

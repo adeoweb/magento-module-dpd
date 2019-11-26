@@ -7,6 +7,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Shipping\Block\Adminhtml\Order\Packaging;
+
 use function str_replace;
 
 class AddServicesOptionToPackagingBlockObserver implements ObserverInterface

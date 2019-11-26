@@ -21,10 +21,10 @@ class Location extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     public function _beforeSave(AbstractModel $object)
     {
-        $object->setData('updated_at', new \DateTime);
+        $object->setData('updated_at', new \DateTime());
 
         if ($object->isObjectNew()) {
-            $object->setData('created_at', new \DateTime);
+            $object->setData('created_at', new \DateTime());
         }
 
         return $this;

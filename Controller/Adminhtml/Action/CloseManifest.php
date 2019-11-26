@@ -62,7 +62,7 @@ class CloseManifest extends Action
         }
 
         return $this->fileFactory->create(
-            'DPD_Manifest_Print(' . (new \DateTime())->format('Y-m-d-H-i-s'). ').pdf',
+            'DPD_Manifest_Print(' . (new \DateTime())->format('Y-m-d-H-i-s') . ').pdf',
             $outputPdf->render(),
             DirectoryList::VAR_DIR,
             'application/pdf'

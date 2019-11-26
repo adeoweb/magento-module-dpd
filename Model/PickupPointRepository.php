@@ -13,7 +13,7 @@ use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use \AdeoWeb\Dpd\Model\ResourceModel\PickupPoint as PickupPointResource;
+use AdeoWeb\Dpd\Model\ResourceModel\PickupPoint as PickupPointResource;
 use Magento\Framework\Reflection\DataObjectProcessor;
 
 class PickupPointRepository implements PickupPointRepositoryInterface

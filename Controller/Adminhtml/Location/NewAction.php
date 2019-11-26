@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AdeoWeb\Dpd\Controller\Adminhtml\Location;
 
 use Magento\Backend\App\Action\Context;

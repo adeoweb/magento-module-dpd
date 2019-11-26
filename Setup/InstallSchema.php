@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AdeoWeb\Dpd\Setup;
 
 use Magento\Framework\DB\Ddl\Table;

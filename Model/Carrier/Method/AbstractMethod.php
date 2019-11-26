@@ -20,6 +20,7 @@ use Magento\Sales\Model\Order;
 use Magento\Shipping\Helper\Carrier;
 use Magento\Store\Model\ScopeInterface;
 use Zend_Measure_Weight;
+
 use function sprintf;
 use function is_numeric;
 use function count;
@@ -182,10 +183,7 @@ abstract class AbstractMethod
                 );
             }
 
-            if (!$validator->validate([
-                'request' => $this->request,
-                'method_code' => $this->code,
-            ])) {
+            if (!$validator->validate(['request' => $this->request, 'method_code' => $this->code])) {
                 return false;
             }
         }

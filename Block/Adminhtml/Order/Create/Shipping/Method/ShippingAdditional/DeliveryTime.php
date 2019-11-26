@@ -98,7 +98,8 @@ class DeliveryTime extends Template
 
         $applicableShippingMethod = Carrier::CODE . '_' . Classic::CODE;
 
-        if ($quote->getShippingAddress()->getShippingMethod() !== $applicableShippingMethod ||
+        if (
+            $quote->getShippingAddress()->getShippingMethod() !== $applicableShippingMethod ||
             empty($this->getOptions())
         ) {
             return '';
