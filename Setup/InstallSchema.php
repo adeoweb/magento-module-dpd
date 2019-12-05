@@ -34,7 +34,7 @@ class InstallSchema implements InstallSchemaInterface
      */
     private function createPickupPointTable(SchemaSetupInterface $installer)
     {
-        $tableName = $installer->getTable(Schema::TABLE_DPD_PICKUP_POINT);
+        $tableName = $installer->getTable(SchemaInterface::TABLE_DPD_PICKUP_POINT);
         $this->dropTableIfExists($installer, $tableName);
 
         $table = $installer->getConnection()->newTable($tableName);
@@ -50,7 +50,7 @@ class InstallSchema implements InstallSchemaInterface
      */
     private function createLocationTable(SchemaSetupInterface $installer)
     {
-        $tableName = $installer->getTable(Schema::TABLE_DPD_LOCATION);
+        $tableName = $installer->getTable(SchemaInterface::TABLE_DPD_LOCATION);
         $this->dropTableIfExists($installer, $tableName);
 
         $table = $installer->getConnection()->newTable($tableName);

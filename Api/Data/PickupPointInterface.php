@@ -17,6 +17,7 @@ interface PickupPointInterface
     const LONGITUDE = 'longitude';
     const LATITUDE = 'latitude';
     const OPENING_HOURS = 'opening_hours';
+    const IS_DISABLED = 'is_disabled';
 
     const TYPE_LOCKER = 1;
     const TYPE_PARCELSHOP = 2;
@@ -164,4 +165,15 @@ interface PickupPointInterface
      * @return PickupPointInterface
      */
     public function setOpeningHours($openingHours);
+
+    /**
+     * @return bool
+     */
+    public function getIsDisabled();
+
+    /**
+     * @param bool $isDisabled
+     * @return PickupPointInterface
+     */
+    public function setIsDisabled($isDisabled);
 }

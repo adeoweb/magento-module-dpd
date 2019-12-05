@@ -83,6 +83,24 @@ class PickupPointRepository implements PickupPointRepositoryInterface
     }
 
     /**
+     * @param int $apiId
+     * @return PickupPointInterface
+     * @throws NoSuchEntityException
+     */
+    public function getByApiId($apiId)
+    {
+        /** @var PickupPoint $pickupPoint */
+        $pickupPoint = $this->pickupPointFactory->create();
+        $this->pickupPointResource->load($pickupPoint, $apiId, PickupPointInterface::API_ID);
+
+        if (!$pickupPoint->getPickupPointId()) {
+            throw new NoSuchEntityException(__('Pickup point with API ID "%1" does not exist.', $apiId));
+        }
+
+        return $pickupPoint;
+    }
+
+    /**
      * @param SearchCriteriaInterface $searchCriteria
      * @return PickupPointSearchResultsInterface
      */

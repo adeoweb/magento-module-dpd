@@ -120,15 +120,14 @@ define([
                 marker.addListener('click', function() {
                     self.infoWindow.close();
 
-                    self.clickEventObservable(
-                        this.pickupPointData.pickup_point_id);
+                    self.clickEventObservable(this.pickupPointData.api_id);
 
                     self.updateMarker(marker);
 
                     self.infoWindow.open(self.map, marker);
                 });
 
-                if (pickupPoint.pickup_point_id === selectedPickupPoint) {
+                if (pickupPoint.api_id === selectedPickupPoint) {
                     new google.maps.event.trigger(marker, 'click');
                     this.setCenter({
                         lat: marker.position.lat(),

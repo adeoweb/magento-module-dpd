@@ -4,6 +4,7 @@ namespace AdeoWeb\Dpd\Test\Unit\Model;
 
 use AdeoWeb\Dpd\Api\Data\LocationInterface;
 use AdeoWeb\Dpd\Api\LocationRepositoryInterface;
+use AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequest;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use AdeoWeb\Dpd\Model\CallCourierManagement;
 use Magento\Framework\Exception\LocalizedException;
@@ -122,7 +123,7 @@ class CallCourierManagementTest extends AbstractTest
             ->with(1)
             ->willReturn($locationMock);
 
-        $pickupOrderSaveRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequest::class);
+        $pickupOrderSaveRequestMock = $this->createMock(PickupOrderSaveRequest::class);
 
         $this->pickupOrderSaveRequestFactoryMock->expects($this->once())
             ->method('create')
@@ -162,7 +163,7 @@ class CallCourierManagementTest extends AbstractTest
             ->with(1)
             ->willReturn($locationMock);
 
-        $pickupOrderSaveRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequest::class);
+        $pickupOrderSaveRequestMock = $this->createMock(PickupOrderSaveRequest::class);
 
         $this->pickupOrderSaveRequestFactoryMock->expects($this->once())
             ->method('create')

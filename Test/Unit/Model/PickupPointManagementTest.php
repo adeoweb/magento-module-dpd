@@ -2,17 +2,26 @@
 
 namespace AdeoWeb\Dpd\Test\Unit\Model;
 
-use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
+use AdeoWeb\Dpd\Api\Data\PickupPointSearchResultsInterface;
+use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Model\PickupPoint;
-use AdeoWeb\Dpd\Model\PickupPointFactory;
+use AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface;
 use AdeoWeb\Dpd\Model\PickupPointManagement;
-use AdeoWeb\Dpd\Model\Service\ResponseInterface;
-use AdeoWeb\Dpd\Model\Service\ServiceInterface;
+use AdeoWeb\Dpd\Model\PickupPointUpdater;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\App\CacheInterface;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\LocalizedException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class PickupPointManagementTest extends AbstractTest
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|PickupPointUpdater
+     */
+    private $pickupPointUpdaterMock;
+
     /**
      * @var PickupPointManagement
      */
@@ -43,58 +52,27 @@ class PickupPointManagementTest extends AbstractTest
      */
     private $pickupPointMock;
 
-    /**
-     * @var MockObject
-     */
-    private $pickupPointSearchRequestMock;
-
-    /**
-     * @var MockObject
-     */
-    private $carrierService;
-
-    /**
-     * @var MockObject
-     */
-    private $pickupPointFactoryMock;
-
-    /**
-     * @var MockObject
-     */
-    private $pickupAllowedCountriesProvider;
-
     public function setUp()
     {
         parent::setUp();
 
-        $this->cacheMock = $this->createMock(\Magento\Framework\App\CacheInterface::class);
-        $this->pickupPointRepositoryMock = $this->createMock(\AdeoWeb\Dpd\Api\PickupPointRepositoryInterface::class);
-        $this->pickupPointSearchResultsMock = $this->createMock(\AdeoWeb\Dpd\Api\Data\PickupPointSearchResultsInterface::class);
-        $this->searchCriteriaMock = $this->createMock(\Magento\Framework\Api\SearchCriteriaInterface::class);
+        $this->cacheMock = $this->createMock(CacheInterface::class);
+        $this->pickupPointRepositoryMock = $this->createMock(PickupPointRepositoryInterface::class);
+        $this->searchCriteriaMock = $this->createMock(SearchCriteriaInterface::class);
         $this->pickupPointMock = $this->createMock(PickupPoint::class);
-        $this->pickupPointSearchRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequest::class);
-        $this->carrierService = $this->createMock(ServiceInterface::class);
-        $this->pickupPointFactoryMock = $this->createMock(PickupPointFactory::class);
-        $this->pickupAllowedCountriesProvider = $this->createMock(\AdeoWeb\Dpd\Model\Provider\PickupPoint\AllowedCountries::class);
+        $this->pickupPointUpdaterMock = $this->createMock(PickupPointUpdater::class);
+        $this->pickupPointSearchResultsMock = $this->createMock(PickupPointSearchResultsInterface::class);
 
-        $searchCriteriaBuilder = $this->createMock(\AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface::class);
+        $searchCriteriaBuilder = $this->createMock(BuilderInterface::class);
         $searchCriteriaBuilder->expects($this->any())
             ->method('build')
             ->willReturn($this->searchCriteriaMock);
 
-        $pickupPointSearchRequestFactoryMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupPointSearchRequestFactory::class);
-        $pickupPointSearchRequestFactoryMock->expects($this->any())
-            ->method('create')
-            ->willReturn($this->pickupPointSearchRequestMock);
-
         $this->subject = $this->objectManager->getObject(PickupPointManagement::class, [
             'cache' => $this->cacheMock,
+            'pickupPointUpdater' => $this->pickupPointUpdaterMock,
             'pickupPointRepository' => $this->pickupPointRepositoryMock,
-            'searchCriteriaBuilder' => $searchCriteriaBuilder,
-            'pickupPointSearchRequestFactory' => $pickupPointSearchRequestFactoryMock,
-            'apiService' => $this->carrierService,
-            'pickupPointFactory' => $this->pickupPointFactoryMock,
-            'pickupAllowedCountriesProvider' => $this->pickupAllowedCountriesProvider
+            'searchCriteriaBuilder' => $searchCriteriaBuilder
         ]);
     }
 
@@ -137,82 +115,16 @@ class PickupPointManagementTest extends AbstractTest
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testUpdateWithError()
-    {
-        $responseMock = $this->createMock(ResponseInterface::class);
-
-        $this->carrierService->expects($this->atleastOnce())
-            ->method('call')
-            ->willReturn($responseMock);
-
-        $responseMock->expects($this->atleastOnce())
-            ->method('hasError')
-            ->willReturn(true);
-
-        $responseMock->expects($this->atleastOnce())
-            ->method('getErrorMessage')
-            ->willReturn('Some error');
-
-        $this->pickupAllowedCountriesProvider->method('get')
-            ->willReturn(['LT', 'US']);
-
-        $result = $this->subject->update();
-
-        $this->assertArrayHasKey('LT', $result);
-        $this->assertEquals('Some error', $result['LT']);
-    }
-
-    public function testUpdateWithEmptyResponse()
-    {
-        $responseMock = $this->createMock(ResponseInterface::class);
-
-        $this->carrierService->expects($this->atleastOnce())
-            ->method('call')
-            ->willReturn($responseMock);
-
-        $responseMock->expects($this->atleastOnce())
-            ->method('hasError')
-            ->willReturn(false);
-
-        $responseMock->expects($this->atleastOnce())
-            ->method('getBody')
-            ->with('parcelshops')
-            ->willReturn('');
-
-        $this->pickupAllowedCountriesProvider->method('get')
-            ->willReturn(['LT', 'US']);
-
-        $result = $this->subject->update();
-
-        $this->assertTrue($result);
-    }
-
+    /**
+     * @throws CouldNotSaveException
+     * @throws LocalizedException
+     */
     public function testUpdate()
     {
-        $responseMock = $this->createMock(ResponseInterface::class);
+        $this->pickupPointUpdaterMock->expects($this->once())->method('execute');
 
-        $this->carrierService->expects($this->atleastOnce())
-            ->method('call')
-            ->willReturn($responseMock);
+        $this->subject->update();
 
-        $responseMock->expects($this->atleastOnce())
-            ->method('hasError')
-            ->willReturn(false);
-
-        $responseMock->expects($this->atleastOnce())
-            ->method('getBody')
-            ->with('parcelshops')
-            ->willReturn([['parcelshop_id' => 1]]);
-
-        $this->pickupPointFactoryMock->expects($this->atleastOnce())
-            ->method('createFromResponseData')
-            ->willReturn($this->pickupPointMock);
-
-        $this->pickupAllowedCountriesProvider->method('get')
-            ->willReturn(['LT', 'US']);
-
-        $result = $this->subject->update();
-
-        $this->assertTrue($result);
+        $this->assertTrue(true);
     }
 }

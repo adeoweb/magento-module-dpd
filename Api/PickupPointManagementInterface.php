@@ -12,7 +12,7 @@ interface PickupPointManagementInterface
     public function getList($country = null, $city = null);
 
     /**
-     * @return bool
+     * @return array|bool
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      * @throws \Magento\Framework\Exception\LocalizedException
      */

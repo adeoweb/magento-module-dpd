@@ -36,7 +36,7 @@ define([
                 }
 
                 shippingAddress['extension_attributes']['dpd_delivery_options'] = {
-                    pickup_point_id: pickupPoint,
+                    api_id: pickupPoint,
                     delivery_time: deliveryTime,
                 };
 

@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Observer;
 
+use AdeoWeb\Dpd\Api\Data\Shipping\DeliveryOptionsInterface;
 use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Helper\Config\Serializer;
 use Magento\Framework\DataObject;
@@ -65,14 +66,14 @@ class RestrictCodForDpdShippingObserver implements ObserverInterface
 
         $deliveryOptions = $this->serializer->unserialize($quote->getData('dpd_delivery_options'));
 
-        if (!$deliveryOptions || !isset($deliveryOptions['pickup_point_id'])) {
+        if (!$deliveryOptions || !isset($deliveryOptions[DeliveryOptionsInterface::INDEX_API_ID])) {
             return null;
         }
 
-        $pickupPointId = $deliveryOptions['pickup_point_id'];
+        $apiId = $deliveryOptions[DeliveryOptionsInterface::INDEX_API_ID];
 
         try {
-            $pickupPoint = $this->pickupPointRepository->getById($pickupPointId);
+            $pickupPoint = $this->pickupPointRepository->getByApiId($apiId);
         } catch (NoSuchEntityException $e) {
             return $checkResult->setData('is_available', false);
         }

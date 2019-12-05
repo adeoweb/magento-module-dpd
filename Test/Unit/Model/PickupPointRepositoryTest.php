@@ -9,6 +9,10 @@ use AdeoWeb\Dpd\Model\PickupPoint;
 use AdeoWeb\Dpd\Model\PickupPointFactory;
 use AdeoWeb\Dpd\Model\PickupPointRepository;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
+use Magento\Framework\Api\Filter;
+use Magento\Framework\Api\Search\FilterGroup;
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -127,17 +131,48 @@ class PickupPointRepositoryTest extends AbstractTest
         $this->subject->getById(1);
     }
 
+    public function testGetByApiIdWithException()
+    {
+        $this->resourceMock->expects($this->once())
+            ->method('load')
+            ->with($this->pickupPointModelMock, 1, PickupPointInterface::API_ID)
+            ->willReturn($this->pickupPointModelMock);
+
+        $this->pickupPointModelMock->expects($this->once())
+            ->method('getPickupPointId')
+            ->willReturn(null);
+
+        $this->expectException(NoSuchEntityException::class);
+        $this->expectExceptionMessage('Pickup point with API ID "1" does not exist.');
+
+        return $this->subject->getByApiId(1);
+    }
+
+    public function testGetByApiId()
+    {
+        $this->resourceMock->expects($this->once())
+            ->method('load')
+            ->with($this->pickupPointModelMock, 1, PickupPointInterface::API_ID)
+            ->willReturn($this->pickupPointModelMock);
+
+        $this->pickupPointModelMock->expects($this->once())
+            ->method('getPickupPointId')
+            ->willReturn(1);
+
+        $this->subject->getByApiId(1);
+    }
+
     public function testGetList()
     {
-        $searchCriteriaMock = $this->createMock(\Magento\Framework\Api\SearchCriteriaInterface::class);
+        $searchCriteriaMock = $this->createMock(SearchCriteriaInterface::class);
 
         $this->pickupPointCollectionMock->expects($this->once())
             ->method('getItems')
             ->willReturn([$this->pickupPointModelMock]);
 
-        $filterGroupMock = $this->createMock(\Magento\Framework\Api\Search\FilterGroup::class);
-        $filterMock = $this->createMock(\Magento\Framework\Api\Filter::class);
-        $sortOrderMock = $this->createMock(\Magento\Framework\Api\SortOrder::class);
+        $filterGroupMock = $this->createMock(FilterGroup::class);
+        $filterMock = $this->createMock(Filter::class);
+        $sortOrderMock = $this->createMock(SortOrder::class);
 
         $searchCriteriaMock->expects($this->once())
             ->method('getFilterGroups')
@@ -146,7 +181,6 @@ class PickupPointRepositoryTest extends AbstractTest
         $searchCriteriaMock->expects($this->once())
             ->method('getSortOrders')
             ->willReturn([$sortOrderMock]);
-
 
         $filterGroupMock->expects($this->once())
             ->method('getFilters')

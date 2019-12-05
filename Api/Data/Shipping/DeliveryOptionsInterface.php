@@ -4,19 +4,19 @@ namespace AdeoWeb\Dpd\Api\Data\Shipping;
 
 interface DeliveryOptionsInterface
 {
-    const INDEX_PICKUP_POINT_ID = 'pickup_point_id';
+    const INDEX_API_ID = 'api_id';
     const INDEX_DELIVERY_TIME = 'delivery_time';
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPickupPointId();
+    public function getApiId();
 
     /**
-     * @param $id
+     * @param string $id
      * @return void
      */
-    public function setPickupPointId($id);
+    public function setApiId($id);
 
     /**
      * @return int

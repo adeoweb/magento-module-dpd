@@ -6,6 +6,7 @@ use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
 use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Helper\Config;
 use AdeoWeb\Dpd\Model\Carrier\Method\Pickup;
+use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Request\Http;
@@ -155,7 +156,7 @@ class PickupTest extends AbstractTest
 
     public function testProcessShipmentRequest()
     {
-        $createShipmentRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class);
+        $createShipmentRequestMock = $this->createMock(CreateShipmentRequest::class);
         $requestMock = $this->createPartialMock(DataObject::class, []);
 
         $paymentMock = $this->createPartialMock(DataObject::class, []);
@@ -181,12 +182,12 @@ class PickupTest extends AbstractTest
 
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 
-        $this->assertInstanceOf(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class, $result);
+        $this->assertInstanceOf(CreateShipmentRequest::class, $result);
     }
 
     public function testProcessShipmentRequestWithDeliveryOptions()
     {
-        $createShipmentRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class);
+        $createShipmentRequestMock = $this->createMock(CreateShipmentRequest::class);
         $requestMock = $this->createPartialMock(DataObject::class, []);
 
         $paymentMock = $this->createPartialMock(DataObject::class, []);
@@ -199,11 +200,11 @@ class PickupTest extends AbstractTest
         $orderMock->expects($this->atleastOnce())
             ->method('getData')
             ->with('dpd_delivery_options')
-            ->willReturn('{"pickup_point_id": 1}');
+            ->willReturn('{"api_id": 1}');
 
         $this->serializerMock->expects($this->any())
             ->method('unserialize')
-            ->will($this->returnValueMap([['{"pickup_point_id": 1}', ['pickup_point_id' => 1]]]));
+            ->will($this->returnValueMap([['{"api_id": 1}', ['api_id' => 1]]]));
 
         $orderShipmentMock = $this->createPartialMock(DataObject::class, []);
         $orderShipmentMock->setData('order', $orderMock);
@@ -221,18 +222,18 @@ class PickupTest extends AbstractTest
         $pickupPointMock = $this->createMock(PickupPointInterface::class);
 
         $this->pickupPointRepositoryMock->expects($this->once())
-            ->method('getById')
+            ->method('getByApiId')
             ->with('1')
             ->willReturn($pickupPointMock);
 
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 
-        $this->assertInstanceOf(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class, $result);
+        $this->assertInstanceOf(CreateShipmentRequest::class, $result);
     }
 
     public function testValidateDeliveryOptionsWithInvalidPickupPointId()
     {
-        $deliveryOptions = new DataObject(['pickup_point_id' => null]);
+        $deliveryOptions = new DataObject(['api_id' => null]);
 
         $this->expectException(LocalizedException::class);
         $this->expectExceptionMessage('Please select DPD pickup point.');
@@ -242,7 +243,7 @@ class PickupTest extends AbstractTest
 
     public function testValidateDeliveryOptions()
     {
-        $deliveryOptions = new DataObject(['pickup_point_id' => 1]);
+        $deliveryOptions = new DataObject(['api_id' => 1]);
 
         $this->assertTrue($this->subject->validateDeliveryOptions($deliveryOptions));
     }

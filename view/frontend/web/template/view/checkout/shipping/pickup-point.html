@@ -13,7 +13,7 @@
                 <select id="dpd-pickup-point-select" data-validate="{required:true}"
                         data-bind="foreach: pickupPoints, value: selectedPickupPoint">
                     <optgroup data-bind="attr: {label: name}, foreach: items">
-                        <option data-bind="text: label, value: pickup_point_id"></option>
+                        <option data-bind="text: label, value: api_id"></option>
                     </optgroup>
                 </select>
             </div>

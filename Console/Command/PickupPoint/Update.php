@@ -2,23 +2,23 @@
 
 namespace AdeoWeb\Dpd\Console\Command\PickupPoint;
 
+use AdeoWeb\Dpd\Model\PickupPointManagement;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class Update
  * @codeCoverageIgnore
  */
 class Update extends Command
 {
     /**
-     * @var \AdeoWeb\Dpd\Model\PickupPointManagement
+     * @var PickupPointManagement
      */
     private $pickupPointManagement;
 
     public function __construct(
-        \AdeoWeb\Dpd\Model\PickupPointManagement $pickupPointManagement,
+        PickupPointManagement $pickupPointManagement,
         $name = null
     ) {
         parent::__construct($name);

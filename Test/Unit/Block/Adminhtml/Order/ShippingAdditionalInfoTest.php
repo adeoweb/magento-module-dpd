@@ -143,7 +143,7 @@ class ShippingAdditionalInfoTest extends AbstractTest
         $orderMock->expects($this->atLeastOnce())
             ->method('getData')
             ->with('dpd_delivery_options')
-            ->willReturn('{"pickup_point_id": "2", "delivery_time": "1"}');
+            ->willReturn('{"api_id": "2", "delivery_time": "1"}');
 
         $this->registryMock->expects($this->atleastOnce())
             ->method('registry')
@@ -151,12 +151,12 @@ class ShippingAdditionalInfoTest extends AbstractTest
             ->willReturn($orderMock);
 
         $this->pickupPointRepositoryMock->expects($this->atLeastOnce())
-            ->method('getById')
+            ->method('getByApiId')
             ->with('2')
             ->willThrowException(new NoSuchEntityException());
 
         $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
-            ['{"pickup_point_id": "2", "delivery_time": "1"}', ['pickup_point_id' => '2', 'delivery_time' => '1']]
+            ['{"api_id": "2", "delivery_time": "1"}', ['api_id' => '2', 'delivery_time' => '1']]
         ]));
 
         $result = $this->subject->getAdditionalInfo();
@@ -177,10 +177,10 @@ class ShippingAdditionalInfoTest extends AbstractTest
         $orderMock->expects($this->atLeastOnce())
             ->method('getData')
             ->with('dpd_delivery_options')
-            ->willReturn('{"pickup_point_id": "1", "delivery_time": "1"}');
+            ->willReturn('{"api_id": "1", "delivery_time": "1"}');
 
         $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
-            ['{"pickup_point_id": "1", "delivery_time": "1"}', ['pickup_point_id' => '1', 'delivery_time' => '1']]
+            ['{"api_id": "1", "delivery_time": "1"}', ['api_id' => '1', 'delivery_time' => '1']]
         ]));
 
         $this->registryMock->expects($this->atleastOnce())
@@ -206,23 +206,23 @@ class ShippingAdditionalInfoTest extends AbstractTest
             ->willReturn('TestCity');
 
         $this->pickupPointRepositoryMock->expects($this->atLeastOnce())
-            ->method('getById')
+            ->method('getByApiId')
             ->with('1')
             ->willReturn($pickupPointMock);
 
         $result = $this->subject->getAdditionalInfo();
-        $expectedResult = array(
+        $expectedResult = [
             0 =>
-                array(
+                [
                     'label' => __('Pickup Point'),
                     'value' => '(LT00000) TestCompany, TestStreet, 4400, TestCity',
-                ),
+                ],
             1 =>
-                array(
+                [
                     'label' => __('Delivery Time'),
                     'value' => '8:00 - 14:00',
-                ),
-        );
+                ],
+        ];
 
         $this->assertEquals($result, $expectedResult);
     }

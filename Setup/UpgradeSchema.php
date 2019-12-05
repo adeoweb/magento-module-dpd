@@ -2,6 +2,8 @@
 
 namespace AdeoWeb\Dpd\Setup;
 
+use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -29,6 +31,11 @@ class UpgradeSchema implements UpgradeSchemaInterface
             $this->addOpeningHoursField($installer);
         }
 
+        if (version_compare($context->getVersion(), '1.2.0', '<')) {
+            $this->addDisabledField($installer);
+            $this->addUniqueKey($installer);
+        }
+
         $installer->endSetup();
     }
 
@@ -37,7 +44,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
      */
     private function removeWorkUntilField(SchemaSetupInterface $installer)
     {
-        $table = $installer->getTable(Schema::TABLE_DPD_LOCATION);
+        $table = $installer->getTable(SchemaInterface::TABLE_DPD_LOCATION);
 
         $installer->getConnection()->dropColumn($table, 'work_until');
     }
@@ -47,7 +54,7 @@ class UpgradeSchema implements UpgradeSchemaInterface
      */
     private function addOpeningHoursField(SchemaSetupInterface $installer)
     {
-        $table = $installer->getTable(Schema::TABLE_DPD_PICKUP_POINT);
+        $table = $installer->getTable(SchemaInterface::TABLE_DPD_PICKUP_POINT);
 
         $installer->getConnection()->addColumn(
             $table,
@@ -57,6 +64,36 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'nullable' => true,
                 'comment' => 'Opening Hours'
             ]
+        );
+    }
+
+    private function addDisabledField(SchemaSetupInterface $installer)
+    {
+        $table = $installer->getTable(SchemaInterface::TABLE_DPD_PICKUP_POINT);
+
+        $installer->getConnection()->addColumn(
+            $table,
+            PickupPointInterface::IS_DISABLED,
+            [
+                'type' => Table::TYPE_SMALLINT,
+                'length' => 5,
+                'nullable' => false,
+                'default' => 0,
+                'comment' => 'Is Disabled'
+            ]
+        );
+    }
+
+    private function addUniqueKey(SchemaSetupInterface $installer)
+    {
+        $table = $installer->getTable(SchemaInterface::TABLE_DPD_PICKUP_POINT);
+        $connection = $installer->getConnection();
+
+        $connection->addIndex(
+            $table,
+            $connection->getIndexName($table, [PickupPointInterface::API_ID], AdapterInterface::INDEX_TYPE_UNIQUE),
+            [PickupPointInterface::API_ID],
+            AdapterInterface::INDEX_TYPE_UNIQUE
         );
     }
 }

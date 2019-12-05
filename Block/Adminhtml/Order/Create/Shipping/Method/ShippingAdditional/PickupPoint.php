@@ -2,6 +2,7 @@
 
 namespace AdeoWeb\Dpd\Block\Adminhtml\Order\Create\Shipping\Method\ShippingAdditional;
 
+use AdeoWeb\Dpd\Api\Data\Shipping\DeliveryOptionsInterface;
 use AdeoWeb\Dpd\Model\Carrier;
 use AdeoWeb\Dpd\Model\Carrier\Method\Pickup;
 use AdeoWeb\Dpd\Model\PickupPointManagement;
@@ -45,7 +46,7 @@ class PickupPoint extends Template
      */
     public function getInputName()
     {
-        return 'dpd_delivery_options[pickup_point_id]';
+        return 'dpd_delivery_options[api_id]';
     }
 
     /**
@@ -53,7 +54,7 @@ class PickupPoint extends Template
      */
     public function getInputId()
     {
-        return 'dpd_pickup_point_id';
+        return 'dpd_api_id';
     }
 
     /**
@@ -78,7 +79,7 @@ class PickupPoint extends Template
         foreach ($pickupPointList as $pickupPoint) {
             $result[] = [
                 'label' => $pickupPoint['company'],
-                'value' => $pickupPoint['pickup_point_id']
+                'value' => $pickupPoint[DeliveryOptionsInterface::INDEX_API_ID] ?? ''
             ];
         }
 

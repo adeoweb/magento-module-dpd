@@ -2,7 +2,7 @@
 
 namespace AdeoWeb\Dpd\Model\ResourceModel;
 
-use AdeoWeb\Dpd\Setup\Schema;
+use AdeoWeb\Dpd\Setup\SchemaInterface;
 use Magento\Framework\Model\AbstractModel;
 
 class Location extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
@@ -12,7 +12,7 @@ class Location extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init(Schema::TABLE_DPD_LOCATION, 'location_id');
+        $this->_init(SchemaInterface::TABLE_DPD_LOCATION, 'location_id');
     }
 
     /**

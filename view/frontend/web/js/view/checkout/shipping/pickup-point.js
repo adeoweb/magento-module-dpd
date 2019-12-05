@@ -135,10 +135,10 @@ define([
 
         getSelectedPickupPointText: function () {
             return ko.computed(function() {
-                let pickupPointId = this.selectedPickupPoint();
+                let apiId = this.selectedPickupPoint();
 
                 let pickupPoint = _.find(this.rawPickupPoints, function(item) {
-                    if (item.pickup_point_id === pickupPointId.toString()) {
+                    if (item.api_id === apiId.toString()) {
                         return item;
                     }
                 }.bind(this));

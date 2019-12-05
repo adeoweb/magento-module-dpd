@@ -3,11 +3,11 @@
 namespace AdeoWeb\Dpd\Model;
 
 use AdeoWeb\Dpd\Api\Data\PickupPointInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
 use AdeoWeb\Dpd\Model\ResourceModel\PickupPoint as PickupPointResource;
 
 /**
- * Class PickupPoint
  * @codeCoverageIgnore
  */
 class PickupPoint extends AbstractModel implements PickupPointInterface
@@ -240,5 +240,21 @@ class PickupPoint extends AbstractModel implements PickupPointInterface
     public function setOpeningHours($openingHours)
     {
         return $this->setData('opening_hours', $openingHours);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIsDisabled()
+    {
+        return (bool)$this->getData(self::IS_DISABLED);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setIsDisabled($isDisabled)
+    {
+        return $this->setData(self::IS_DISABLED, $isDisabled);
     }
 }

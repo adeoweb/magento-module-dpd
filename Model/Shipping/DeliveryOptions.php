@@ -6,26 +6,25 @@ use AdeoWeb\Dpd\Api\Data\Shipping\DeliveryOptionsInterface;
 use Magento\Framework\DataObject;
 
 /**
- * Class DeliveryOptions
  * @codeCoverageIgnore
  */
 class DeliveryOptions extends DataObject implements DeliveryOptionsInterface
 {
     /**
-     * @return int
+     * @return string
      */
-    public function getPickupPointId()
+    public function getApiId()
     {
-        return $this->getData(self::INDEX_PICKUP_POINT_ID);
+        return $this->getData(self::INDEX_API_ID);
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return void
      */
-    public function setPickupPointId($id)
+    public function setApiId($id)
     {
-        $this->setData(self::INDEX_PICKUP_POINT_ID, (int)$id);
+        $this->setData(self::INDEX_API_ID, (string)$id);
     }
 
     /**

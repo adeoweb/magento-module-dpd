@@ -122,3 +122,5 @@ ID,ID
 "Recipient Address","Recipient Address"
 "Package Info","Package Info"
 "DPD Collection Request successfully called", "DPD Collection Request successfully called"
+"Pickup point with API ID ""%1"" does not exist.","Pickup point with API ID ""%1"" does not exist."
+"Invalid parcel shops data.","Invalid parcel shops data."

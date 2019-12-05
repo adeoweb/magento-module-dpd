@@ -89,7 +89,7 @@ class ShippingAdditionalInfo extends Template
 
         foreach ($this->getDeliveryOptions() as $optionKey => $value) {
             switch ($optionKey) {
-                case DeliveryOptionsInterface::INDEX_PICKUP_POINT_ID:
+                case DeliveryOptionsInterface::INDEX_API_ID:
                     $pickupPoint = $this->getPickupPoint($value);
 
                     if ($pickupPoint) {
@@ -119,13 +119,13 @@ class ShippingAdditionalInfo extends Template
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return \AdeoWeb\Dpd\Api\Data\PickupPointInterface|null
      */
     protected function getPickupPoint($id)
     {
         try {
-            return $this->pickupPointRepository->getById($id);
+            return $this->pickupPointRepository->getByApiId($id);
         } catch (NoSuchEntityException $e) {
             return null;
         }

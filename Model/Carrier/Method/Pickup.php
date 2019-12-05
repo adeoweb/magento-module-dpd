@@ -8,6 +8,7 @@ use AdeoWeb\Dpd\Helper\Config\Serializer;
 use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Carrier\MethodInterface;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest;
+use AdeoWeb\Dpd\Model\Shipping\DeliveryOptions;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\DataObject;
@@ -61,11 +62,11 @@ class Pickup extends AbstractMethod implements MethodInterface
 
         $deliveryOptions = $this->getDeliveryOptions($request);
 
-        if (!isset($deliveryOptions['pickup_point_id'])) {
+        if (!isset($deliveryOptions[DeliveryOptions::INDEX_API_ID])) {
             return $createShipmentRequest;
         }
 
-        $pickupPoint = $this->pickupPointRepository->getById($deliveryOptions['pickup_point_id']);
+        $pickupPoint = $this->pickupPointRepository->getByApiId($deliveryOptions[DeliveryOptions::INDEX_API_ID]);
 
         $createShipmentRequest->setParcelshopId($pickupPoint->getApiId());
         $createShipmentRequest->setFetchAllByCountryFlag(true);
@@ -74,15 +75,15 @@ class Pickup extends AbstractMethod implements MethodInterface
     }
 
     /**
-     * @param DataObject $deliveryOptions
+     * @param DataObject|DeliveryOptions $deliveryOptions
      * @return bool
      * @throws LocalizedException
      */
     public function validateDeliveryOptions(DataObject $deliveryOptions)
     {
-        $pickupPointId = $deliveryOptions->getPickupPointId();
+        $apiId = $deliveryOptions->getApiId();
 
-        if (!$pickupPointId) {
+        if (!$apiId) {
             throw new LocalizedException(__('Please select DPD pickup point.'));
         }
 

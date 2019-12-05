@@ -19,6 +19,13 @@ interface PickupPointRepositoryInterface
     public function getById($pickupPointId);
 
     /**
+     * @param string $apiId
+     * @return PickupPointInterface
+     * @throws NoSuchEntityException
+     */
+    public function getByApiId($apiId);
+
+    /**
      * @param SearchCriteriaInterface $searchCriteria
      * @return PickupPointSearchResultsInterface
      */

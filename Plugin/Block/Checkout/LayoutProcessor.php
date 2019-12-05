@@ -3,6 +3,7 @@
 namespace AdeoWeb\Dpd\Plugin\Block\Checkout;
 
 use AdeoWeb\Dpd\Helper\Config;
+use Magento\Checkout\Block\Checkout\LayoutProcessor as CheckoutLayoutProcessor;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Store\Model\ScopeInterface;
@@ -35,7 +36,7 @@ class LayoutProcessor
     }
 
     public function afterProcess(
-        \Magento\Checkout\Block\Checkout\LayoutProcessor $subject,
+        CheckoutLayoutProcessor $subject,
         $result
     ) {
         $jsLayout = $this->appendDpdMethodComponents($result);
@@ -49,7 +50,8 @@ class LayoutProcessor
      */
     private function appendDpdMethodComponents(array $jsLayout)
     {
-        if (!isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']['shippingAddress']['children']['shippingAdditional']['children'])) {
+        if (!isset($jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+            ['shippingAddress']['children']['shippingAdditional']['children'])) {
             return null;
         }
 

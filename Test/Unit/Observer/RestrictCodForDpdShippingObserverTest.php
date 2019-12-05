@@ -175,10 +175,10 @@ class RestrictCodForDpdShippingObserverTest extends AbstractTest
         $quoteMock->expects($this->once())
             ->method('getData')
             ->with('dpd_delivery_options')
-            ->willReturn('{"pickup_point_id":1}');
+            ->willReturn('{"api_id":1}');
 
         $this->pickupPointRepositoryMock->expects($this->once())
-            ->method('getById')
+            ->method('getByApiId')
             ->with('1')
             ->willThrowException(new NoSuchEntityException(__('No such entity')));
 
@@ -217,12 +217,12 @@ class RestrictCodForDpdShippingObserverTest extends AbstractTest
         $quoteMock->expects($this->once())
             ->method('getData')
             ->with('dpd_delivery_options')
-            ->willReturn('{"pickup_point_id":1}');
+            ->willReturn('{"api_id":1}');
 
         $pickupPointMock = $this->createMock(PickupPointInterface::class);
 
         $this->pickupPointRepositoryMock->expects($this->once())
-            ->method('getById')
+            ->method('getByApiId')
             ->with('1')
             ->willReturn($pickupPointMock);
 
@@ -265,12 +265,12 @@ class RestrictCodForDpdShippingObserverTest extends AbstractTest
         $quoteMock->expects($this->once())
             ->method('getData')
             ->with('dpd_delivery_options')
-            ->willReturn('{"pickup_point_id":1}');
+            ->willReturn('{"api_id":1}');
 
         $pickupPointMock = $this->createMock(PickupPointInterface::class);
 
         $this->pickupPointRepositoryMock->expects($this->once())
-            ->method('getById')
+            ->method('getByApiId')
             ->with('1')
             ->willReturn($pickupPointMock);
 

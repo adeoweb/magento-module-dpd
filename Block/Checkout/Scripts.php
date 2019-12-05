@@ -16,7 +16,8 @@ class Scripts extends Template
     public function isPickupPointGoogleMapsEnabled()
     {
         $isSet = $this->_scopeConfig->isSetFlag(
-            self::XML_PATH_DPD_PICKUP_POINT_GOOGLE_MAPS_API_KEY, ScopeInterface::SCOPE_WEBSITES
+            self::XML_PATH_DPD_PICKUP_POINT_GOOGLE_MAPS_API_KEY,
+            ScopeInterface::SCOPE_WEBSITES
         );
 
         return $isSet && $this->getPickupPointGoogleMapsApiKey();

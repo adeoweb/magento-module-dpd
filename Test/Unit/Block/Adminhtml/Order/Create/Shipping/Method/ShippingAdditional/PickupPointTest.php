@@ -92,23 +92,23 @@ class PickupPointTest extends AbstractTest
             ->method('getList')
             ->with('US')
             ->willReturn([
-                ['company' => 'SampleCompany1', 'pickup_point_id' => 1],
-                ['company' => 'SampleCompany2', 'pickup_point_id' => 2],
+                ['company' => 'SampleCompany1', 'api_id' => 1],
+                ['company' => 'SampleCompany2', 'api_id' => 2],
             ]);
 
         $result = $this->subject->getOptions();
-        $expectedResult = array (
+        $expectedResult = [
             0 =>
-                array (
+                [
                     'label' => 'SampleCompany1',
                     'value' => 1,
-                ),
+                ],
             1 =>
-                array (
+                [
                     'label' => 'SampleCompany2',
                     'value' => 2,
-                ),
-        );
+                ],
+        ];
 
         $this->assertEquals($result, $expectedResult);
     }
@@ -124,7 +124,7 @@ class PickupPointTest extends AbstractTest
     public function testGetInputName()
     {
         $result = $this->subject->getInputName();
-        $expectedResult = 'dpd_delivery_options[pickup_point_id]';
+        $expectedResult = 'dpd_delivery_options[api_id]';
 
         $this->assertEquals($result, $expectedResult);
     }
@@ -132,7 +132,7 @@ class PickupPointTest extends AbstractTest
     public function testGetInputId()
     {
         $result = $this->subject->getInputId();
-        $expectedResult = 'dpd_pickup_point_id';
+        $expectedResult = 'dpd_api_id';
 
         $this->assertEquals($result, $expectedResult);
     }
