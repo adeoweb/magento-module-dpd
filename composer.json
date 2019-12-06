@@ -3,7 +3,7 @@
     "description": "DPD Shipping extension.",
     "type": "magento2-module",
     "license": "proprietary",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "authors": [
         {
             "email": "info@adeoweb.biz",
@@ -27,7 +27,7 @@
     "require-dev": {
         "phpunit/phpunit": "~7.5.0",
         "squizlabs/php_codesniffer": "^3.5",
-        "adeoweb/adeo-coding-style-php": "^0.0.2"
+        "magento/magento-coding-standard": "5"
     },
     "autoload": {
         "files": [
@@ -35,12 +35,6 @@
         ],
         "psr-4": {
             "AdeoWeb\\Dpd\\": ""
-        }
-    },
-    "repositories": {
-        "adeoweb": {
-            "type": "vcs",
-            "url": "https://dev.adeoweb.biz:8453/scm/m2m/adeo-coding-style-php.git"
         }
     }
 }
