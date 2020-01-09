@@ -41,7 +41,7 @@ class PickupPointFactory
      */
     public function create(array $data = [])
     {
-        return $this->objectManager->create($this->instanceName, $data);
+        return $this->objectManager->create($this->instanceName, ['data' => $data]);
     }
 
     /**

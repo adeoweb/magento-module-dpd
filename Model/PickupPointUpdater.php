@@ -102,6 +102,7 @@ class PickupPointUpdater
             $pickupPoint->addData($newPickupPoint->getData());
         } catch (NoSuchEntityException $up) {
             $pickupPoint = $this->pickupPointFactory->create($newPickupPoint->getData());
+            $pickupPoint->setHasDataChanges(true);
         }
 
         $this->pickupPointRepository->save($pickupPoint);

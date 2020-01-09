@@ -47,7 +47,7 @@ class PickupPointUpdaterTest extends TestCase
         $this->pickupAllowedCountriesProviderMock = $this->createMock(AllowedCountries::class);
         $this->countryServiceMock = $this->createMock(CountryService::class);
 
-        $pickupPointMock = $this->createMock(PickupPointInterface::class);
+        $pickupPointMock = $this->createMock(PickupPoint::class);
 
         $pickupPointFactoryMock = $this->createMock(PickupPointFactory::class);
         $pickupPointFactoryMock->method('createFromResponseData')->will($this->returnValueMap([
