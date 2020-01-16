@@ -41,7 +41,7 @@ class ScriptsTest extends TestCase
     {
         $this->scopeConfigMock->expects($this->any())->method('isSetFlag')->will($this->returnValueMap([
             [
-                Scripts::XML_PATH_DPD_PICKUP_POINT_GOOGLE_MAPS_API_KEY,
+                Scripts::XML_PATH_DPD_PICKUP_POINT_GOOGLE_MAPS_ENABLED,
                 ScopeInterface::SCOPE_WEBSITES,
                 null,
                 true
