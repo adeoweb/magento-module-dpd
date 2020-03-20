@@ -47,6 +47,11 @@ define([
 
         initDeliveryTimes: function() {
             let address = quote.shippingAddress();
+
+            if (!address) {
+                return;
+            }
+
             let city = address.city;
 
             if (!this.calculateAvailability() || this.lastCheckedCity === city) {

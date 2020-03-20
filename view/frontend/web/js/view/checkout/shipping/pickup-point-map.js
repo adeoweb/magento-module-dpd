@@ -68,11 +68,15 @@ define([
         },
 
         setCenterByAddress: function(address) {
+            if (!address) {
+                return;
+            }
+
             let formattedAddress = address.city + ',' +
                 address.region + ',' +
                 address.countryId;
 
-            if (address.street.length) {
+            if (address.street && address.street.length) {
                 formattedAddress = address.street.join(', ') + ', ' +
                     formattedAddress;
             }
@@ -84,7 +88,7 @@ define([
                     return false;
                 }
 
-                let zoom = address.street.length ? 13 : 11;
+                let zoom = address.street && address.street.length ? 13 : 11;
 
                 this.setCenter({
                     lat: results[0].geometry.location.lat(),

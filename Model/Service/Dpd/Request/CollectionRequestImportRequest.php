@@ -51,6 +51,16 @@ class CollectionRequestImportRequest extends AbstractRequest implements RequestI
     ];
 
     /**
+     * @var Utils
+     */
+    private $utils;
+
+    public function __construct(Utils $utils)
+    {
+        $this->utils = $utils;
+    }
+
+    /**
      * @param string $pickupName
      * @return CollectionRequestImportRequest
      */
