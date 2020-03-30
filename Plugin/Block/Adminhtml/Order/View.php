@@ -22,6 +22,10 @@ class View
 
         $shippingMethodInfo = $order->getShippingMethod(true);
 
+        if (!$shippingMethodInfo) {
+            return [$layout];
+        }
+
         if ($shippingMethodInfo->getData('carrier_code') === 'dpd') {
             $subject->addButton(
                 'dpd_collection_request',
