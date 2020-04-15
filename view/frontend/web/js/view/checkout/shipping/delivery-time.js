@@ -49,6 +49,7 @@ define([
             let address = quote.shippingAddress();
 
             if (!address) {
+                this.deliveryTimes([]);
                 return;
             }
 

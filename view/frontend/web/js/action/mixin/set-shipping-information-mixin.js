@@ -20,7 +20,8 @@ define([
                     return originalAction();
                 }
 
-                let pickupPoint = dpdShippingData.getSelectedPickupPoint();
+                let pickupPoint = selectedShippingMethod.method_code === 'pickup'
+                    ? dpdShippingData.getSelectedPickupPoint() : null;
                 let deliveryTime = dpdShippingData.getSelectedDeliveryTime();
 
                 if (selectedShippingMethod.method_code === 'pickup' &&
