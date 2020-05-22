@@ -41,6 +41,15 @@ define([
                     delivery_time: deliveryTime,
                 };
 
+                if (shippingAddress.extensionAttributes === undefined) {
+                    shippingAddress.extensionAttributes = {};
+                }
+
+                shippingAddress.extensionAttributes.dpdDeliveryOptions = {
+                    api_id: pickupPoint,
+                    delivery_time: deliveryTime,
+                };
+
                 return originalAction();
             });
     };
