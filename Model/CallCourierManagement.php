@@ -136,7 +136,9 @@ class CallCourierManagement implements CallCourierManagementInterface
 
         $timeTokens = \explode(':', $time);
 
-        $pickupTime = \DateTime::createFromFormat('m/d/Y', $date);
+        $pickupTime = \DateTime::createFromFormat('m/d/Y', $date)
+            ?: \DateTime::createFromFormat('Y-m-d', $date);
+
         $pickupTime->setTime($timeTokens[0], $timeTokens[1]);
 
         if ($pickupTime < (new \Datetime())) {
