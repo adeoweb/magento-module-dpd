@@ -101,13 +101,15 @@ class WeightPrice extends AbstractFieldArray
         $this->addColumn(self::COLUMN_WEIGHT, [
             'label' => __('Weight'),
             'type' => 'text',
-            'class' => 'validate-zero-or-greater validate-number input-text require required-entry'
+            'class' => 'validate-zero-or-greater validate-number input-text require required-entry',
+            'style' => 'min-width: 80px'
         ]);
 
         $this->addColumn(self::COLUMN_PRICE, [
             'label' => __('Price'),
             'type' => 'text',
-            'class' => 'validate-zero-or-greater validate-number input-text require required-entry'
+            'class' => 'validate-zero-or-greater validate-number input-text require required-entry',
+            'style' => 'min-width: 80px'
         ]);
 
         $this->_addAfter = false;
