@@ -120,11 +120,11 @@ class Restrictions extends AbstractFieldArray
     {
         $this->addColumn(
             self::COLUMN_COUNTRY,
-            ['label' => __('Country'), 'renderer' => $this->getCountryRenderer(),]
+            ['label' => __('Country'), 'renderer' => $this->getCountryRenderer()]
         );
         $this->addColumn(
             self::COLUMN_WEIGHT_PRICE,
-            ['label' => __(''), 'renderer' => $this->getWeightPriceRenderer(),]
+            ['label' => '', 'renderer' => $this->getWeightPriceRenderer()]
         );
 
         $this->getWeightPriceRenderer()->setHtmlId(uniqid() . '_id');
