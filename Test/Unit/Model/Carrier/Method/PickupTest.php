@@ -226,9 +226,18 @@ class PickupTest extends AbstractTest
             ->with('1')
             ->willReturn($pickupPointMock);
 
+        $pickupPointMock->method('getCountry')->willReturn('some country');
+        $pickupPointMock->method('getCity')->willReturn('some city');
+        $pickupPointMock->method('getStreet')->willReturn('some street');
+        $pickupPointMock->method('getPostcode')->willReturn('some postcode');
+
         $result = $this->subject->processShipmentRequest($createShipmentRequestMock, $requestMock);
 
         $this->assertInstanceOf(CreateShipmentRequest::class, $result);
+        $this->assertEquals('some country', $requestMock->getData('recipient_address_country_code'));
+        $this->assertEquals('some city', $requestMock->getData('recipient_address_city'));
+        $this->assertEquals('some street', $requestMock->getData('recipient_address_street'));
+        $this->assertEquals('some postcode', $requestMock->getData('recipient_address_postal_code'));
     }
 
     public function testValidateDeliveryOptionsWithInvalidPickupPointId()

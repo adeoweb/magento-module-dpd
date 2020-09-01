@@ -58,16 +58,20 @@ class Pickup extends AbstractMethod implements MethodInterface
      */
     public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request)
     {
-        $createShipmentRequest = parent::processShipmentRequest($createShipmentRequest, $request);
-
         $deliveryOptions = $this->getDeliveryOptions($request);
 
         if (!isset($deliveryOptions[DeliveryOptions::INDEX_API_ID])) {
-            return $createShipmentRequest;
+            return parent::processShipmentRequest($createShipmentRequest, $request);
         }
 
         $pickupPoint = $this->pickupPointRepository->getByApiId($deliveryOptions[DeliveryOptions::INDEX_API_ID]);
 
+        $request->setData('recipient_address_street', $pickupPoint->getStreet());
+        $request->setData('recipient_address_city', $pickupPoint->getCity());
+        $request->setData('recipient_address_postal_code', $pickupPoint->getPostcode());
+        $request->setData('recipient_address_country_code', $pickupPoint->getCountry());
+
+        $createShipmentRequest = parent::processShipmentRequest($createShipmentRequest, $request);
         $createShipmentRequest->setParcelshopId($pickupPoint->getApiId());
         $createShipmentRequest->setFetchAllByCountryFlag(true);
 
