@@ -137,7 +137,7 @@ class DpdTest extends AbstractTest
         $this->apiConfigMock->method('getUsername')->willReturn('testUsername');
         $this->apiConfigMock->method('getPassword')->willReturn('testPass');
         $this->apiConfigMock->method('getUrl')->willReturn('http://testapi.com');
-        $this->apiConfigMock->method('isDebugMode')->willReturn(true);
+        $this->apiConfigMock->method('isDebugMode')->willReturn(false);
 
         $responseMock = $this->createMock(Zend_Http_Response::class);
         $responseMock->method('getBody')->willReturn('Test Response');
@@ -159,7 +159,7 @@ class DpdTest extends AbstractTest
         $this->apiConfigMock->method('getUsername')->willReturn('testUsername');
         $this->apiConfigMock->method('getPassword')->willReturn('testPass');
         $this->apiConfigMock->method('getUrl')->willReturn('http://testapi.com');
-        $this->apiConfigMock->method('isDebugMode')->willReturn(true);
+        $this->apiConfigMock->method('isDebugMode')->willReturn(false);
 
         $responseMock = $this->createMock(Zend_Http_Response::class);
         $responseMock->method('getBody')->willReturn('{"a": "b"}');
@@ -171,6 +171,32 @@ class DpdTest extends AbstractTest
         $this->responseFactoryMock->expects($this->once())
             ->method('create')
             ->with(['a' => 'b']);
+
+        $result = $this->subject->call($requestMock);
+
+        $this->assertInstanceOf(ResponseInterface::class, $result);
+    }
+
+    public function testCallHidePassword()
+    {
+        $requestMock = $this->createMock(RequestInterface::class);
+
+        $requestMock->method('getParams')->willReturn([]);
+        $requestMock->method('getEndpoint')->willReturn('http://testapi.com/something');
+
+        $this->apiConfigMock->method('getUsername')->willReturn('testUsername');
+        $this->apiConfigMock->method('getPassword')->willReturn('testPass');
+        $this->apiConfigMock->method('getUrl')->willReturn('http://testapi.com');
+        $this->apiConfigMock->method('isDebugMode')->willReturn(true);
+
+        $responseMock = $this->createMock(Zend_Http_Response::class);
+        $responseMock->method('getBody')->willReturn('{"a": "b"}');
+
+        $this->httpClientMock->method('request')->willReturn($responseMock);
+
+        $this->loggerMock->expects($this->at(0))
+            ->method('debug')
+            ->with('REQUEST: [Endpoint: http://testapi.com/something] [Parameters: {"username":"testUsername","password":"*****","PluginVersion":null,"EshopVersion":"Magento "}');
 
         $result = $this->subject->call($requestMock);
 

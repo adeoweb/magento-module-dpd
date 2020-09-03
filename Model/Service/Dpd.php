@@ -105,8 +105,7 @@ class Dpd implements ServiceInterface
         }
 
         if ($this->apiConfig->isDebugMode()) {
-            $this->logger->debug('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
-            $this->logger->debug('RESPONSE: ' . \substr($rawResponse, 0, 1000));
+            $this->logCall($request->getEndpoint(), $requestParams, $rawResponse);
         }
 
         if ($request->isFile()) {
@@ -116,6 +115,18 @@ class Dpd implements ServiceInterface
         $rawResponse = \json_decode($rawResponse, true);
 
         return $this->responseFactory->create($rawResponse);
+    }
+
+    private function logCall(string $endpoint, DataObject $requestParams, string $rawResponse)
+    {
+        $requestParamsCopy = new DataObject($requestParams->getData());
+
+        if ($requestParamsCopy->hasData(self::PARAM_AUTH_PASSWORD)) {
+            $requestParamsCopy->setData(self::PARAM_AUTH_PASSWORD, '*****');
+        }
+
+        $this->logger->debug('REQUEST: [Endpoint: ' . $endpoint . '] [Parameters: ' . $requestParamsCopy->toJson());
+        $this->logger->debug('RESPONSE: ' . \substr($rawResponse, 0, 1000));
     }
 
     /**
