@@ -153,7 +153,9 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
      */
     public function getAllowedMethods()
     {
-        return \explode(',', $this->getConfigData('allowed_methods'));
+        $methods = \explode(',', $this->getConfigData('allowed_methods'));
+
+        return \array_combine($methods, $methods);
     }
 
     /**
