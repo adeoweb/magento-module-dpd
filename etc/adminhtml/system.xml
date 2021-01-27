@@ -43,7 +43,7 @@
                     <field id="username" type="text" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="10">
                         <label>Username</label>
                     </field>
-                    <field id="password" type="password" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="20">
+                    <field id="password" type="obscure" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="20">
                         <label>Password</label>
                     </field>
                     <field id="url" type="select" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="30">
