@@ -356,7 +356,7 @@ abstract class AbstractMethod
      */
     protected function getParcelType($request)
     {
-        $result = static::DPD_SERVICE;
+        $result = $this->getServiceType();
 
         if ($this->isCod($request)) {
             $result .= '-COD';
@@ -383,6 +383,14 @@ abstract class AbstractMethod
         $order = $request->getOrderShipment()->getOrder();
 
         return $order->getPayment()->getMethod() === 'cashondelivery';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getServiceType(): string
+    {
+        return static::DPD_SERVICE;
     }
 
     /**
