@@ -128,6 +128,7 @@ class PickupPointRepository implements PickupPointRepositoryInterface
             }
         }
 
+        $collection->setOrder('company', SortOrder::SORT_ASC);
         $collection->setCurPage($searchCriteria->getCurrentPage());
         $collection->setPageSize($searchCriteria->getPageSize());
 
