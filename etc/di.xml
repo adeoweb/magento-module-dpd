@@ -36,6 +36,9 @@
     <preference for="AdeoWeb\Dpd\Model\App\Request\DataPersistorInterface"
                 type="AdeoWeb\Dpd\Model\App\Request\DataPersistor"/>
 
+    <preference for="AdeoWeb\Dpd\Model\Provider\PickupPoint\AllowedWeightsInterface"
+                type="AdeoWeb\Dpd\Model\Provider\PickupPoint\AllowedWeights"/>
+
     <virtualType name="dpdApiLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
             <argument name="handlers"  xsi:type="array">
@@ -180,5 +183,8 @@
     </type>
     <type name="Magento\Shipping\Controller\Adminhtml\Order\Shipment\PrintLabel">
         <plugin name="adeoweb_dpd_adminorder_shipment_printlabel" type="AdeoWeb\Dpd\Plugin\Controller\Adminhtml\Order\Shipment\PrintLabel"/>
+    </type>
+    <type name="Magento\Quote\Model\ShippingMethodManagement">
+        <plugin name="shipping_method_management" type="AdeoWeb\Dpd\Plugin\Model\ShippingMethodManagement" disabled="false"/>
     </type>
 </config>
