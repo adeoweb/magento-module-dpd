@@ -20,6 +20,8 @@ use Magento\Sales\Model\Order;
 use Magento\Shipping\Helper\Carrier;
 use Magento\Store\Model\ScopeInterface;
 use Zend_Measure_Weight;
+use Magento\Framework\App\ProductMetadataInterface;
+use AdeoWeb\Dpd\Model\Provider\MetaData\ModuleMetaDataInterface;
 
 use function sprintf;
 use function is_numeric;
@@ -90,6 +92,16 @@ abstract class AbstractMethod
      */
     private $utils;
 
+    /**
+     * @var ModuleMetaDataInterface
+     */
+    private $moduleMetaData;
+
+    /**
+     * @var ProductMetadataInterface
+     */
+    private $productMetadata;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         MethodFactory $rateMethodFactory,
@@ -97,6 +109,8 @@ abstract class AbstractMethod
         Carrier $carrierHelper,
         Serializer $serializer,
         Utils $utils,
+        ProductMetadataInterface $productMetadata,
+        ModuleMetaDataInterface $moduleMetaData,
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
@@ -107,6 +121,8 @@ abstract class AbstractMethod
         $this->carrierHelper = $carrierHelper;
         $this->restrictionsConfig = $restrictionsConfig;
         $this->serializer = $serializer;
+        $this->productMetadata = $productMetadata;
+        $this->moduleMetaData = $moduleMetaData;
         $this->utils = $utils;
     }
 
@@ -219,6 +235,7 @@ abstract class AbstractMethod
         $createShipmentRequest->setWeight($this->getWeight($request, $packageCount));
         $createShipmentRequest->setOrderNumber($order->getIncrementId());
         $createShipmentRequest->setIdmSmsNumber($request->getData('recipient_contact_phone_number'));
+        $createShipmentRequest->setOrderNumber3($this->getMagentoModuleVersions());
 
         if ($this->isCod($request)) {
             $createShipmentRequest->setCodAmount($order->getGrandTotal());
@@ -413,5 +430,12 @@ abstract class AbstractMethod
         $order = $request->getOrderShipment()->getOrder();
 
         return $this->serializer->unserialize($order->getData('dpd_delivery_options'));
+    }
+
+    private function getMagentoModuleVersions()
+    {
+        return sprintf(
+            "MG%s|%s", $this->productMetadata->getVersion(), $this->moduleMetaData->getVersion()
+        );
     }
 }

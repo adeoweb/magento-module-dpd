@@ -11,6 +11,8 @@ use Magento\Shipping\Helper\Carrier;
 use Magento\Framework\App\RequestInterface;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use AdeoWeb\Dpd\Config\Api;
+use Magento\Framework\App\ProductMetadataInterface;
+use AdeoWeb\Dpd\Model\Provider\MetaData\ModuleMetaDataInterface;
 
 /**
  * Class Saturday
@@ -41,6 +43,8 @@ class Sameday extends AbstractMethod implements MethodInterface
         Carrier $carrierHelper,
         Serializer $serializer,
         Utils $utils,
+        ProductMetadataInterface $productMetadata,
+        ModuleMetaDataInterface $moduleMetaData,
         Api $apiConfig,
         Restrictions $restrictionsConfig = null,
         array $validators = []
@@ -52,6 +56,8 @@ class Sameday extends AbstractMethod implements MethodInterface
             $carrierHelper,
             $serializer,
             $utils,
+            $productMetadata,
+            $moduleMetaData,
             $restrictionsConfig,
             $validators
         );

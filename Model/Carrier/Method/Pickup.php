@@ -15,6 +15,8 @@ use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Shipping\Helper\Carrier;
+use Magento\Framework\App\ProductMetadataInterface;
+use AdeoWeb\Dpd\Model\Provider\MetaData\ModuleMetaDataInterface;
 
 class Pickup extends AbstractMethod implements MethodInterface
 {
@@ -36,6 +38,8 @@ class Pickup extends AbstractMethod implements MethodInterface
         Serializer $serializer,
         PickupPointRepositoryInterface $pickupPointRepository,
         Utils $utils,
+        ProductMetadataInterface $productMetadata,
+        ModuleMetaDataInterface $moduleMetaData,
         Restrictions $restrictionsConfig = null,
         array $validators = []
     ) {
@@ -46,6 +50,8 @@ class Pickup extends AbstractMethod implements MethodInterface
             $carrierHelper,
             $serializer,
             $utils,
+            $productMetadata,
+            $moduleMetaData,
             $restrictionsConfig,
             $validators
         );
