@@ -58,7 +58,7 @@
                 </group>
 
                 <group id="classic" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="910">
-                    <label>DPD Classic Configuration</label>
+                    <label>DPD Courier Configuration</label>
                     <field id="name" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
                         <label>Name</label>
                     </field>
@@ -99,7 +99,7 @@
                 </group>
 
                 <group id="pickup" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="920">
-                    <label>DPD Pickup Configuration</label>
+                    <label>DPD Pickup Points Configuration</label>
                     <field id="name" type="text" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
                         <label>Name</label>
                     </field>

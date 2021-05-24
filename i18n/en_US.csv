@@ -82,7 +82,7 @@ Username,Username
 Password,Password
 "API URL","API URL"
 "Debug mode","Debug mode"
-"DPD Classic Configuration","DPD Classic Configuration"
+"DPD Courier Configuration","DPD Courier Configuration"
 Name,Name
 "Enable Free Shipping Threshold","Enable Free Shipping Threshold"
 "Free Shipping Amount Threshold","Free Shipping Amount Threshold"
@@ -90,7 +90,7 @@ Name,Name
 "Ship to Specific Countries","Ship to Specific Countries"
 Restrictions,Restrictions
 "Enable Delivery Time Selection","Enable Delivery Time Selection"
-"DPD Pickup Configuration","DPD Pickup Configuration"
+"DPD Pickup Points Configuration","DPD Pickup Points Configuration"
 "DPD Saturday Configuration","DPD Saturday Configuration"
 "Timeframes Configuration","Timeframes Configuration"
 Monday,Monday
