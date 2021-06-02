@@ -12,11 +12,11 @@
                 <allowed_methods>classic,pickup,saturday,sameday</allowed_methods>
                 <print_label_format>A4</print_label_format>
                 <classic>
-                    <name>Classic</name>
+                    <name>Courier</name>
                     <delivery_times_enable>1</delivery_times_enable>
                 </classic>
                 <pickup>
-                    <name>Pickup</name>
+                    <name>Pickup Points</name>
                 </pickup>
                 <saturday>
                     <name>Saturday</name>
