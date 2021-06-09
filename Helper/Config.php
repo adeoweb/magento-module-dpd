@@ -49,8 +49,8 @@ class Config
         return [
             self::TYPE_API_URL => [
                 '' => __('--Please Select--'),
-                'https://integration.dpd.ee:8443/' => __('Estonia'),
-                'https://integration.dpd.lv:8443/' => __('Latvia'),
+                'https://integration.dpd.ee/' => __('Estonia'),
+                'https://integration.dpd.lv/' => __('Latvia'),
                 'https://integracijos.dpd.lt/' => __('Lithuania')
             ],
             self::TYPE_METHOD => [
