@@ -15,9 +15,9 @@
                         <message translate="true">Only created DPD labels will be printed. Other shipping method labels will be skipped. Are you sure?</message>
                         <title translate="true">DPD Print Shipping Labels</title>
                     </confirm>
-                    <url path="dpd/order/massPrintLabels"/>
-                    <type>print_shipping_label</type>
+                    <type>dpd_mass_print_shipping_label</type>
                     <label translate="true">DPD Print Shipping Labels</label>
+                    <url path="dpd/order/massPrintDpdLabels"/>
                 </settings>
             </action>
         </massaction>

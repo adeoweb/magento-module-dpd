@@ -3,16 +3,18 @@
 namespace AdeoWeb\Dpd\Controller\Adminhtml\Shipment;
 
 use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
-use AdeoWeb\Dpd\Helper\Config\Serializer;
 use Exception;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Response\Http\FileFactory;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Sales\Model\Order\Shipment;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
-class MassPrintLabels extends Action
+use function array_merge;
+
+class MassPrintDpdLabels extends Action
 {
     /**
      * @var Filter
@@ -65,22 +67,28 @@ class MassPrintLabels extends Action
                         continue;
                     }
 
-                    $parcels = \array_merge($parcels, $this->getShipmentParcels($shipment));
+                    $parcels = array_merge($parcels, $this->getShipmentParcels($shipment));
                 }
             }
 
             $result = $this->printLabelManagement->printLabels($parcels);
 
-            return $this->fileFactory->create(
+            $this->fileFactory->create(
                 'ShippingLabels.pdf',
                 $result,
                 DirectoryList::VAR_DIR,
                 'application/pdf'
             );
+
+            $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
+            return $resultRedirect->setPath('sales/order/');
         } catch (Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
 
-            return $this->resultRedirectFactory->create()->setPath('sales/shipment/');
+            $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+            
+            return $resultRedirect->setPath('sales/shipment/');
         }
     }
 

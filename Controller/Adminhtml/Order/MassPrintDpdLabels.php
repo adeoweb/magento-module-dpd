@@ -3,17 +3,19 @@
 namespace AdeoWeb\Dpd\Controller\Adminhtml\Order;
 
 use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
-use AdeoWeb\Dpd\Helper\Config\Serializer;
-use Exception;
 use Magento\Backend\App\Action;
+use Exception;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\Response\Http\FileFactory;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Sales\Model\Order\Shipment;
-use Magento\Sales\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory;
+use Magento\Sales\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
-class MassPrintLabels extends Action
+use function array_merge;
+
+class MassPrintDpdLabels extends Action
 {
     /**
      * @var Filter
@@ -48,12 +50,13 @@ class MassPrintLabels extends Action
         PrintLabelManagementInterface $printLabelManagement,
         FileFactory $fileFactory
     ) {
-        parent::__construct($context);
         $this->filter = $filter;
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->shipmentCollectionFactory = $shipmentCollectionFactory;
         $this->printLabelManagement = $printLabelManagement;
         $this->fileFactory = $fileFactory;
+
+        parent::__construct($context);
     }
 
     /**
@@ -74,24 +77,29 @@ class MassPrintLabels extends Action
             $parcels = [];
 
             if ($shipments->getSize()) {
-                /** @var Shipment $shipment */
                 foreach ($shipments as $shipment) {
-                    $parcels = \array_merge($parcels, $this->getShipmentParcels($shipment));
+                    $parcels = array_merge($parcels, $this->getShipmentParcels($shipment));
                 }
             }
 
             $result = $this->printLabelManagement->printLabels($parcels);
 
-            return $this->fileFactory->create(
+            $this->fileFactory->create(
                 'ShippingLabels.pdf',
                 $result,
                 DirectoryList::VAR_DIR,
                 'application/pdf'
             );
+
+            $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
+            return $resultRedirect->setPath('sales/order/');
         } catch (Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
 
-            return $this->resultRedirectFactory->create()->setPath('sales/order/');
+            $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
+            return $resultRedirect->setPath('sales/order/');
         }
     }
 
