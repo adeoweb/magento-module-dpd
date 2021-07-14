@@ -1,0 +1,45 @@
+image: docker:latest
+
+variables:
+  DOCKER_CONTAINER_NAME: $CI_PROJECT_ID-$CI_COMMIT_SHA-$CI_PIPELINE_ID
+
+stages:
+  - run_php
+  - build
+  - test
+
+run_php:
+  stage: run_php
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - CURRENT_CONTAINER=$(docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=$CI_JOB_ID" -f "label=com.gitlab.gitlab-runner.type=build")
+    - docker run -d --rm -t
+        --volumes-from $CURRENT_CONTAINER
+        -v /srv/composer/dpd-module:/.composer
+        --name $DOCKER_CONTAINER_NAME
+        gitlab.adeoweb.biz:8443/adeoweb/development-services/dpd/dpd-magento-2/php:72.3 sh
+    - docker exec $DOCKER_CONTAINER_NAME cp -ar $CI_PROJECT_DIR/* ./
+
+build:
+  stage: build
+  script:
+    - docker exec $DOCKER_CONTAINER_NAME composer config --global repositories.magento composer https://repo.magento.com
+    - docker exec $DOCKER_CONTAINER_NAME composer config http-basic.repo.magento.com $COMPOSER_USER $COMPOSER_PASSWORD
+    - docker exec $DOCKER_CONTAINER_NAME composer config http-basic.gitlab.adeoweb.biz $GL_USER $GL_ACCESS_TOKEN
+    - docker exec $DOCKER_CONTAINER_NAME composer install --no-progress --optimize-autoloader
+
+test:
+  stage: test
+  script:
+    - docker exec $DOCKER_CONTAINER_NAME mkdir results
+    - docker exec $DOCKER_CONTAINER_NAME ./vendor/bin/phpcs --report=checkstyle --report-file=results/checkstyle.xml || true
+    - docker exec $DOCKER_CONTAINER_NAME ./vendor/bin/phpunit --log-junit=results/phpunit.xml
+  artifacts:
+    reports:
+      junit: results/phpunit.xml
+
+cleanup:
+  stage: .post
+  script:
+    - docker stop $DOCKER_CONTAINER_NAME
