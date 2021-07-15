@@ -8,6 +8,9 @@ use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface;
 use Magento\Framework\App\Cache\Type\Block;
 use Magento\Framework\App\CacheInterface;
+use function json_decode;
+use function json_encode;
+use function sprintf;
 
 
 class PickupPointManagement implements PickupPointManagementInterface
@@ -34,16 +37,23 @@ class PickupPointManagement implements PickupPointManagementInterface
      */
     private $pickupPointUpdater;
 
+    /**
+     * @var array
+     */
+    private $localeSortProcessor;
+
     public function __construct(
         PickupPointRepositoryInterface $pickupPointRepository,
         BuilderInterface $searchCriteriaBuilder,
         CacheInterface $cache,
-        PickupPointUpdater $pickupPointUpdater
+        PickupPointUpdater $pickupPointUpdater,
+        array $localeSortProcessor
     ) {
         $this->pickupPointRepository = $pickupPointRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->cache = $cache;
         $this->pickupPointUpdater = $pickupPointUpdater;
+        $this->localeSortProcessor = $localeSortProcessor;
     }
 
     /**
@@ -59,10 +69,10 @@ class PickupPointManagement implements PickupPointManagementInterface
             PickupPointInterface::IS_DISABLED => 0
         ];
 
-        $cacheKey = \sprintf(self::CACHE_KEY, $country, $city);
+        $cacheKey = sprintf(self::CACHE_KEY, $country, $city);
 
         if ($cachedResult = $this->cache->load($cacheKey)) {
-            return \json_decode($cachedResult, true);
+            return json_decode($cachedResult, true);
         }
 
         $searchCriteria = $this->searchCriteriaBuilder->build($context);
@@ -71,11 +81,15 @@ class PickupPointManagement implements PickupPointManagementInterface
 
         $result = [];
 
-        foreach ($items as $item) {
-            $result[] = $item->toArray();
+        if ($this->localeSortProcessor[strtoupper($country)]) {
+            foreach ($items as $item) {
+                $result[$item->getCity()][] = $item->toArray();
+            }
+
+            $result = $this->localeSortProcessor[$country]->sortData($result);
         }
 
-        $this->cache->save(\json_encode($result), $cacheKey, [Block::CACHE_TAG]);
+        $this->cache->save(json_encode($result), $cacheKey, [Block::CACHE_TAG]);
 
         return $result;
     }

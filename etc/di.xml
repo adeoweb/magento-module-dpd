@@ -130,9 +130,30 @@
         </arguments>
     </type>
 
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\LatvianLocaleSortProcessor" type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+        <arguments>
+            <argument name="order" xsi:type="string">AaĀāBbCcČčDdEeĒēFfGgĢgHhIiĪīJjKkĶķLlĻļMmNnŅņOoPpRrSsŠšTtUuŪūVvZzŽž</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\EstonianLocaleSortProcessor" type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+        <arguments>
+            <argument name="order" xsi:type="string">AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsŠšZzŽžTtUuVvWwÕõÄäÖöÜüXxYy</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\LithuanianLocaleSortProcessor" type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+        <arguments>
+            <argument name="order" xsi:type="string">aAąĄbBcCčdDeEęĘėĖfFgGhHiIįĮyYjJkKlLmMnNoOpPrRsSšŠtTuUųŲūŪvVzZžŽ</argument>
+        </arguments>
+    </virtualType>
+
     <type name="AdeoWeb\Dpd\Model\PickupPointManagement">
         <arguments>
             <argument name="searchCriteriaBuilder" xsi:type="object">AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\Builder\PickupPoint</argument>
+            <argument name="localeSortProcessor" xsi:type="array">
+                <item name="LV" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\LatvianLocaleSortProcessor</item>
+                <item name="EE" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\EstonianLocaleSortProcessor</item>
+                <item name="LT" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\LithuanianLocaleSortProcessor</item>
+            </argument>
         </arguments>
     </type>
     <type name="AdeoWeb\Dpd\Model\PickupPointFactory">

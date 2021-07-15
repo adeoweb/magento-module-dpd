@@ -99,7 +99,7 @@ define([
                         }.bind(this));
 
                         this.stateEmpty(false);
-                        this.pickupPoints(_.sortBy(_.values(result), 'name'));
+                        this.pickupPoints(_.values(result));
                         this.rawPickupPoints = response;
 
                         if (pickupPointMap.isMapInitialized) {
