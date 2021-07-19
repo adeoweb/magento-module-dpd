@@ -42,6 +42,9 @@
     <preference for="AdeoWeb\Dpd\Model\Provider\MetaData\ModuleMetaDataInterface"
                 type="AdeoWeb\Dpd\Model\Provider\MetaData\ModuleMetaData"/>
 
+    <preference for="AdeoWeb\Dpd\Model\Adminhtml\File\CreatePdfProcessorInterface"
+                type="AdeoWeb\Dpd\Model\Adminhtml\File\CreatePdfProcessor"/>
+
     <virtualType name="dpdApiLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
             <argument name="handlers"  xsi:type="array">

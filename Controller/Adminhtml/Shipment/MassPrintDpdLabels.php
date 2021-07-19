@@ -5,12 +5,11 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Shipment;
 use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
 use Exception;
 use Magento\Backend\App\Action;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Sales\Model\Order\Shipment;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory;
 use Magento\Ui\Component\MassAction\Filter;
+use AdeoWeb\Dpd\Model\Adminhtml\File\CreatePdfProcessorInterface;
 
 use function array_merge;
 
@@ -32,22 +31,22 @@ class MassPrintDpdLabels extends Action
     private $printLabelManagement;
 
     /**
-     * @var FileFactory
+     * @var CreatePdfProcessorInterface
      */
-    private $fileFactory;
+    private $createPdfProcessor;
 
     public function __construct(
         Action\Context $context,
         Filter $filter,
         CollectionFactory $shipmentCollectionFactory,
         PrintLabelManagementInterface $printLabelManagement,
-        FileFactory $fileFactory
+        CreatePdfProcessorInterface $createPdfProcessor
     ) {
         parent::__construct($context);
         $this->filter = $filter;
         $this->collectionFactory = $shipmentCollectionFactory;
         $this->printLabelManagement = $printLabelManagement;
-        $this->fileFactory = $fileFactory;
+        $this->createPdfProcessor = $createPdfProcessor;
     }
 
     /**
@@ -71,14 +70,7 @@ class MassPrintDpdLabels extends Action
                 }
             }
 
-            $result = $this->printLabelManagement->printLabels($parcels);
-
-            $this->fileFactory->create(
-                'ShippingLabels.pdf',
-                $result,
-                DirectoryList::VAR_DIR,
-                'application/pdf'
-            );
+            $this->createPdfProcessor->process($parcels, $this->messageManager);
 
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
@@ -87,7 +79,7 @@ class MassPrintDpdLabels extends Action
             $this->messageManager->addErrorMessage($e->getMessage());
 
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-            
+
             return $resultRedirect->setPath('sales/shipment/');
         }
     }

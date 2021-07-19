@@ -5,13 +5,12 @@ namespace AdeoWeb\Dpd\Controller\Adminhtml\Order;
 use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
 use Magento\Backend\App\Action;
 use Exception;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Sales\Model\Order\Shipment;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
 use Magento\Ui\Component\MassAction\Filter;
+use AdeoWeb\Dpd\Model\Adminhtml\File\CreatePdfProcessorInterface;
 
 use function array_merge;
 
@@ -38,9 +37,9 @@ class MassPrintDpdLabels extends Action
     private $printLabelManagement;
 
     /**
-     * @var FileFactory
+     * @var CreatePdfProcessorInterface
      */
-    private $fileFactory;
+    private $createPdfProcessor;
 
     public function __construct(
         Action\Context $context,
@@ -48,13 +47,13 @@ class MassPrintDpdLabels extends Action
         OrderCollectionFactory $orderCollectionFactory,
         CollectionFactory $shipmentCollectionFactory,
         PrintLabelManagementInterface $printLabelManagement,
-        FileFactory $fileFactory
+        CreatePdfProcessorInterface $createPdfProcessor
     ) {
         $this->filter = $filter;
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->shipmentCollectionFactory = $shipmentCollectionFactory;
         $this->printLabelManagement = $printLabelManagement;
-        $this->fileFactory = $fileFactory;
+        $this->createPdfProcessor = $createPdfProcessor;
 
         parent::__construct($context);
     }
@@ -82,14 +81,7 @@ class MassPrintDpdLabels extends Action
                 }
             }
 
-            $result = $this->printLabelManagement->printLabels($parcels);
-
-            $this->fileFactory->create(
-                'ShippingLabels.pdf',
-                $result,
-                DirectoryList::VAR_DIR,
-                'application/pdf'
-            );
+            $this->createPdfProcessor->process($parcels, $this->messageManager);
 
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
