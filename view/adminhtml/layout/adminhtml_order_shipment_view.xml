@@ -4,9 +4,11 @@
         <referenceContainer name="content">
             <block class="AdeoWeb\Dpd\Block\Adminhtml\Order\ShippingAdditionalInfo" name="dpd_shipping_additional_info" template="AdeoWeb_Dpd::order/shipping-additional-info.phtml"/>
             <referenceBlock class="Magento\Shipping\Block\Adminhtml\Order\Packaging" name="shipment_packaging" template="AdeoWeb_Dpd::order/packaging/popup.phtml">
-                <arguments>
-                    <argument name="viewModel" xsi:type="object">AdeoWeb\Dpd\ViewModel\Config</argument>
-                </arguments>
+                <block class="Magento\Backend\Block\Template" name="popup_content" as="popup.content" template="AdeoWeb_Dpd::order/packaging/popup_content.phtml" >
+                    <arguments>
+                        <argument name="viewModel" xsi:type="object">AdeoWeb\Dpd\ViewModel\Config</argument>
+                    </arguments>
+                </block>
             </referenceBlock>
         </referenceContainer>
     </body>

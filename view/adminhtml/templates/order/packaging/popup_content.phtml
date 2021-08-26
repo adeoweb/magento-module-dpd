@@ -6,6 +6,8 @@
 
 $viewModel = $block->getData('viewModel');
 $unitWeight = $viewModel->getWeightUnit();
+$girthEnabled = $block->getData('girthEnabled');
+$sizeSource = $block->getData('sizeSource');
 ?>
 <div id="packaging_window">
     <div class="message message-warning"></div>
@@ -40,7 +42,7 @@ $unitWeight = $viewModel->getWeightUnit();
                     <th class="col-custom">
                         <?php echo $block->escapeHtml(__('Customs Value')) ?>
                     </th>
-                    <?php if (!$block->displayCustomsValue()): ?>
+                    <?php if (!$block->getParentBlock()->displayCustomsValue()): ?>
                         <?php echo /* @noEscape */ $secureRenderer->renderStyleAsTag('display: none', 'th.col-custom') ?>
                     <?php endif ?>
                     <th class="col-total-weight"><?php echo $block->escapeHtml(__('Total Weight')) ?></th>
@@ -48,7 +50,7 @@ $unitWeight = $viewModel->getWeightUnit();
                     <th class="col-width"><?php echo $block->escapeHtml(__('Width')) ?></th>
                     <th class="col-height"><?php echo $block->escapeHtml(__('Height')) ?></th>
                     <th>&nbsp;</th>
-                    <?php if ($block->getDeliveryConfirmationTypes()): ?>
+                    <?php if ($block->getParentBlock()->getDeliveryConfirmationTypes()): ?>
                         <th class="col-signature"><?php echo $block->escapeHtml(__('Signature Confirmation')) ?></th>
                     <?php endif; ?>
                     <th class="col-actions">&nbsp;</th>
@@ -58,7 +60,7 @@ $unitWeight = $viewModel->getWeightUnit();
                 <tbody>
                 <tr>
                     <td class="col-type">
-                        <?php $containers = $block->getContainers(); ?>
+                        <?php $containers = $block->getParentBlock()->getContainers(); ?>
                         <select name="package_container"
                             <?php if (empty($containers)): ?>
                                 title="<?php echo $block->escapeHtmlAttr(__(
@@ -104,7 +106,7 @@ $unitWeight = $viewModel->getWeightUnit();
                         </td>
                     <?php endif; ?>
                     <?php
-                    if ($block->displayCustomsValue()) {
+                    if ($block->getParentBlock()->displayCustomsValue()) {
                         $customsValueValidation = ' validate-zero-or-greater ';
                     } else {
                         $customsValueValidation = '';
@@ -123,7 +125,7 @@ $unitWeight = $viewModel->getWeightUnit();
                                 </span>
                         </div>
                     </td>
-                    <?php if (!$block->displayCustomsValue()): ?>
+                    <?php if (!$block->getParentBlock()->displayCustomsValue()): ?>
                         <?php echo /* @noEscape */ $secureRenderer->renderStyleAsTag('display: none', 'td.col-custom') ?>
                     <?php endif ?>
                     <td class="col-total-weight">
@@ -174,10 +176,10 @@ $unitWeight = $viewModel->getWeightUnit();
                             </option>
                         </select>
                     </td>
-                    <?php if ($block->getDeliveryConfirmationTypes()): ?>
+                    <?php if ($block->getParentBlock()->getDeliveryConfirmationTypes()): ?>
                         <td>
                             <select name="delivery_confirmation_types" class="admin__control-select">
-                                <?php foreach ($block->getDeliveryConfirmationTypes() as $key => $value): ?>
+                                <?php foreach ($block->getParentBlock()->getDeliveryConfirmationTypes() as $key => $value): ?>
                                     <option value="<?php echo $block->escapeHtmlAttr($key) ?>" >
                                         <?php echo $block->escapeHtml($value) ?>
                                     </option>
@@ -194,7 +196,7 @@ $unitWeight = $viewModel->getWeightUnit();
                 </tr>
                 </tbody>
             </table>
-            <?php if ($block->getContentTypes()): ?>
+            <?php if ($block->getParentBlock()->getContentTypes()): ?>
                 <table class="data-table admin__control-table" cellspacing="0">
                     <thead>
                     <tr>
@@ -207,7 +209,7 @@ $unitWeight = $viewModel->getWeightUnit();
                         <td>
                             <select name="content_type"
                                     class="admin__control-select">
-                                <?php foreach ($block->getContentTypes() as $key => $value): ?>
+                                <?php foreach ($block->getParentBlock()->getContentTypes() as $key => $value): ?>
                                     <option value="<?php echo $block->escapeHtmlAttr($key) ?>" >
                                         <?php echo $block->escapeHtml($value) ?>
                                     </option>
@@ -257,7 +259,7 @@ script;
         function(){packaging.changeMeasures(this)});
 script;
     }
-    if ($block->getContentTypes()) {
+    if ($block->getParentBlock()->getContentTypes()) {
         $scriptString .= <<<script
     $("div#packages_content").on('change', "select[name='content_type']",
         function(){packaging.changeContentTypes(this)});

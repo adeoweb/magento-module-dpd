@@ -86,5 +86,10 @@ script;
 ?>
 <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
 <!-- /* AW start */ -->
-<?php include($block->getTemplateFile('AdeoWeb_Dpd::order/packaging/popup_content.phtml')) ?>
+<?php
+echo $this->getChildBlock('popup.content')
+        ->setData("girthEnabled", $girthEnabled)
+        ->setData("sizeSource", $sizeSource)
+        ->toHtml();
+?>
 <!-- /* AW end */ -->
