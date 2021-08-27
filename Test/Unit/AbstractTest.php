@@ -12,7 +12,7 @@ abstract class AbstractTest extends TestCase
      */
     protected $objectManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = new ObjectManager($this);
     }

@@ -4,6 +4,8 @@ namespace AdeoWeb\Dpd\Model;
 
 use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
 use AdeoWeb\Dpd\Helper\Config;
+use AdeoWeb\Dpd\Helper\Utils;
+use AdeoWeb\Dpd\Config\Api;
 use AdeoWeb\Dpd\Model\Carrier\MethodFactoryPool;
 use AdeoWeb\Dpd\Model\Service\Dpd;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelStatusRequestFactory;
@@ -30,8 +32,13 @@ use Psr\Log\LoggerInterface;
 
 class Carrier extends AbstractCarrierOnline implements CarrierInterface
 {
-    const CODE = 'dpd';
-    const URL_TRACKING = 'https://tracking.dpd.de/status/en_US/parcel/%s';
+    public const CODE = 'dpd';
+    private const DEFAULT_LANG_CODE = 'lt';
+    private const URL_TRACKING_LINKS = [
+        'ee' => 'https://www.dpdgroup.com/ee/mydpd/tmp/basicsearch?lang=et&parcel_id=%s',
+        'lv' => 'https://www.dpdgroup.com/lv/mydpd/tmp/basicsearch?lang=lv&parcel_id=%s',
+        'lt' => 'https://www.dpdgroup.com/lt/mydpd/tmp/basicsearch?lang=lt&parcel_id=%s'
+    ];
 
     /**
      * {@inheritDoc}
@@ -73,8 +80,20 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
      */
     private $printLabelManagement;
 
+    /**
+     * @var Utils
+     */
+    private $utils;
+
+    /**
+     * @var Api
+     */
+    private $apiConfig;
+
     public function __construct(
         ScopeConfigInterface $scopeConfig,
+        Utils $utils,
+        Api $apiConfig,
         RateErrorFactory $rateErrorFactory,
         LoggerInterface $logger,
         Security $xmlSecurity,
@@ -122,6 +141,8 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
         $this->dpdService = $dpdService;
         $this->parcelStatusRequestFactory = $parcelStatusRequestFactory;
         $this->printLabelManagement = $printLabelManagement;
+        $this->utils = $utils;
+        $this->apiConfig = $apiConfig;
     }
 
     /**
@@ -195,7 +216,9 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
             $tracking->setTrackSummary($response->getBody('parcel_status'));
         }
 
-        $tracking->setUrl(sprintf(self::URL_TRACKING, $trackingNumber));
+        $apiLanguageCode = $this->getApiLanguageCode();
+
+        $tracking->setUrl(sprintf(self::URL_TRACKING_LINKS[$apiLanguageCode], $trackingNumber));
 
         return $tracking;
     }
@@ -278,5 +301,16 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
     protected function doLabelRequest($parcelData)
     {
         return $this->printLabelManagement->printLabels([$parcelData]);
+    }
+
+    private function getApiLanguageCode(): string
+    {
+        $apiUrl = $this->apiConfig->getUrl();
+
+        if (empty($apiUrl)) {
+            return self::DEFAULT_LANG_CODE;
+        }
+
+        return $this->utils->getTldFromUrl($apiUrl);
     }
 }

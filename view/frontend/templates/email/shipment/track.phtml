@@ -1,0 +1,34 @@
+<?php /* @var \Magento\Framework\View\Element\Template $block */ ?>
+<?php $shipment = $block->getShipment() ?>
+<?php
+/* @var \Magento\Sales\Model\Order $_order */
+$order = $block->getOrder() ?>
+<!-- AdeoWeb Start -->
+<?php if ($shipment && $order) : ?>
+    <?php $defaultTrackCollection = $order->getTracksCollection($shipment->getId()) ?>
+    <?php $dpdTrackCollection = $block->getTracksCollection() ?>
+    <?php $trackCollection = $dpdTrackCollection ?: $defaultTrackCollection; ?>
+    <?php if ($trackCollection) : ?>
+        <br />
+        <table class="shipment-track">
+            <thead>
+            <tr>
+                <th><?php echo $block->escapeHtml(__('Shipped By')); ?></th>
+                <th><?php echo $block->escapeHtml(__('Tracking Number')); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($trackCollection as $item) : ?>
+                <tr>
+                    <td><?php echo $block->escapeHtml($item->getTitle()); ?>:</td>
+                    <td>
+                        <a href="<?php echo $block->escapeUrl($block->getTrackingUrl()->getUrl($item)) ?>" target="_blank">
+                            <?php echo $block->escapeHtml($item->getNumber()); ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+<?php endif; ?>

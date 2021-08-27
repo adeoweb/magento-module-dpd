@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Shipment Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="items" template="AdeoWeb_Dpd::email/shipment/items.phtml">
+            <block class="Magento\Framework\View\Element\RendererList" name="sales.email.order.shipment.renderers" as="renderer.list"/>
+        </referenceBlock>
+    </body>
+</page>
