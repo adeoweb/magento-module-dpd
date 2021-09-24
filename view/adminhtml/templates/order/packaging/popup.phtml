@@ -1,17 +1,16 @@
 <?php
 /**
  * @var $block \Magento\Shipping\Block\Adminhtml\Order\Packaging
- * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 ?>
+<!-- /* AW start */ -->
 <?php
 $shippingMethod = $block->getShipment()->getOrder()->getShippingMethod();
 $sizeSource = $block->getSourceSizeModel()->toOptionArray();
 $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 0;
 ?>
 
-<?php $scriptString = <<<script
-
+<script>
     require([
         "jquery",
         "prototype",
@@ -19,21 +18,23 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         "Magento_Ui/js/modal/modal"
     ], function(jQuery){
 
-        window.packaging = new Packaging({$block->getConfigDataJson()});
+        window.packaging = new Packaging(<?php echo $block->getConfigDataJson() ?>);
         packaging.changeContainerType($$('select[name=package_container]')[0]);
         packaging.checkSizeAndGirthParameter(
-            \$$('select[name=package_container]')[0],
-            {$girthEnabled}
+            $$('select[name=package_container]')[0],
+            <?php echo $girthEnabled; ?>
         );
         packaging.setConfirmPackagingCallback(function(){
             packaging.setParamsCreateLabelRequest($('edit_form').serialize(true));
             packaging.sendCreateLabelRequest();
         });
         packaging.setLabelCreatedCallback(function(response){
-            setLocation("{$block->escapeJs($block->getUrl(
-    'sales/order/view',
-    ['order_id' => $block->getShipment()->getOrderId()]
-))}");
+            setLocation("<?php echo $block->escapeJs($block->getUrl(
+                        'sales/order/view',
+                        ['order_id' => $block->getShipment()->getOrderId()]
+                    )
+                ); ?>"
+            );
         });
         packaging.setCancelCallback(function() {
             if ($('create_shipping_label')) {
@@ -54,23 +55,23 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         });
         jQuery('#packaging_window').modal({
             type: 'slide',
-            title: '{$block->escapeJs(__('Create Packages'))}',
+            title: '<?php echo $block->escapeJs(__('Create Packages')); ?>',
             buttons: [{
-                text: '{$block->escapeJs(__('Cancel'))}',
+                text: '<?php echo $block->escapeJs(__('Cancel')) ?>',
                 'class': 'action-secondary',
                 click: function () {
                     packaging.cancelPackaging();
                     this.closeModal();
                     }
                 }, {
-                text: '{$block->escapeJs(__('Save'))}',
+                text: '<?php echo $block->escapeJs(__('Save')); ?>',
                 'attr': {'disabled':'disabled', 'data-action':'save-packages'},
                 'class': 'action-primary _disabled',
                 click: function () {
                     packaging.confirmPackaging();
                     }
                 }, {
-                    text: '{$block->escapeJs(__('Add Package'))}',
+                    text: '<?php echo $block->escapeJs(__('Add Package')); ?>',
                     'attr': {'data-action':'add-packages'},
                     'class': 'action-secondary',
                     click: function () {
@@ -81,16 +82,12 @@ $girthEnabled = $block->isDisplayGirthValue() && $block->isGirthAllowed() ? 1 : 
         jQuery(document).trigger('packaging:inited');
         jQuery(document).data('packagingInited', true);
     });
+</script>
 
-script;
-?>
-<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
-<!-- /* AW start */ -->
 <?php
 echo $this->getChildBlock('popup.content')
         ->setData("girthEnabled", $girthEnabled)
         ->setData("sizeSource", $sizeSource)
-        ->setData("secureRenderer", $secureRenderer)
         ->toHtml();
 ?>
 <!-- /* AW end */ -->
