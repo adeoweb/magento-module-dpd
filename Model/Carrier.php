@@ -35,9 +35,9 @@ class Carrier extends AbstractCarrierOnline implements CarrierInterface
     public const CODE = 'dpd';
     private const DEFAULT_LANG_CODE = 'lt';
     private const URL_TRACKING_LINKS = [
-        'ee' => 'https://www.dpdgroup.com/ee/mydpd/tmp/basicsearch?lang=et&parcel_id=%s',
-        'lv' => 'https://www.dpdgroup.com/lv/mydpd/tmp/basicsearch?lang=lv&parcel_id=%s',
-        'lt' => 'https://www.dpdgroup.com/lt/mydpd/tmp/basicsearch?lang=lt&parcel_id=%s'
+        'ee' => 'https://www.dpdgroup.com/ee/mydpd/my-parcels/track?lang=et&parcelNumber=%s',
+        'lv' => 'https://www.dpdgroup.com/lv/mydpd/my-parcels/track?lang=lv&parcelNumber=%s',
+        'lt' => 'https://www.dpdgroup.com/lt/mydpd/my-parcels/track?lang=lt&parcelNumber=%s'
     ];
 
     /**

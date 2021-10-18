@@ -4,6 +4,7 @@
         <referenceBlock name="sales.order.email.shipment.track" template="AdeoWeb_Dpd::email/shipment/track.phtml">
             <arguments>
                 <argument name="tracking_url" xsi:type="object">Magento\Sales\Block\DataProviders\Email\Shipment\TrackingUrl</argument>
+                <argument name="viewModel" xsi:type="object">AdeoWeb\Dpd\ViewModel\TrackInfo</argument>
             </arguments>
         </referenceBlock>
     </body>

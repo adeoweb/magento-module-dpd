@@ -1,5 +1,6 @@
 <?php /* @var \Magento\Framework\View\Element\Template $block */ ?>
 <?php $shipment = $block->getShipment() ?>
+<?php $viewModel = $block->getData('viewModel'); ?>
 <?php
 /* @var \Magento\Sales\Model\Order $_order */
 $order = $block->getOrder() ?>
@@ -19,10 +20,11 @@ $order = $block->getOrder() ?>
             </thead>
             <tbody>
             <?php foreach ($trackCollection as $item) : ?>
+                <?php $trackingInfo = $viewModel->getTrackingInfoByTrackId((int)$item->getEntityId()); ?>
                 <tr>
                     <td><?php echo $block->escapeHtml($item->getTitle()); ?>:</td>
                     <td>
-                        <a href="<?php echo $block->escapeUrl($block->getTrackingUrl()->getUrl($item)) ?>" target="_blank">
+                        <a href="<?php echo $block->escapeUrl(!empty($trackingInfo['url']) ? $trackingInfo['url'] : '') ?>" target="_blank">
                             <?php echo $block->escapeHtml($item->getNumber()); ?>
                         </a>
                     </td>
