@@ -14,7 +14,7 @@ class TrackInfo implements ArgumentInterface
     /**
      * @var array
      */
-    private array $trackingInfo = [];
+    private $trackingInfo = [];
 
     /**
      * @var TrackFactory
