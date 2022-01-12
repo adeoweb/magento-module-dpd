@@ -26,7 +26,7 @@ class WarehouseTest extends AbstractTest
      */
     private $searchCriteriaBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

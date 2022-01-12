@@ -52,7 +52,7 @@ class EditTest extends AbstractTest
      */
     private $locationMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

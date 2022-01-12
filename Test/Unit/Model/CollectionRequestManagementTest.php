@@ -10,6 +10,7 @@ use AdeoWeb\Dpd\Model\Service\Dpd\Request\CollectionRequestImportRequest;
 use AdeoWeb\Dpd\Model\Service\Dpd\Request\CollectionRequestImportRequestFactory;
 use AdeoWeb\Dpd\Model\Service\ServiceInterface;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
+use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Customer\Model\Address;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order;
@@ -51,7 +52,7 @@ class CollectionRequestManagementTest extends AbstractTest
      */
     private $carrierServiceMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -62,8 +63,8 @@ class CollectionRequestManagementTest extends AbstractTest
         $this->carrierServiceMock = $this->createMock(ServiceInterface::class);
 
         $collectionRequestRequestReader = $this->objectManager->getObject(CollectionRequestRequest::class);
-        
-        $orderRepositoryMock = $this->createMock(\Magento\Sales\Api\OrderRepositoryInterface::class);
+
+        $orderRepositoryMock = $this->createMock(OrderRepositoryInterface::class);
         $orderRepositoryMock->expects($this->any())
             ->method('get')
             ->with(1)
@@ -74,7 +75,7 @@ class CollectionRequestManagementTest extends AbstractTest
             ->method('getById')
             ->with(1)
             ->willReturn($this->locationMock);
-        
+
         $this->orderMock->expects($this->any())
             ->method('getShippingAddress')
             ->willReturn($this->shippingAddressMock);

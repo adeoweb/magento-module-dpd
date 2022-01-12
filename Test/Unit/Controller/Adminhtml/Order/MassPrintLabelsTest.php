@@ -3,8 +3,10 @@
 namespace AdeoWeb\Dpd\Test\Unit\Controller\Adminhtml\Order;
 
 use AdeoWeb\Dpd\Api\PrintLabelManagementInterface;
-use AdeoWeb\Dpd\Controller\Adminhtml\Order\MassPrintLabels;
+use AdeoWeb\Dpd\Controller\Adminhtml\Order\MassPrintDpdLabels;
 use AdeoWeb\Dpd\Test\Unit\AbstractTest;
+use Exception;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Sales\Model\Order;
@@ -17,7 +19,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 class MassPrintLabelsTest extends AbstractTest
 {
     /**
-     * @var MassPrintLabels
+     * @var MassPrintDpdLabels
      */
     private $subject;
 
@@ -56,7 +58,7 @@ class MassPrintLabelsTest extends AbstractTest
      */
     private $messageManagerMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -91,13 +93,18 @@ class MassPrintLabelsTest extends AbstractTest
             'create' => $resultRedirect
         ]);
 
+        $resultFactoryMock = $this->createConfiguredMock(ResultFactory::class, [
+            'create' => $resultRedirect
+        ]);
+
         $contextMock = $this->createConfiguredMock(\Magento\Backend\App\Action\Context::class, [
             'getMessageManager' => $this->messageManagerMock,
-            'getResultRedirectFactory' => $resultRedirectFactoryMock
+            'getResultRedirectFactory' => $resultRedirectFactoryMock,
+            'getResultFactory' => $resultFactoryMock
         ]);
 
 
-        $this->subject = $this->objectManager->getObject(MassPrintLabels::class, [
+        $this->subject = $this->objectManager->getObject(MassPrintDpdLabels::class, [
             'orderCollectionFactory' => $orderCollectionFactoryMock,
             'filter' => $this->filterMock,
             'shipmentCollectionFactory' => $shipmentCollectionFactoryMock,
@@ -125,7 +132,9 @@ class MassPrintLabelsTest extends AbstractTest
 
         $this->shipmentMock->method('getTracks')->willReturn([$shipmentTrackMock]);
 
-        $this->printLabelManagementMock->method('printLabels')->willThrowException(new \Exception('Invalid response'));
+        $this->filterMock->method('getCollection')->willThrowException(new Exception(__('Invalid response')));
+
+        $this->printLabelManagementMock->method('printLabels')->willThrowException(new Exception('Invalid response'));
 
         $this->messageManagerMock->expects($this->once())
             ->method('addErrorMessage')

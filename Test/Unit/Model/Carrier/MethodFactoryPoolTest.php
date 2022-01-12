@@ -19,7 +19,7 @@ class MethodFactoryPoolTest extends AbstractTest
      */
     private $classicMethodFactoryMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

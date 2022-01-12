@@ -29,7 +29,7 @@ class CollectionRequestTest extends AbstractTest
      */
     private $jsonMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

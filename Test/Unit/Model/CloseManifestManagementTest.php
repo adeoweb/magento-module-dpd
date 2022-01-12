@@ -27,7 +27,7 @@ class CloseManifestManagementTest extends AbstractTest
      */
     private $carrierServiceMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -47,7 +47,7 @@ class ShippingInformationManagementTest extends AbstractTest
      */
     private $methodFactoryPoolMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -42,7 +42,7 @@ class PrintLabelTest extends AbstractTest
      */
     private $messageManagerMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

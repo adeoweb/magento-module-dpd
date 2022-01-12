@@ -17,7 +17,7 @@ class BackButtonTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
      */
     private $urlBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

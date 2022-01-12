@@ -49,7 +49,7 @@ class DpdTest extends AbstractTest
      */
     private $responseFactoryMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

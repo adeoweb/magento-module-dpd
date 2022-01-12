@@ -24,7 +24,7 @@ class PickupPointFactoryTest extends AbstractTest
      */
     private $objectManagerMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

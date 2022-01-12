@@ -23,7 +23,7 @@ class OrderPlaceBeforeTest extends AbstractTest
      */
     private $eventMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

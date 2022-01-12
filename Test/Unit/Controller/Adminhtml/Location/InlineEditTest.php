@@ -32,7 +32,7 @@ class InlineEditTest extends AbstractTest
      */
     private $locationRepositoryMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

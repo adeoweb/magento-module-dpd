@@ -23,7 +23,7 @@ class PickupPointTest extends AbstractTest
      */
     private $pickupPointManagementMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

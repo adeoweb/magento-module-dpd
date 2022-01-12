@@ -24,7 +24,7 @@ class MassDeleteTest extends AbstractTest
      */
     private $collectionMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

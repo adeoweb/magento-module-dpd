@@ -22,7 +22,7 @@ class DeleteButtonTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
      */
     private $requestMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

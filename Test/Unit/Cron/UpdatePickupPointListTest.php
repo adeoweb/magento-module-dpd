@@ -24,7 +24,7 @@ class UpdatePickupPointListTest extends AbstractTest
      */
     private $loggerMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

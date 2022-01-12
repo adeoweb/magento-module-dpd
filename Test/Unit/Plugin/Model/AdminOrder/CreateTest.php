@@ -20,7 +20,7 @@ class CreateTest extends AbstractTest
      */
     private $requestMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

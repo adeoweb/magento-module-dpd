@@ -20,7 +20,7 @@ class CountryTest extends AbstractTest
      */
     private $scopeConfigMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

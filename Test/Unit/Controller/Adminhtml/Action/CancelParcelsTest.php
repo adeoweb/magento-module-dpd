@@ -37,7 +37,7 @@ class CancelParcelsTest extends AbstractTest
     private $shipmentRepositoryMock;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -36,7 +36,7 @@ class CountryServiceTest extends TestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $objectManager = new ObjectManager($this);
 
@@ -80,11 +80,9 @@ class CountryServiceTest extends TestCase
         $this->assertEquals($expected, $this->subject->getPickupPoints('country_code'));
     }
 
-    /**
-     * @expectedException \Magento\Framework\Exception\LocalizedException
-     */
     public function testGetPickupPointsHasError()
     {
+        $this->expectException(\Magento\Framework\Exception\LocalizedException::class);
         $responseMock = $this->createMock(ResponseInterface::class);
         $responseMock->expects($this->once())->method('hasError')->willReturn(true);
         $responseMock->expects($this->once())->method('getErrorMessage')->willReturn('Connection error.');
@@ -97,11 +95,9 @@ class CountryServiceTest extends TestCase
         $this->subject->getPickupPoints('country_code');
     }
 
-    /**
-     * @expectedException \Magento\Framework\Exception\LocalizedException
-     */
     public function testGetPickupPointsNotArray()
     {
+        $this->expectException(LocalizedException::class);
         $responseMock = $this->createMock(ResponseInterface::class);
         $responseMock->expects($this->once())->method('getBody')->will($this->returnValueMap([
             ['parcelshops', null]

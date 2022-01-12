@@ -25,7 +25,7 @@ class EuropeanCountriesTest extends AbstractTest
      */
     private $countryCollectionFactoryMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -18,7 +18,7 @@ class CloseManifestTest extends AbstractTest
      */
     private $urlBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

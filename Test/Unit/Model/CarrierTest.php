@@ -67,7 +67,7 @@ class CarrierTest extends AbstractTest
      */
     private $parcelPrintManagementMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

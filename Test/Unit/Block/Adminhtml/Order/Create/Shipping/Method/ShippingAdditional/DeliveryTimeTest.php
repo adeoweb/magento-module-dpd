@@ -18,7 +18,7 @@ class DeliveryTimeTest extends AbstractTest
      */
     private $quoteMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

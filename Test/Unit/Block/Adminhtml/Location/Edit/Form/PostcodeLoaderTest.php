@@ -18,7 +18,7 @@ class PostcodeLoaderTest extends AbstractTest
      */
     private $postcodeConfigMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

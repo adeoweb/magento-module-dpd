@@ -44,7 +44,7 @@ class PickupPointRepositoryTest extends AbstractTest
      */
     private $pickupPointCollectionMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

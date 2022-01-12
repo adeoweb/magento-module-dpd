@@ -4,6 +4,7 @@ namespace AdeoWeb\Dpd\Test\Unit\Model;
 
 use AdeoWeb\Dpd\Api\Data\PickupPointSearchResultsInterface;
 use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
+use AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor;
 use AdeoWeb\Dpd\Model\PickupPoint;
 use AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface;
 use AdeoWeb\Dpd\Model\PickupPointManagement;
@@ -52,7 +53,12 @@ class PickupPointManagementTest extends AbstractTest
      */
     private $pickupPointMock;
 
-    public function setUp()
+    /**
+     * @var MockObject
+     */
+    private $localeSortProcessorMock;
+
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -62,6 +68,7 @@ class PickupPointManagementTest extends AbstractTest
         $this->pickupPointMock = $this->createMock(PickupPoint::class);
         $this->pickupPointUpdaterMock = $this->createMock(PickupPointUpdater::class);
         $this->pickupPointSearchResultsMock = $this->createMock(PickupPointSearchResultsInterface::class);
+        $this->localeSortProcessorMock = $this->createMock(LocaleSortProcessor::class);
 
         $searchCriteriaBuilder = $this->createMock(BuilderInterface::class);
         $searchCriteriaBuilder->expects($this->any())
@@ -72,7 +79,8 @@ class PickupPointManagementTest extends AbstractTest
             'cache' => $this->cacheMock,
             'pickupPointUpdater' => $this->pickupPointUpdaterMock,
             'pickupPointRepository' => $this->pickupPointRepositoryMock,
-            'searchCriteriaBuilder' => $searchCriteriaBuilder
+            'searchCriteriaBuilder' => $searchCriteriaBuilder,
+            'localeSortProcessor' => ['LT' => $this->localeSortProcessorMock]
         ]);
     }
 
@@ -93,7 +101,7 @@ class PickupPointManagementTest extends AbstractTest
     {
         $this->cacheMock->expects($this->once())
             ->method('load')
-            ->with('DPD_PICKUP_POINT_LIST_US_TestCity')
+            ->with('DPD_PICKUP_POINT_LIST_LT_TestCity')
             ->willReturn(null);
 
         $this->pickupPointRepositoryMock->expects($this->once())
@@ -109,7 +117,11 @@ class PickupPointManagementTest extends AbstractTest
             ->method('toArray')
             ->willReturn(['api_id' => 'LT10848']);
 
-        $result = $this->subject->getList('US', 'TestCity');
+        $this->localeSortProcessorMock->expects($this->once())
+            ->method('sortData')
+            ->willReturn([['api_id' => 'LT10848']]);
+
+        $result = $this->subject->getList('LT', 'TestCity');
         $expectedResult = [['api_id' => 'LT10848']];
 
         $this->assertEquals($expectedResult, $result);

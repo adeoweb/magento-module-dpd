@@ -55,7 +55,7 @@ class ClassicTest extends AbstractTest
      */
     private $restrictionsConfig;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

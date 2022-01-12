@@ -19,7 +19,7 @@ class MethodTest extends AbstractTest
      */
     private $carrierConfigMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

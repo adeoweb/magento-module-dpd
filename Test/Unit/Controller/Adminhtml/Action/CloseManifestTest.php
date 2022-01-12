@@ -33,7 +33,7 @@ class CloseManifestTest extends AbstractTest
      */
     private $fileFactoryMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

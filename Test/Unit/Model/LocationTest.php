@@ -18,7 +18,7 @@ class LocationTest extends AbstractTest
      */
     private $location;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

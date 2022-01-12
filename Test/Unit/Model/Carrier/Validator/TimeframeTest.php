@@ -25,7 +25,7 @@ class TimeframeTest extends AbstractTest
      */
     private $timezoneMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

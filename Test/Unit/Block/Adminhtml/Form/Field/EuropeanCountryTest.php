@@ -19,7 +19,7 @@ class EuropeanCountryTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
      */
     private $europeanCountriesSourceMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

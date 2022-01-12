@@ -12,7 +12,7 @@ class SaveButtonTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
      */
     private $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

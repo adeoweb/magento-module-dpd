@@ -27,7 +27,7 @@ class DataProviderTest extends AbstractTest
      */
     private $dataPersistorMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

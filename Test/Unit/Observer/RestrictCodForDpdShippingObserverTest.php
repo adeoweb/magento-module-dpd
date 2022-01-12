@@ -31,7 +31,7 @@ class RestrictCodForDpdShippingObserverTest extends AbstractTest
      */
     private $pickupPointRepositoryMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

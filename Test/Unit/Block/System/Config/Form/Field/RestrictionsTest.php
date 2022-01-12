@@ -34,7 +34,7 @@ class RestrictionsTest extends AbstractTest
      */
     private $layoutMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

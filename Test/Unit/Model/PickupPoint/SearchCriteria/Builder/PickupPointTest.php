@@ -28,7 +28,7 @@ class TypeTest extends AbstractTest
      */
     private $sortOrderBuilderMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

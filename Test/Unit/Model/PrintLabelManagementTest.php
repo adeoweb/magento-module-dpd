@@ -21,7 +21,7 @@ class PrintLabelManagementTest extends AbstractTest
      */
     private $serviceMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

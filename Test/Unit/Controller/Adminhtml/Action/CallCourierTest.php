@@ -29,7 +29,7 @@ class CallCourierTest extends AbstractTest
      */
     private $jsonMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

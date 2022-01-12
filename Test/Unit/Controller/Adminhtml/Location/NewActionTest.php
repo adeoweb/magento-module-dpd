@@ -18,7 +18,7 @@ class NewActionTest extends AbstractTest
      */
     private $resultMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

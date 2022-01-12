@@ -27,7 +27,7 @@ class RestrictCodForDpdShippingObserver implements ObserverInterface
     /**
      * @var array
      */
-    private $allowedPickupPointIdentifiers = ['EE90', 'EE10', 'LT90'];
+    private $allowedPickupPointIdentifiers = ['EE90', 'EE10', 'LV90', 'LV10', 'LT90'];
 
     public function __construct(
         Serializer $serializer,

@@ -29,7 +29,7 @@ class SendTest extends AbstractTest
      */
     private $collectionRequestManagementMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

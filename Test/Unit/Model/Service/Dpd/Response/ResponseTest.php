@@ -7,7 +7,7 @@ use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 
 class ResponseTest extends AbstractTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }
