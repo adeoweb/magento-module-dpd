@@ -178,10 +178,10 @@ $sizeSource = $block->getData('sizeSource');
                     <td class="col-measure">
                         <select name="container_dimension_units"
                                 class="options-units-dimensions measures admin__control-select">
-                            <option value="<?php echo /* @noEscape */ Zend_Measure_Length::INCH ?>" selected="selected" >
+                            <option value="<?php echo /* @noEscape */ Zend_Measure_Length::INCH ?>" <?php echo $unitWeight == 'lbs' ? 'selected="selected"' : ''; ?> >
                                 <?php echo $block->escapeHtml(__('in')) ?>
                             </option>
-                            <option value="<?php echo /* @noEscape */ Zend_Measure_Length::CENTIMETER ?>" >
+                            <option value="<?php echo /* @noEscape */ Zend_Measure_Length::CENTIMETER ?>" <?php echo $unitWeight == 'kgs' ? 'selected="selected"' : ''; ?> >
                                 <?php echo $block->escapeHtml(__('cm')) ?>
                             </option>
                         </select>

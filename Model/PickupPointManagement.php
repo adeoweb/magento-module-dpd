@@ -81,7 +81,7 @@ class PickupPointManagement implements PickupPointManagementInterface
 
         $result = [];
 
-        if ($this->localeSortProcessor[strtoupper($country)]) {
+        if (!empty($this->localeSortProcessor[strtoupper($country)])) {
             foreach ($items as $item) {
                 $result[$item->getCity()][] = $item->toArray();
             }
