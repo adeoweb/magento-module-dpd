@@ -23,3 +23,37 @@
     width: 100%;
     height: 500px;
 }
+
+.inputimagebefore() {
+    content: '';
+    position: relative;
+    display: inline-block;
+    height: 25px;
+    max-width: 100px;
+    width: 100%;
+    bottom: -5px;
+    margin-right: 5px;
+    background: url('../AdeoWeb_Dpd/images/dpd_logo_black_text.png') no-repeat center center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+}
+
+#dpd-image-holder::before {
+    .inputimagebefore;
+    max-width: 25px;
+    background: url('../AdeoWeb_Dpd/images/Lapinas_128x128.png') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#dpd-logo-image-holder::before {
+    .inputimagebefore;
+}
+
+#dpd-image-holder > span {
+    display: inline-block;
+}
