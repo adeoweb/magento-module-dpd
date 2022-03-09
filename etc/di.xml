@@ -45,6 +45,9 @@
     <preference for="AdeoWeb\Dpd\Model\Adminhtml\File\CreatePdfProcessorInterface"
                 type="AdeoWeb\Dpd\Model\Adminhtml\File\CreatePdfProcessor"/>
 
+    <preference for="Magento\Shipping\Block\Adminhtml\Order\Packaging\Grid"
+                type="AdeoWeb\Dpd\Model\Shipping\Block\Adminhtml\Order\Packaging\Grid"/>
+
     <virtualType name="dpdApiLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
             <argument name="handlers"  xsi:type="array">
