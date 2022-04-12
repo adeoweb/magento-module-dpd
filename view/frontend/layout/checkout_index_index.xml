@@ -33,7 +33,7 @@
                                                     <item name="children" xsi:type="array">
                                                         <item name="shippingAdditional" xsi:type="array">
                                                             <item name="component" xsi:type="string">uiComponent</item>
-                                                            <item name="displayArea" xsi:type="string">shippingAdditional</item>
+                                                            <item name="displayArea" xsi:type="string">dpdShipping</item>
                                                             <item name="children" xsi:type="array"/>
                                                         </item>
                                                     </item>

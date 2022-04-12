@@ -28,12 +28,11 @@
     content: '';
     position: relative;
     display: inline-block;
-    height: 25px;
-    max-width: 100px;
+    height: 20px;
     width: 100%;
     bottom: -5px;
     margin-right: 5px;
-    background: url('../AdeoWeb_Dpd/images/dpd_logo_black_text.png') no-repeat 0px center;
+    background: url('../AdeoWeb_Dpd/images/dpd_logo_black_text_120.png') no-repeat 0px center;
     -webkit-background-size: contain;
     -moz-background-size: contain;
     -o-background-size: contain;
@@ -42,7 +41,7 @@
 
 #dpd-image-holder::before {
     .inputimagebefore;
-    max-width: 25px;
+    max-width: 20px;
     background: url('../AdeoWeb_Dpd/images/Lapinas_128x128.png') no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -61,4 +60,18 @@
 #dpd-image-holder > span {
     display: inline-block;
     color: #589C2C;
+    font-size: 12px;
+}
+
+.table-checkout-shipping-method tbody td {
+    vertical-align: middle;
+}
+
+#additional_data_classic_dpd td, #additional_data_pickup_dpd td {
+    border: none;
+    padding: 0;
+}
+
+.dpd-pickup, .dpd-delivery-time {
+    padding-bottom: 20px;
 }

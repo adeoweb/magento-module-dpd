@@ -1,13 +1,12 @@
-<p>
-    <div data-bind="visible: isDeliveryTimesAvailable()">
-        <div><label for="dpd-delivery-time-select" data-bind="i18n: 'Select delivery time'"></label>:</div>
-        <div>
-            <select id="dpd-delivery-time-select"
-                    data-validate="{required:true}"
-                    data-bind="options: deliveryTimes,
-                            optionsText: 'label',
-                            optionsValue: 'value',
-                            value: selectedDeliveryTime"></select>
-        </div>
+<div class="dpd-delivery-time" data-bind="visible: isDeliveryTimesAvailable()">
+    <div><label for="dpd-delivery-time-select" data-bind="i18n: 'Select delivery time'"></label>:</div>
+    <div>
+        <select id="dpd-delivery-time-select"
+                data-validate="{required:true}"
+                data-bind="options: deliveryTimes,
+                        optionsText: 'label',
+                        optionsValue: 'value',
+                        value: selectedDeliveryTime"></select>
     </div>
-</p>
+</div>
+

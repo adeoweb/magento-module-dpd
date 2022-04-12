@@ -98,6 +98,10 @@ define([
         },
 
         updateMarkers: function(pickupPoints) {
+            if (!window.google) {
+                return;
+            }
+
             this.resetMarkers();
 
             let self = this;
