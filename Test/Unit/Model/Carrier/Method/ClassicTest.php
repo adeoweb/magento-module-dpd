@@ -157,12 +157,12 @@ class ClassicTest extends AbstractTest
 
         $this->rateRequestMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->with('getPackageValue')
+            ->with('getPackageValueWithDiscount')
             ->willReturn(10);
 
         $this->restrictionsConfig->expects($this->atleastOnce())
             ->method('getByCountryWeight')
-            ->willReturn(['price' => 20]);
+            ->willReturn('20');
 
         $result = $this->subject->getRateResult();
 
@@ -189,11 +189,11 @@ class ClassicTest extends AbstractTest
         $this->scopeConfigMock->expects($this->atLeastOnce())
             ->method('isSetFlag')
             ->with('carriers/dpd/classic/free_shipping_enable')
-            ->willReturn(1);
+            ->willReturn(true);
 
         $this->rateRequestMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->with('getPackageValue')
+            ->with('getPackageValueWithDiscount')
             ->willReturn(10);
 
         $result = $this->subject->getRateResult();

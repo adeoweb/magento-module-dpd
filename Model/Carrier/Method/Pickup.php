@@ -62,7 +62,7 @@ class Pickup extends AbstractMethod implements MethodInterface
     /**
      * {@inheritDoc}
      */
-    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request)
+    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request): CreateShipmentRequest
     {
         $deliveryOptions = $this->getDeliveryOptions($request);
 
@@ -89,7 +89,7 @@ class Pickup extends AbstractMethod implements MethodInterface
      * @return bool
      * @throws LocalizedException
      */
-    public function validateDeliveryOptions(DataObject $deliveryOptions)
+    public function validateDeliveryOptions(DataObject $deliveryOptions): bool
     {
         $apiId = $deliveryOptions->getApiId();
 

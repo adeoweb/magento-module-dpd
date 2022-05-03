@@ -12,38 +12,41 @@ interface MethodInterface
     /**
      * @return string
      */
-    public function getCode();
+    public function getCode(): string;
 
     /**
      * @return string
      */
-    public function getLabel();
+    public function getLabel(): string;
 
     /**
      * @return Method
      */
-    public function getRateResult();
+    public function getRateResult(): Method;
 
     /**
      * @param RateRequest $request
      */
-    public function setRequest(RateRequest $request);
+    public function setRequest(RateRequest $request): void;
 
     /**
      * @return bool
      */
-    public function validate();
+    public function validate(): bool;
 
     /**
      * @param DataObject $deliveryOptions
-     * @return mixed
+     * @return bool
      */
-    public function validateDeliveryOptions(DataObject $deliveryOptions);
+    public function validateDeliveryOptions(DataObject $deliveryOptions): bool;
 
     /**
      * @param CreateShipmentRequest $createShipmentRequest
      * @param DataObject $request
      * @return CreateShipmentRequest
      */
-    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request);
+    public function processShipmentRequest(
+        CreateShipmentRequest $createShipmentRequest,
+        DataObject $request
+    ): CreateShipmentRequest;
 }

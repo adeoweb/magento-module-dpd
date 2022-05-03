@@ -69,7 +69,7 @@ class Classic extends AbstractMethod implements MethodInterface
     /**
      * {@inheritDoc}
      */
-    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request)
+    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request): CreateShipmentRequest
     {
         $createShipmentRequest = parent::processShipmentRequest($createShipmentRequest, $request);
 
@@ -88,5 +88,19 @@ class Classic extends AbstractMethod implements MethodInterface
         $createShipmentRequest->setTimeframeTo($deliveryTimeValue[1]);
 
         return $createShipmentRequest;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function isFreeShipping(): bool
+    {
+        if (!$this->getFreeShipping()) {
+            return false;
+        }
+
+        $freeShippingValue = $this->getFreeShippingOrderValue();
+
+        return $this->getPackageValueWithDiscount() >= $freeShippingValue;
     }
 }

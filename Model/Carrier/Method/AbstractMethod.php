@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AdeoWeb\Dpd\Model\Carrier\Method;
 
 use AdeoWeb\Dpd\Config\Restrictions;
@@ -130,7 +132,7 @@ abstract class AbstractMethod
      * @return string
      * @codeCoverageIgnore
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -139,7 +141,7 @@ abstract class AbstractMethod
      * @return string
      * @codeCoverageIgnore
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         $methodTitle = $this->scopeConfig->getValue(
             sprintf(self::XML_PATH_METHOD_TITLE, $this->getCode()),
@@ -150,16 +152,16 @@ abstract class AbstractMethod
             return '';
         }
 
-        return $methodTitle;
+        return (string)$methodTitle;
     }
 
     /**
      * @return string
      * @codeCoverageIgnore
      */
-    public function getCarrierTitle()
+    public function getCarrierTitle(): string
     {
-        return $this->scopeConfig->getValue(
+        return (string)$this->scopeConfig->getValue(
             self::XML_PATH_CARRIER_TITLE,
             ScopeInterface::SCOPE_STORE
         );
@@ -169,7 +171,7 @@ abstract class AbstractMethod
      * @return Method
      * @throws Exception
      */
-    public function getRateResult()
+    public function getRateResult(): Method
     {
         $rateResultMethod = $this->rateMethodFactory->create();
 
@@ -190,7 +192,7 @@ abstract class AbstractMethod
     /**
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         foreach ($this->validators as $validator) {
             if (!$validator instanceof ValidatorInterface) {
@@ -213,8 +215,10 @@ abstract class AbstractMethod
      * @return CreateShipmentRequest
      * @throws Exception
      */
-    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request)
-    {
+    public function processShipmentRequest(
+        CreateShipmentRequest $createShipmentRequest,
+        DataObject $request
+    ): CreateShipmentRequest {
         /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
 
@@ -245,12 +249,12 @@ abstract class AbstractMethod
     }
 
     /**
-     * @return float
+     * @return bool
      * @codeCoverageIgnore
      */
-    public function getFreeShipping()
+    public function getFreeShipping(): bool
     {
-        return $this->scopeConfig->isSetFlag(
+        return (bool)$this->scopeConfig->isSetFlag(
             sprintf(self::XML_PATH_METHOD_FREESHIPPING, $this->getCode()),
             ScopeInterface::SCOPE_STORE
         );
@@ -260,9 +264,9 @@ abstract class AbstractMethod
      * @return float
      * @codeCoverageIgnore
      */
-    public function getFreeShippingOrderValue()
+    public function getFreeShippingOrderValue(): float
     {
-        return $this->scopeConfig->getValue(
+        return (float)$this->scopeConfig->getValue(
             sprintf(self::XML_PATH_METHOD_FREESHIPPING_ORDER_VALUE, $this->getCode()),
             ScopeInterface::SCOPE_STORE
         );
@@ -272,7 +276,7 @@ abstract class AbstractMethod
      * @param RateRequest $request
      * @codeCoverageIgnore
      */
-    public function setRequest(RateRequest $request)
+    public function setRequest(RateRequest $request): void
     {
         $this->request = $request;
     }
@@ -281,7 +285,7 @@ abstract class AbstractMethod
      * @return float
      * @throws Exception
      */
-    protected function getPackageValue()
+    protected function getPackageValue(): float
     {
         return $this->request->getPackageValue();
     }
@@ -290,7 +294,16 @@ abstract class AbstractMethod
      * @return float
      * @throws Exception
      */
-    protected function getPrice()
+    protected function getPackageValueWithDiscount(): float
+    {
+        return $this->request->getPackageValueWithDiscount();
+    }
+
+    /**
+     * @return float
+     * @throws Exception
+     */
+    protected function getPrice(): float
     {
         if ($this->isFreeShipping()) {
             return 0.00;
@@ -310,7 +323,7 @@ abstract class AbstractMethod
      * @return string|null
      * @throws Exception
      */
-    protected function getRestrictedPrice()
+    protected function getRestrictedPrice(): ?string
     {
         if (!$this->restrictionsConfig) {
             return null;
@@ -326,7 +339,7 @@ abstract class AbstractMethod
      * @return bool
      * @throws Exception
      */
-    protected function isFreeShipping()
+    protected function isFreeShipping(): bool
     {
         if (!$this->getFreeShipping()) {
             return false;
@@ -334,16 +347,16 @@ abstract class AbstractMethod
 
         $freeShippingValue = $this->getFreeShippingOrderValue();
 
-        return (is_numeric($freeShippingValue) && $this->getPackageValue() >= $freeShippingValue);
+        return ($this->getPackageValue() >= $freeShippingValue);
     }
 
     /**
-     * @return mixed
+     * @return float
      * @codeCoverageIgnore
      */
-    protected function getMaxWeight()
+    protected function getMaxWeight(): float
     {
-        return $this->scopeConfig->getValue(sprintf(self::XML_PATH_METHOD_MAX_WEIGHT, $this->getCode()));
+        return (float)$this->scopeConfig->getValue(sprintf(self::XML_PATH_METHOD_MAX_WEIGHT, $this->getCode()));
     }
 
     /**
@@ -351,7 +364,7 @@ abstract class AbstractMethod
      * @param int $splitInto
      * @return float
      */
-    protected function getWeight(DataObject $request, $splitInto = 1)
+    protected function getWeight(DataObject $request, int $splitInto = 1): float
     {
         $totalWeightKilogram = 0.00;
 
@@ -364,14 +377,14 @@ abstract class AbstractMethod
                 Zend_Measure_Weight::KILOGRAM
             );
         }
-        return sprintf('%.3f', $totalWeightKilogram / $splitInto);
+        return (float)sprintf('%.3f', $totalWeightKilogram / $splitInto);
     }
 
     /**
      * @param $request
      * @return string
      */
-    protected function getParcelType($request)
+    protected function getParcelType($request): string
     {
         $result = $this->getServiceType();
 
@@ -394,7 +407,7 @@ abstract class AbstractMethod
      * @param $request
      * @return bool
      */
-    protected function isCod(DataObject $request)
+    protected function isCod(DataObject $request): bool
     {
         /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
@@ -414,7 +427,7 @@ abstract class AbstractMethod
      * @param DataObject $deliveryOptions
      * @return bool
      */
-    public function validateDeliveryOptions(DataObject $deliveryOptions)
+    public function validateDeliveryOptions(DataObject $deliveryOptions): bool
     {
         return true;
     }
@@ -424,15 +437,21 @@ abstract class AbstractMethod
      * @return array
      * @throws LocalizedException
      */
-    protected function getDeliveryOptions(DataObject $request)
+    protected function getDeliveryOptions(DataObject $request): array
     {
         /** @var Order $order */
         $order = $request->getOrderShipment()->getOrder();
+        $dpdDeliveryOptions = $order->getData('dpd_delivery_options');
+
+        if (empty($dpdDeliveryOptions)) {
+            return [];
+        }
+
 
         return $this->serializer->unserialize($order->getData('dpd_delivery_options'));
     }
 
-    private function getMagentoModuleVersions()
+    private function getMagentoModuleVersions(): string
     {
         return sprintf(
             "MG%s|%s", $this->productMetadata->getVersion(), $this->moduleMetaData->getVersion()
