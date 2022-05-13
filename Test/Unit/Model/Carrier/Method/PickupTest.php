@@ -146,7 +146,7 @@ class PickupTest extends AbstractTest
 
         $this->rateRequestMock->expects($this->atLeastOnce())
             ->method('__call')
-            ->with('getPackageValue')
+            ->with('getPackageValueWithDiscount')
             ->willReturn(20);
 
         $result = $this->subject->getRateResult();

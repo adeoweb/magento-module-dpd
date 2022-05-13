@@ -347,7 +347,7 @@ abstract class AbstractMethod
 
         $freeShippingValue = $this->getFreeShippingOrderValue();
 
-        return ($this->getPackageValue() >= $freeShippingValue);
+        return $this->getPackageValueWithDiscount() >= $freeShippingValue;
     }
 
     /**

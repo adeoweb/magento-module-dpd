@@ -89,18 +89,4 @@ class Classic extends AbstractMethod implements MethodInterface
 
         return $createShipmentRequest;
     }
-
-    /**
-     * @inheritdoc
-     */
-    protected function isFreeShipping(): bool
-    {
-        if (!$this->getFreeShipping()) {
-            return false;
-        }
-
-        $freeShippingValue = $this->getFreeShippingOrderValue();
-
-        return $this->getPackageValueWithDiscount() >= $freeShippingValue;
-    }
 }
