@@ -100,27 +100,27 @@ class CollectionRequestManagementTest extends AbstractTest
 
     public function testCollectionRequestWithResponseError()
     {
-        $requestData = array(
-            'request' => array(
+        $requestData = [
+            'request' => [
                 'order_id' => '1',
                 'sender_adress' =>
-                    array(
+                    [
                         'sender_use_shipping_address' => '1',
-                    ),
+                    ],
                 'recipient_adress' =>
-                    array(
+                    [
                         'recipient_use_shipping_address' => '0',
                         'recipient_location' => '1',
-                    ),
+                    ],
                 'package_info' =>
-                    array(
+                    [
                         'comment' => 'TestComment',
                         'pickup_date' => '01/01/2000',
                         'num_of_parcels' => '1',
                         'total_weight' => '0.1',
-                    ),
-            )
-        );
+                    ],
+            ]
+        ];
 
         $this->carrierServiceMock->expects($this->once())
             ->method('call')
@@ -134,27 +134,27 @@ class CollectionRequestManagementTest extends AbstractTest
 
     public function testCollectionRequestWithLocationException()
     {
-        $requestData = array(
-            'request' => array(
+        $requestData = [
+            'request' => [
                 'order_id' => '1',
                 'sender_adress' =>
-                    array(
+                    [
                         'sender_use_shipping_address' => '1',
-                    ),
+                    ],
                 'recipient_adress' =>
-                    array(
+                    [
                         'recipient_use_shipping_address' => '0',
                         'recipient_location' => false,
-                    ),
+                    ],
                 'package_info' =>
-                    array(
+                    [
                         'comment' => 'TestComment',
                         'pickup_date' => '01/01/2000',
                         'num_of_parcels' => '1',
                         'total_weight' => '0.1',
-                    ),
-            )
-        );
+                    ],
+            ]
+        ];
 
         $this->expectException(LocalizedException::class);
         $this->expectExceptionMessage('Location is not specified');
@@ -164,27 +164,27 @@ class CollectionRequestManagementTest extends AbstractTest
 
     public function testCollectionRequest()
     {
-        $requestData = array(
-            'request' => array(
+        $requestData = [
+            'request' => [
                 'order_id' => '1',
                 'sender_adress' =>
-                    array(
+                    [
                         'sender_use_shipping_address' => '0',
                         'sender_location' => '1'
-                    ),
+                    ],
                 'recipient_adress' =>
-                    array(
+                    [
                         'recipient_use_shipping_address' => '1'
-                    ),
+                    ],
                 'package_info' =>
-                    array(
+                    [
                         'comment' => 'TestComment',
                         'pickup_date' => '01/01/2000',
                         'num_of_parcels' => '1',
                         'total_weight' => '0.1',
-                    ),
-            )
-        );
+                    ],
+            ]
+        ];
 
         $this->carrierServiceMock->expects($this->once())
             ->method('call')

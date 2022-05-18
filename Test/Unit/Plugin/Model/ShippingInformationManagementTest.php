@@ -52,7 +52,9 @@ class ShippingInformationManagementTest extends AbstractTest
         parent::setUp();
 
         $this->subjectMock = $this->createMock(\Magento\Checkout\Model\ShippingInformationManagement::class);
-        $this->addressInformationMock = $this->createMock(\Magento\Checkout\Api\Data\ShippingInformationInterface::class);
+        $this->addressInformationMock = $this->createMock(
+            \Magento\Checkout\Api\Data\ShippingInformationInterface::class
+        );
         $this->shippingAddressMock = $this->createMock(\Magento\Quote\Api\Data\AddressInterface::class);
 
         $this->quoteRepositoryMock = $this->createMock(\Magento\Quote\Api\CartRepositoryInterface::class);
@@ -185,7 +187,6 @@ class ShippingInformationManagementTest extends AbstractTest
             ->method('getShippingMethodCode')
             ->willReturn('classic');
 
-
         $quoteMock = $this->createPartialMock(Quote::class, []);
 
         $this->quoteRepositoryMock->expects($this->once())
@@ -215,7 +216,6 @@ class ShippingInformationManagementTest extends AbstractTest
 
         $this->assertEquals($expectedResult, $result);
     }
-
 
     public function testBeforeSaveAddressInformationWithQuoteSaveException()
     {

@@ -47,7 +47,11 @@ class CountryTest extends AbstractTest
 
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
-            ->withConsecutive(['carriers/dpd/classic/sallowspecific'], ['carriers/dpd/classic/specificcountry'], ['carriers/dpd/classic/specificcountry'])
+            ->withConsecutive(
+                ['carriers/dpd/classic/sallowspecific'],
+                ['carriers/dpd/classic/specificcountry'],
+                ['carriers/dpd/classic/specificcountry']
+            )
             ->willReturn(true, 'US', 'US');
 
         $result = $this->subject->validate([
@@ -66,7 +70,11 @@ class CountryTest extends AbstractTest
 
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
-            ->withConsecutive(['carriers/dpd/classic/sallowspecific'], ['carriers/dpd/classic/specificcountry'], ['carriers/dpd/classic/specificcountry'])
+            ->withConsecutive(
+                ['carriers/dpd/classic/sallowspecific'],
+                ['carriers/dpd/classic/specificcountry'],
+                ['carriers/dpd/classic/specificcountry']
+            )
             ->willReturn(true, 'US', 'US');
 
         $result = $this->subject->validate([

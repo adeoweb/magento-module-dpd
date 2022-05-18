@@ -12,6 +12,8 @@ use Magento\Framework\Exception\NoSuchEntityException;
 interface PickupPointRepositoryInterface
 {
     /**
+     * Public method
+     *
      * @param int $pickupPointId
      * @return PickupPointInterface
      * @throws NoSuchEntityException
@@ -19,6 +21,8 @@ interface PickupPointRepositoryInterface
     public function getById($pickupPointId);
 
     /**
+     * Public method
+     *
      * @param string $apiId
      * @return PickupPointInterface
      * @throws NoSuchEntityException
@@ -26,12 +30,16 @@ interface PickupPointRepositoryInterface
     public function getByApiId($apiId);
 
     /**
+     * Public method
+     *
      * @param SearchCriteriaInterface $searchCriteria
      * @return PickupPointSearchResultsInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
 
     /**
+     * Public method
+     *
      * @param PickupPointInterface $pickupPoint
      * @return PickupPointInterface
      * @throws CouldNotSaveException
@@ -39,6 +47,8 @@ interface PickupPointRepositoryInterface
     public function save(PickupPointInterface $pickupPoint);
 
     /**
+     * Public method
+     *
      * @param PickupPointInterface $pickupPoint
      * @return PickupPointInterface
      * @throws CouldNotDeleteException

@@ -46,7 +46,9 @@ class SendTest extends AbstractTest
         $contextMock->method('getRequest')->willReturn($this->requestMock);
         $contextMock->method('getMessageManager')->willReturn($messageManagerMock);
 
-        $this->collectionRequestManagementMock = $this->createMock(\AdeoWeb\Dpd\Api\CollectionRequestManagementInterface::class);
+        $this->collectionRequestManagementMock = $this->createMock(
+            \AdeoWeb\Dpd\Api\CollectionRequestManagementInterface::class
+        );
 
         $this->subject = $this->objectManager->getObject(Send::class, [
             'resultRedirectFactory' => $resultRedirectFactoryMock,

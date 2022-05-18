@@ -31,10 +31,10 @@ class MassDeleteTest extends AbstractTest
         $this->filterMock = $this->createMock(\Magento\Ui\Component\MassAction\Filter::class);
         $this->collectionMock = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\Location\Collection::class);
 
-
-        $collectionFactoryMock = $this->createConfiguredMock(\AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory::class, [
-            'create' => $this->collectionMock
-        ]);
+        $collectionFactoryMock = $this->createConfiguredMock(
+            \AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory::class,
+            ['create' => $this->collectionMock]
+        );
 
         $resultForward = $this->createMock(\Magento\Backend\Model\View\Result\Forward::class);
 

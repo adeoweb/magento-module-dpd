@@ -83,7 +83,6 @@ class TypeTest extends AbstractTest
             'getApiId' => 'TEST10001',
         ]);
 
-
         $this->assertEquals(3, $this->subject->resolve($pickupPointMock1));
         $this->assertEquals(null, $this->subject->resolve($pickupPointMock2));
     }

@@ -73,14 +73,15 @@ class MassPrintLabelsTest extends AbstractTest
             'getOrder' => $nonDpdOrder
         ]);
 
-        $this->shipmentCollectionMock = $this->objectManager->getCollectionMock(\Magento\Sales\Model\ResourceModel\Order\Shipment\Collection::class, [
-            $this->shipmentMock,
-            $nonDpdShipment
-        ]);
+        $this->shipmentCollectionMock = $this->objectManager->getCollectionMock(
+            \Magento\Sales\Model\ResourceModel\Order\Shipment\Collection::class,
+            [$this->shipmentMock, $nonDpdShipment]
+        );
 
-        $shipmentCollectionFactoryMock = $this->createConfiguredMock(\Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory::class, [
-            'create' => $this->shipmentCollectionMock
-        ]);
+        $shipmentCollectionFactoryMock = $this->createConfiguredMock(
+            \Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory::class,
+            ['create' => $this->shipmentCollectionMock]
+        );
 
         $resultRedirect = $this->createMock(\Magento\Framework\Controller\Result\Redirect::class);
 
@@ -97,7 +98,6 @@ class MassPrintLabelsTest extends AbstractTest
             'getResultRedirectFactory' => $resultRedirectFactoryMock,
             'getResultFactory' => $resultFactoryMock
         ]);
-
 
         $this->subject = $this->objectManager->getObject(MassPrintDpdLabels::class, [
             'filter' => $this->filterMock,
@@ -122,7 +122,7 @@ class MassPrintLabelsTest extends AbstractTest
         ]);
 
         $this->shipmentMock->method('getTracks')->willReturn([$shipmentTrackMock]);
-        
+
         $this->shipmentMock->method('getTracks')->willThrowException(new \Exception('Invalid response'));
 
         $this->printLabelManagementMock->method('printLabels')->willThrowException(new \Exception('Invalid response'));

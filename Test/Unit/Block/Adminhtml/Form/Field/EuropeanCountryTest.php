@@ -23,7 +23,9 @@ class EuropeanCountryTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
     {
         parent::setUp();
 
-        $this->europeanCountriesSourceMock = $this->createMock(\AdeoWeb\Dpd\Model\Config\Source\EuropeanCountries::class);
+        $this->europeanCountriesSourceMock = $this->createMock(
+            \AdeoWeb\Dpd\Model\Config\Source\EuropeanCountries::class
+        );
 
         $escaperMock = $this->objectManager->getObject(\Magento\Framework\Escaper::class, [
             'escapeHtml'
@@ -51,7 +53,10 @@ class EuropeanCountryTest extends \AdeoWeb\Dpd\Test\Unit\AbstractTest
             ]);
 
         $result = $this->subject->_toHtml();
-        $expectedResult = '<select name="" id="" class="" title="" ><option value="test1" >Sample Label 1</option><option value="test2" >Sample Label 2</option></select>';
+        $expectedResult = '<select name="" id="" class="" title="" >'.
+                        '<option value="test1" >Sample Label 1</option>'.
+                '<option value="test2" >Sample Label 2</option>'.
+                '</select>';
 
         $this->assertEquals($result, $expectedResult);
     }

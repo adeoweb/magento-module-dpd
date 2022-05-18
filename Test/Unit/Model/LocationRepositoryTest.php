@@ -46,7 +46,9 @@ class LocationRepositoryTest extends AbstractTest
 
         $this->locationModelMock = $this->createMock(Location::class);
         $this->resourceMock = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\Location::class);
-        $this->locationSearchResultsInterfaceMock = $this->createMock(\AdeoWeb\Dpd\Api\Data\LocationSearchResultsInterface::class);
+        $this->locationSearchResultsInterfaceMock = $this->createMock(
+            \AdeoWeb\Dpd\Api\Data\LocationSearchResultsInterface::class
+        );
         $this->locationCollectionMock = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\Location\Collection::class);
 
         $locationSearchResultsInterfaceFactoryMock = $this->createMock(LocationSearchResultsInterfaceFactory::class);
@@ -59,7 +61,9 @@ class LocationRepositoryTest extends AbstractTest
             ->method('create')
             ->willReturn($this->locationModelMock);
 
-        $locationCollectionFactory = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory::class);
+        $locationCollectionFactory = $this->createMock(
+            \AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory::class
+        );
         $locationCollectionFactory->expects($this->any())
             ->method('create')
             ->willReturn($this->locationCollectionMock);
@@ -169,7 +173,6 @@ class LocationRepositoryTest extends AbstractTest
         $searchCriteriaMock->expects($this->once())
             ->method('getSortOrders')
             ->willReturn([$sortOrderMock]);
-
 
         $filterGroupMock->expects($this->once())
             ->method('getFilters')

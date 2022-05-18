@@ -127,7 +127,6 @@ class DeliveryTimeManagementTest extends AbstractTest
                 ],
             ];
 
-
         foreach ($tests as $test) {
             $this->assertEquals($test['expectedOutput'], $this->subject->calculate($test['input']));
         }

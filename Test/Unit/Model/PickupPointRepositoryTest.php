@@ -50,10 +50,16 @@ class PickupPointRepositoryTest extends AbstractTest
 
         $this->pickupPointModelMock = $this->createMock(PickupPoint::class);
         $this->resourceMock = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\PickupPoint::class);
-        $this->pickupPointSearchResultsInterfaceMock = $this->createMock(\AdeoWeb\Dpd\Api\Data\PickupPointSearchResultsInterface::class);
-        $this->pickupPointCollectionMock = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\PickupPoint\Collection::class);
+        $this->pickupPointSearchResultsInterfaceMock = $this->createMock(
+            \AdeoWeb\Dpd\Api\Data\PickupPointSearchResultsInterface::class
+        );
+        $this->pickupPointCollectionMock = $this->createMock(
+            \AdeoWeb\Dpd\Model\ResourceModel\PickupPoint\Collection::class
+        );
 
-        $pickupPointSearchResultsInterfaceFactoryMock = $this->createMock(PickupPointSearchResultsInterfaceFactory::class);
+        $pickupPointSearchResultsInterfaceFactoryMock = $this->createMock(
+            PickupPointSearchResultsInterfaceFactory::class
+        );
         $pickupPointSearchResultsInterfaceFactoryMock->expects($this->any())
             ->method('create')
             ->willReturn($this->pickupPointSearchResultsInterfaceMock);
@@ -63,7 +69,9 @@ class PickupPointRepositoryTest extends AbstractTest
             ->method('create')
             ->willReturn($this->pickupPointModelMock);
 
-        $pickupPointCollectionFactory = $this->createMock(\AdeoWeb\Dpd\Model\ResourceModel\PickupPoint\CollectionFactory::class);
+        $pickupPointCollectionFactory = $this->createMock(
+            \AdeoWeb\Dpd\Model\ResourceModel\PickupPoint\CollectionFactory::class
+        );
         $pickupPointCollectionFactory->expects($this->any())
             ->method('create')
             ->willReturn($this->pickupPointCollectionMock);

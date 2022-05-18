@@ -63,7 +63,6 @@ class SaveTest extends AbstractTest
             ->method('create')
             ->willReturn($this->resultRedirectMock);
 
-
         $contextMock = $this->objectManager->getObject(\Magento\Backend\App\Action\Context::class, [
             'request' => $this->requestMock,
             'resultRedirectFactory' => $resultRedirectFactoryMock,

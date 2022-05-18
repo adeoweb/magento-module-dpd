@@ -2,15 +2,17 @@
     <div class="admin__fieldset">
         <div class="admin__field field _required">
             <label class="label admin__field-label" for="order-shipping-method-additional-info">
-                <span><?php echo $block->escapeHtml($block->getInputLabel()); ?></span>
+                <span><?= $block->escapeHtml($block->getInputLabel()); ?></span>
             </label>
             <div class="admin__field-control control">
-                <select name="<?php echo $block->escapeHtml($block->getInputName()); ?>"
-                        id="<?php echo $block->escapeHtml($block->getInputId()); ?>"
+                <select name="<?= $block->escapeHtml($block->getInputName()); ?>"
+                        id="<?= $block->escapeHtml($block->getInputId()); ?>"
                         class="required required-entry admin__control-select">
-                    <option value=""><?php echo $block->escapeHtml(__('Choose...')); ?></option>
+                    <option value=""><?= $block->escapeHtml(__('Choose...')); ?></option>
                     <?php foreach ($block->getOptions() as $option): ?>
-                        <option value="<?php echo $option['value']; ?>"><?php echo $block->escapeHtml($option['label']); ?></option>
+                        <option value="<?= $block->escapeHtml($option['value']); ?>">
+                            <?= $block->escapeHtml($option['label']); ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>

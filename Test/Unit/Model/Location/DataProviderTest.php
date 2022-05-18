@@ -34,9 +34,10 @@ class DataProviderTest extends AbstractTest
         $this->locationCollectionMock = $this->createMock(Collection::class);
         $this->dataPersistorMock = $this->createMock(DataPersistorInterface::class);
 
-        $locationCollectionFactoryMock = $this->createConfiguredMock(\AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory::class, [
-            'create' => $this->locationCollectionMock
-        ]);
+        $locationCollectionFactoryMock = $this->createConfiguredMock(
+            \AdeoWeb\Dpd\Model\ResourceModel\Location\CollectionFactory::class,
+            ['create' => $this->locationCollectionMock]
+        );
 
         $this->subject = $this->objectManager->getObject(DataProvider::class, [
             'collectionFactory' => $locationCollectionFactoryMock,

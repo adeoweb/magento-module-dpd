@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="adeoweb_dpd_pickup_point" resource="default" engine="innodb" comment="DPD Pickup Points">
+        <column xsi:type="int" name="pickup_point_id" unsigned="true" nullable="false" identity="true"
+                comment="Pickup Point ID"/>
+        <column xsi:type="varchar" name="api_id" nullable="true" length="255" comment="API ID"/>
+        <column xsi:type="int" name="type" unsigned="true" nullable="false" comment="Type"/>
+        <column xsi:type="varchar" name="company" nullable="false" length="255" comment="Company"/>
+        <column xsi:type="varchar" name="country" nullable="false" length="255" comment="Country"/>
+        <column xsi:type="varchar" name="city" nullable="false" length="255" comment="City"/>
+        <column xsi:type="varchar" name="postcode" nullable="false" length="255" comment="Postcode"/>
+        <column xsi:type="varchar" name="street" nullable="false" length="255" comment="Street"/>
+        <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="phone" nullable="true" length="255" comment="Phone"/>
+        <column xsi:type="varchar" name="longitude" nullable="true" length="255" comment="Longitude"/>
+        <column xsi:type="varchar" name="latitude" nullable="true" length="255" comment="Latitude"/>
+        <column xsi:type="text" name="opening_hours" nullable="true" comment="Opening Hours"/>
+        <column xsi:type="smallint" name="is_disabled" nullable="false" default="0" comment="Is Disabled"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="pickup_point_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="ADEOWEB_DPD_PICKUP_POINT_API_ID">
+            <column name="api_id"/>
+        </constraint>
+    </table>
+    <table name="adeoweb_dpd_location" resource="default" engine="innodb" comment="DPD Locations">
+        <column xsi:type="int" name="location_id" unsigned="true" nullable="false" identity="true"
+                comment="Location Id"/>
+        <column xsi:type="int" name="type" nullable="false" comment="Location Type"/>
+        <column xsi:type="text" name="name" nullable="true" comment="Location Name"/>
+        <column xsi:type="text" name="address" nullable="true" comment="Location Address"/>
+        <column xsi:type="text" name="city" nullable="true" comment="Location City"/>
+        <column xsi:type="text" name="country" nullable="true" comment="Location Country"/>
+        <column xsi:type="text" name="postcode" nullable="true" comment="Location Postcode"/>
+        <column xsi:type="text" name="additional_info" nullable="true" comment="Location Country"/>
+        <column xsi:type="text" name="contact_name" nullable="true" comment="Location Contact Name"/>
+        <column xsi:type="text" name="phone" nullable="true" comment="Location Phone"/>
+        <column xsi:type="text" name="work_until" nullable="true" comment="Location Work Until" disabled="true"/>
+        <column xsi:type="datetime" name="created_at" nullable="true" comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="true" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="location_id"/>
+        </constraint>
+    </table>
+    <table name="quote" resource="checkout">
+        <column xsi:type="text" name="dpd_delivery_options" nullable="true" comment="Dpd Delivery Options"/>
+    </table>
+    <table name="sales_order" resource="sales">
+        <column xsi:type="text" name="dpd_delivery_options" nullable="true" comment="Dpd Delivery Options"/>
+    </table>
+</schema>

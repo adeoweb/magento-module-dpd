@@ -76,10 +76,14 @@ class CarrierTest extends AbstractTest
         $this->methodFactoryPoolMock = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\MethodFactoryPool::class);
         $this->carrierServiceMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd::class);
         $this->parcelStatusRequestMock = $this->createMock(ParcelStatusRequest::class);
-        $this->shipmentRequestMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class);
+        $this->shipmentRequestMock = $this->createMock(
+            \AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequest::class
+        );
         $this->parcelPrintManagementMock = $this->createMock(PrintLabelManagementInterface::class);
 
-        $createShipmentRequestFactoryMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequestFactory::class);
+        $createShipmentRequestFactoryMock = $this->createMock(
+            \AdeoWeb\Dpd\Model\Service\Dpd\Request\CreateShipmentRequestFactory::class
+        );
         $createShipmentRequestFactoryMock->expects($this->any())
             ->method('create')
             ->willReturn($this->shipmentRequestMock);
@@ -141,7 +145,9 @@ class CarrierTest extends AbstractTest
             ->with('carriers/dpd/allowed_methods')
             ->willReturn('classic,test');
 
-        $classicMethodRateResultMock = $this->createMock(\Magento\Quote\Model\Quote\Address\RateResult\AbstractResult::class);
+        $classicMethodRateResultMock = $this->createMock(
+            \Magento\Quote\Model\Quote\Address\RateResult\AbstractResult::class
+        );
 
         $classicMethodMock = $this->createMock(\AdeoWeb\Dpd\Model\Carrier\Method\Classic::class);
         $classicMethodMock->expects($this->once())

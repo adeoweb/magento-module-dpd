@@ -10,6 +10,8 @@ use Magento\Framework\Exception\LocalizedException;
 interface LocationRepositoryInterface
 {
     /**
+     * Public method
+     *
      * @param LocationInterface $location
      * @return LocationInterface
      * @throws LocalizedException
@@ -17,6 +19,8 @@ interface LocationRepositoryInterface
     public function save($location);
 
     /**
+     * Public method
+     *
      * @param string $locationId
      * @return LocationInterface
      * @throws LocalizedException
@@ -24,6 +28,8 @@ interface LocationRepositoryInterface
     public function getById($locationId);
 
     /**
+     * Public method
+     *
      * @param SearchCriteriaInterface $searchCriteria
      * @return LocationSearchResultsInterface
      * @throws LocalizedException
@@ -31,6 +37,8 @@ interface LocationRepositoryInterface
     public function getList(SearchCriteriaInterface $searchCriteria = null);
 
     /**
+     * Public method
+     *
      * @param LocationInterface $location
      * @return boolean
      * @throws LocalizedException
@@ -38,6 +46,8 @@ interface LocationRepositoryInterface
     public function delete($location);
 
     /**
+     * Public method
+     *
      * @param string $locationId
      * @return boolean
      * @throws \Magento\Framework\Exception\NoSuchEntityException

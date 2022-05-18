@@ -15,6 +15,9 @@ class OrderPlaceBefore implements ObserverInterface
      */
     private $quoteRepository;
 
+    /**
+     * @param CartRepositoryInterface $quoteRepository
+     */
     public function __construct(
         CartRepositoryInterface $quoteRepository
     ) {
@@ -22,6 +25,8 @@ class OrderPlaceBefore implements ObserverInterface
     }
 
     /**
+     * Add delivery options
+     *
      * @param Observer $observer
      * @return void|null
      */

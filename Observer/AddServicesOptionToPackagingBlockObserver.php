@@ -13,6 +13,8 @@ use function str_replace;
 class AddServicesOptionToPackagingBlockObserver implements ObserverInterface
 {
     /**
+     * Add packaging block
+     *
      * @param Observer $observer
      * @return void
      * @throws LocalizedException

@@ -121,7 +121,6 @@ class EditTest extends AbstractTest
             ->with('location_id')
             ->willReturn(null);
 
-
         $titleMock = $this->createMock(\Magento\Framework\View\Page\Title::class);
 
         $pageConfigMock = $this->createMock(\Magento\Framework\View\Page\Config::class);

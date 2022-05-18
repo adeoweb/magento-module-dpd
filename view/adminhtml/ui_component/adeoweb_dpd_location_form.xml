@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
-<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">adeoweb_dpd_location_form.location_form_data_source</item>
@@ -15,7 +16,9 @@
             <item name="back" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Location\Edit\BackButton</item>
             <item name="delete" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Location\Edit\DeleteButton</item>
             <item name="save" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Location\Edit\SaveButton</item>
-            <item name="save_and_continue" xsi:type="string">AdeoWeb\Dpd\Block\Adminhtml\Location\Edit\SaveAndContinueButton</item>
+            <item name="save_and_continue" xsi:type="string">
+                AdeoWeb\Dpd\Block\Adminhtml\Location\Edit\SaveAndContinueButton
+            </item>
         </item>
     </argument>
     <dataSource name="location_form_data_source">

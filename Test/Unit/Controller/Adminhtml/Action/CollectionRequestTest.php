@@ -40,7 +40,9 @@ class CollectionRequestTest extends AbstractTest
             ->method('getRequest')
             ->willReturn($this->requestMock);
 
-        $this->collectionRequestManagementMock = $this->createMock(\AdeoWeb\Dpd\Api\CollectionRequestManagementInterface::class);
+        $this->collectionRequestManagementMock = $this->createMock(
+            \AdeoWeb\Dpd\Api\CollectionRequestManagementInterface::class
+        );
 
         $this->jsonMock = $this->createMock(\Magento\Framework\Controller\Result\Json::class);
 

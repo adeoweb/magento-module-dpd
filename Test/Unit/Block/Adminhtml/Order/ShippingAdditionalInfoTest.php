@@ -40,7 +40,9 @@ class ShippingAdditionalInfoTest extends AbstractTest
         parent::setUp();
 
         $this->registryMock = $this->createMock(\Magento\Framework\Registry::class);
-        $this->pickupPointRepositoryMock = $this->createMock(\AdeoWeb\Dpd\Api\PickupPointRepositoryInterface::class);
+        $this->pickupPointRepositoryMock = $this->createMock(
+            \AdeoWeb\Dpd\Api\PickupPointRepositoryInterface::class
+        );
 
         $carrierConfigMock = $this->objectManager->getObject(\AdeoWeb\Dpd\Helper\Config::class);
         $this->serializerMock = $this->createMock(\AdeoWeb\Dpd\Helper\Config\Serializer::class);
@@ -127,7 +129,6 @@ class ShippingAdditionalInfoTest extends AbstractTest
 
         $this->assertEquals($result, $expectedResult);
     }
-
 
     public function testGetOrderWithException()
     {
@@ -256,7 +257,6 @@ class ShippingAdditionalInfoTest extends AbstractTest
             ->method('registry')
             ->with('current_order')
             ->willReturn($orderMock);
-
 
         $this->subject->setTemplate('test.phtml');
 

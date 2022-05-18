@@ -8,6 +8,8 @@ use Magento\Framework\Exception\LocalizedException;
 interface PrintLabelManagementInterface
 {
     /**
+     * Public method
+     *
      * @param array $labelNumbers
      * @return ResponseInterface|null
      * @throws LocalizedException

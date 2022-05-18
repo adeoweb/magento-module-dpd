@@ -72,9 +72,10 @@ class MassPrintLabelsTest extends AbstractTest
             $this->orderMock
         ]);
 
-        $this->shipmentCollectionMock = $this->objectManager->getCollectionMock(\Magento\Sales\Model\ResourceModel\Order\Shipment\Collection::class, [
-            $this->shipmentMock
-        ]);
+        $this->shipmentCollectionMock = $this->objectManager->getCollectionMock(
+            \Magento\Sales\Model\ResourceModel\Order\Shipment\Collection::class,
+            [$this->shipmentMock]
+        );
 
         $orderCollectionFactoryMock = $this->createConfiguredMock(
             CollectionFactory::class,
@@ -83,9 +84,10 @@ class MassPrintLabelsTest extends AbstractTest
             ]
         );
 
-        $shipmentCollectionFactoryMock = $this->createConfiguredMock(\Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory::class, [
-            'create' => $this->shipmentCollectionMock
-        ]);
+        $shipmentCollectionFactoryMock = $this->createConfiguredMock(
+            \Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory::class,
+            ['create' => $this->shipmentCollectionMock]
+        );
 
         $resultRedirect = $this->createMock(\Magento\Framework\Controller\Result\Redirect::class);
 
@@ -102,7 +104,6 @@ class MassPrintLabelsTest extends AbstractTest
             'getResultRedirectFactory' => $resultRedirectFactoryMock,
             'getResultFactory' => $resultFactoryMock
         ]);
-
 
         $this->subject = $this->objectManager->getObject(MassPrintDpdLabels::class, [
             'orderCollectionFactory' => $orderCollectionFactoryMock,

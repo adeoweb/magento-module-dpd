@@ -122,7 +122,10 @@ class DpdTest extends AbstractTest
             ->method('debug');
 
         $this->expectException(LocalizedException::class);
-        $this->expectExceptionMessage('Something went wrong while doing a request to DPD service. Please contact system administrator for more information.');
+        $this->expectExceptionMessage(
+            'Something went wrong while doing a request to DPD service. '.
+            'Please contact system administrator for more information.'
+        );
 
         return $this->subject->call($requestMock);
     }
@@ -196,7 +199,9 @@ class DpdTest extends AbstractTest
 
         $this->loggerMock->expects($this->at(0))
             ->method('debug')
-            ->with('REQUEST: [Endpoint: http://testapi.com/something] [Parameters: {"username":"testUsername","password":"*****","PluginVersion":null,"EshopVersion":"Magento "}');
+            ->with('REQUEST: [Endpoint: http://testapi.com/something]'. ' ' .
+                '[Parameters: '.
+                '{"username":"testUsername","password":"*****","PluginVersion":null,"EshopVersion":"Magento "}');
 
         $result = $this->subject->call($requestMock);
 

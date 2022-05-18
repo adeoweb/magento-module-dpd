@@ -7,11 +7,6 @@ use AdeoWeb\Dpd\Test\Unit\AbstractTest;
 
 class ResponseTest extends AbstractTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
     public function testGetBodyWithNonExistingKey()
     {
         $subject = $this->objectManager->getObject(Response::class, [

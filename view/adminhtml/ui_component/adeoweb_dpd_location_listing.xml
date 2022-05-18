@@ -5,8 +5,12 @@
             <item name="namespace" xsi:type="string">adeoweb_dpd_location_listing</item>
         </item>
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">adeoweb_dpd_location_listing.adeoweb_dpd_location_grid_data_source</item>
-            <item name="deps" xsi:type="string">adeoweb_dpd_location_listing.adeoweb_dpd_location_grid_data_source</item>
+            <item name="provider" xsi:type="string">
+                adeoweb_dpd_location_listing.adeoweb_dpd_location_grid_data_source
+            </item>
+            <item name="deps" xsi:type="string">
+                adeoweb_dpd_location_listing.adeoweb_dpd_location_grid_data_source
+            </item>
         </item>
         <item name="spinner" xsi:type="string">adeoweb_dpd_location_columns</item>
         <item name="buttons" xsi:type="array">
@@ -20,7 +24,9 @@
     </argument>
     <dataSource name="adeoweb_dpd_location_grid_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="class" xsi:type="string">
+                Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider
+            </argument>
             <argument name="name" xsi:type="string">adeoweb_dpd_location_grid_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">location_id</argument>
             <argument name="requestFieldName" xsi:type="string">location_id</argument>
@@ -64,7 +70,9 @@
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="editorConfig" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">adeoweb_dpd_location_listing.adeoweb_dpd_location_listing.adeoweb_dpd_location_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">
+                        adeoweb_dpd_location_listing.adeoweb_dpd_location_listing.adeoweb_dpd_location_columns.ids
+                    </item>
                     <item name="enabled" xsi:type="boolean">true</item>
                     <item name="indexField" xsi:type="string">location_id</item>
                     <item name="clientConfig" xsi:type="array">
@@ -74,7 +82,9 @@
                 </item>
                 <item name="childDefaults" xsi:type="array">
                     <item name="fieldAction" xsi:type="array">
-                        <item name="provider" xsi:type="string">adeoweb_dpd_location_listing.adeoweb_dpd_location_listing.adeoweb_dpd_location_columns_editor</item>
+                        <item name="provider" xsi:type="string">
+                            adeoweb_dpd_location_listing.adeoweb_dpd_location_listing.adeoweb_dpd_location_columns_editor
+                        </item>
                         <item name="target" xsi:type="string">startEdit</item>
                         <item name="params" xsi:type="array">
                             <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>

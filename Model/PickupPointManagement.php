@@ -8,14 +8,15 @@ use AdeoWeb\Dpd\Api\PickupPointRepositoryInterface;
 use AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\BuilderInterface;
 use Magento\Framework\App\Cache\Type\Block;
 use Magento\Framework\App\CacheInterface;
+
 use function json_decode;
 use function json_encode;
 use function sprintf;
 
-
 class PickupPointManagement implements PickupPointManagementInterface
 {
     const CACHE_KEY = 'DPD_PICKUP_POINT_LIST_%s_%s';
+    const DEFAULT_LOCALE = 'EN';
 
     /**
      * @var PickupPointRepositoryInterface
@@ -81,13 +82,18 @@ class PickupPointManagement implements PickupPointManagementInterface
 
         $result = [];
 
-        if (!empty($this->localeSortProcessor[strtoupper($country)])) {
-            foreach ($items as $item) {
-                $result[$item->getCity()][] = $item->toArray();
-            }
-
-            $result = $this->localeSortProcessor[$country]->sortData($result);
+        if (empty($items)) {
+            return $result;
         }
+
+        $locale = !empty($this->localeSortProcessor[strtoupper($country)]) ?
+            strtoupper($country) : self::DEFAULT_LOCALE;
+
+        foreach ($items as $item) {
+            $result[$item->getCity()][] = $item->toArray();
+        }
+
+        $result = $this->localeSortProcessor[$locale]->sortData($result);
 
         $this->cache->save(json_encode($result), $cacheKey, [Block::CACHE_TAG]);
 

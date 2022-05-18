@@ -1,0 +1,54 @@
+{
+    "adeoweb_dpd_pickup_point": {
+        "column": {
+            "pickup_point_id": true,
+            "api_id": true,
+            "type": true,
+            "company": true,
+            "country": true,
+            "city": true,
+            "postcode": true,
+            "street": true,
+            "email": true,
+            "phone": true,
+            "longitude": true,
+            "latitude": true,
+            "opening_hours": true,
+            "is_disabled": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ADEOWEB_DPD_PICKUP_POINT_API_ID": true
+        }
+    },
+    "adeoweb_dpd_location": {
+        "column": {
+            "location_id": true,
+            "type": true,
+            "name": true,
+            "address": true,
+            "city": true,
+            "country": true,
+            "postcode": true,
+            "additional_info": true,
+            "contact_name": true,
+            "phone": true,
+            "work_until": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "quote": {
+        "column": {
+            "dpd_delivery_options": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "dpd_delivery_options": true
+        }
+    }
+}

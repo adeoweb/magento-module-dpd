@@ -1,6 +1,6 @@
 <div id="shipping-additional-info">
-    <?php foreach ($this->getAdditionalInfo() as $item): ?>
-        <?php echo $block->escapeHtml($item['label']); ?>: <?php echo $block->escapeHtml($item['value']); ?>
+    <?php foreach ($block->getAdditionalInfo() as $item): ?>
+        <?= $block->escapeHtml($item['label']); ?>: <?= $block->escapeHtml($item['value']); ?>
     <?php endforeach; ?>
 </div>
 <script>

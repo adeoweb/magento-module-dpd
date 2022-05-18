@@ -112,7 +112,8 @@ class RestrictionsTest extends AbstractTest
         $this->subject->addColumn('price', []);
 
         $result = $this->subject->renderCellTemplate('price');
-        $expectedResult = '<input type="text" id="<%- _id %>_price" name="test[<%- _id %>][price]" value="<%- price %>"  class="input-text"/>';
+        $expectedResult = '<input type="text" id="<%- _id %>_price" ' .
+                                    'name="test[<%- _id %>][price]" value="<%- price %>"  class="input-text"/>';
 
         $this->assertEquals($expectedResult, $result);
     }

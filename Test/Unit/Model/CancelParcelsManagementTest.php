@@ -28,7 +28,9 @@ class CancelParcelsManagementTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->parcelDeleteRequestFactoryMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelDeleteRequestFactory::class);
+        $this->parcelDeleteRequestFactoryMock = $this->createMock(
+            \AdeoWeb\Dpd\Model\Service\Dpd\Request\ParcelDeleteRequestFactory::class
+        );
         $this->carrierServiceMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\ServiceInterface::class);
 
         $this->subject = $this->objectManager->getObject(CancelParcelsManagement::class, [

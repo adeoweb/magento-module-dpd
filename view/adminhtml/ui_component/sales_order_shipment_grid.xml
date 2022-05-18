@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <listingToolbar name="listing_top">
         <massaction name="listing_massaction">
             <action name="dpd_mass_print_shipping_label">
                 <settings>
                     <confirm>
-                        <message translate="true">Only created DPD labels will be printed. Other shipping method labels will be skipped. Are you sure?</message>
+                        <message translate="true">
+                            Only created DPD labels will be printed. Other shipping method labels will be skipped.
+                            Are you sure?
+                        </message>
                         <title translate="true">DPD Print Shipping Labels</title>
                     </confirm>
                     <url path="dpd/shipment/massPrintDpdLabels"/>

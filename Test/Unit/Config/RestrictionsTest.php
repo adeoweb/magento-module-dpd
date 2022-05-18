@@ -73,11 +73,15 @@ class RestrictionsTest extends AbstractTest
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
             ->with('carriers/dpd/classic/restrictions', 'website')
-            ->willReturn('a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}');
+            ->willReturn(
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}'
+            );
 
         $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
             [
-                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
                 [['country' => 'US', 'price' => 10], ['country' => 'CA', 'price' => 15]]
             ]
         ]));
@@ -93,11 +97,15 @@ class RestrictionsTest extends AbstractTest
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
             ->with('carriers/dpd/classic/restrictions', 'website')
-            ->willReturn('a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}');
+            ->willReturn(
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}'
+            );
 
         $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
             [
-                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
                 [
                     ['country' => 'US', 'weight_price' => [['weight' => 10, 'price' => 10]]],
                     ['country' => 'CA', 'weight_price' => [['weight' => 10, 'price' => 8]]]
@@ -116,11 +124,15 @@ class RestrictionsTest extends AbstractTest
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
             ->with('carriers/dpd/classic/restrictions', 'website')
-            ->willReturn('a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}');
+            ->willReturn(
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}'
+            );
 
         $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
             [
-                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
                 [
                     ['country' => 'US', 'weight_price' => []],
                     ['country' => 'CA', 'weight_price' => [['weight' => 10, 'price' => 8]]]
@@ -136,11 +148,15 @@ class RestrictionsTest extends AbstractTest
         $this->scopeConfigMock->expects($this->atleastOnce())
             ->method('getValue')
             ->with('carriers/dpd/classic/restrictions', 'website')
-            ->willReturn('a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}');
+            ->willReturn(
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}'
+            );
 
         $this->serializerMock->expects($this->any())->method('unserialize')->will($this->returnValueMap([
             [
-                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
+                'a:2:{i:0;a:2:{s:7:"country";s:2:"US";s:5:"price";i:10;}i:1;a:2:' .
+                '{s:7:"country";s:2:"CA";s:5:"price";i:15;}}',
                 [
                     [
                         'country' => 'US',

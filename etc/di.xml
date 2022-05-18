@@ -133,29 +133,49 @@
         </arguments>
     </type>
 
-    <virtualType name="AdeoWeb\Dpd\Helper\Locale\LatvianLocaleSortProcessor" type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\LatvianLocaleSortProcessor"
+                 type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
         <arguments>
-            <argument name="order" xsi:type="string">AaĀāBbCcČčDdEeĒēFfGgĢgHhIiĪīJjKkĶķLlĻļMmNnŅņOoPpRrSsŠšTtUuŪūVvZzŽž</argument>
+            <argument name="order" xsi:type="string">
+                AaĀāBbCcČčDdEeĒēFfGgĢgHhIiĪīJjKkĶķLlĻļMmNnŅņOoPpRrSsŠšTtUuŪūVvZzŽž
+            </argument>
         </arguments>
     </virtualType>
-    <virtualType name="AdeoWeb\Dpd\Helper\Locale\EstonianLocaleSortProcessor" type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\EstonianLocaleSortProcessor"
+                 type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
         <arguments>
-            <argument name="order" xsi:type="string">AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsŠšZzŽžTtUuVvWwÕõÄäÖöÜüXxYy</argument>
+            <argument name="order" xsi:type="string">
+                AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsŠšZzŽžTtUuVvWwÕõÄäÖöÜüXxYy
+            </argument>
         </arguments>
     </virtualType>
-    <virtualType name="AdeoWeb\Dpd\Helper\Locale\LithuanianLocaleSortProcessor" type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\LithuanianLocaleSortProcessor"
+                 type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
         <arguments>
-            <argument name="order" xsi:type="string">aAąĄbBcCčdDeEęĘėĖfFgGhHiIįĮyYjJkKlLmMnNoOpPrRsSšŠtTuUųŲūŪvVzZžŽ</argument>
+            <argument name="order" xsi:type="string">
+                aAąĄbBcCčdDeEęĘėĖfFgGhHiIįĮyYjJkKlLmMnNoOpPrRsSšŠtTuUųŲūŪvVzZžŽ
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdeoWeb\Dpd\Helper\Locale\EnglishLocaleSortProcessor"
+                 type="AdeoWeb\Dpd\Helper\Locale\LocaleSortProcessor">
+        <arguments>
+            <argument name="order" xsi:type="string">
+                AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz
+            </argument>
         </arguments>
     </virtualType>
 
     <type name="AdeoWeb\Dpd\Model\PickupPointManagement">
         <arguments>
-            <argument name="searchCriteriaBuilder" xsi:type="object">AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\Builder\PickupPoint</argument>
+            <argument name="searchCriteriaBuilder" xsi:type="object">
+                AdeoWeb\Dpd\Model\PickupPoint\SearchCriteria\Builder\PickupPoint
+            </argument>
             <argument name="localeSortProcessor" xsi:type="array">
                 <item name="LV" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\LatvianLocaleSortProcessor</item>
                 <item name="EE" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\EstonianLocaleSortProcessor</item>
                 <item name="LT" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\LithuanianLocaleSortProcessor</item>
+                <item name="EN" xsi:type="object">AdeoWeb\Dpd\Helper\Locale\EnglishLocaleSortProcessor</item>
             </argument>
         </arguments>
     </type>
@@ -176,45 +196,58 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="dpd_pickup_point_update" xsi:type="object">AdeoWeb\Dpd\Console\Command\PickupPoint\Update</item>
+                <item name="dpd_pickup_point_update" xsi:type="object">
+                    AdeoWeb\Dpd\Console\Command\PickupPoint\Update
+                </item>
             </argument>
         </arguments>
     </type>
 
-    <virtualType name="AdeoWeb\Dpd\Model\ResourceModel\Location\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="AdeoWeb\Dpd\Model\ResourceModel\Location\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">adeoweb_dpd_location</argument>
-            <argument name="resourceModel" xsi:type="string">AdeoWeb\Dpd\Model\ResourceModel\Location\Collection</argument>
+            <argument name="resourceModel" xsi:type="string">
+                AdeoWeb\Dpd\Model\ResourceModel\Location\Collection
+            </argument>
         </arguments>
     </virtualType>
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="adeoweb_dpd_location_grid_data_source" xsi:type="string">AdeoWeb\Dpd\Model\ResourceModel\Location\Grid\Collection</item>
+                <item name="adeoweb_dpd_location_grid_data_source" xsi:type="string">
+                    AdeoWeb\Dpd\Model\ResourceModel\Location\Grid\Collection
+                </item>
             </argument>
         </arguments>
     </type>
 
     <type name="Magento\Checkout\Model\ShippingInformationManagement">
-        <plugin name="adeoweb_dpd_shipping_information_management" type="AdeoWeb\Dpd\Plugin\Model\ShippingInformationManagement"/>
+        <plugin name="adeoweb_dpd_shipping_information_management"
+                type="AdeoWeb\Dpd\Plugin\Model\ShippingInformationManagement"/>
     </type>
     <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
-        <plugin name="adeoweb_dpd_checkout_layoutprocessor" type="AdeoWeb\Dpd\Plugin\Block\Checkout\LayoutProcessor"/>
+        <plugin name="adeoweb_dpd_checkout_layoutprocessor"
+                type="AdeoWeb\Dpd\Plugin\Block\Checkout\LayoutProcessor"/>
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View">
-        <plugin name="adeoweb_dpd_sales_block_adminhtml_order_view" type="AdeoWeb\Dpd\Plugin\Block\Adminhtml\Order\View"/>
+        <plugin name="adeoweb_dpd_sales_block_adminhtml_order_view"
+                type="AdeoWeb\Dpd\Plugin\Block\Adminhtml\Order\View"/>
     </type>
     <type name="Magento\Shipping\Block\Adminhtml\View\Form">
-        <plugin name="adeoweb_dpd_shipping_block_adminhtml_view_form" type="AdeoWeb\Dpd\Plugin\Block\Adminhtml\View\Form"/>
+        <plugin name="adeoweb_dpd_shipping_block_adminhtml_view_form"
+                type="AdeoWeb\Dpd\Plugin\Block\Adminhtml\View\Form"/>
     </type>
     <type name="Magento\Sales\Model\AdminOrder\Create">
         <plugin name="adeoweb_dpd_adminorder_create" type="AdeoWeb\Dpd\Plugin\Model\AdminOrder\Create"/>
     </type>
     <type name="Magento\Shipping\Controller\Adminhtml\Order\Shipment\PrintLabel">
-        <plugin name="adeoweb_dpd_adminorder_shipment_printlabel" type="AdeoWeb\Dpd\Plugin\Controller\Adminhtml\Order\Shipment\PrintLabel"/>
+        <plugin name="adeoweb_dpd_adminorder_shipment_printlabel"
+                type="AdeoWeb\Dpd\Plugin\Controller\Adminhtml\Order\Shipment\PrintLabel"/>
     </type>
     <type name="Magento\Quote\Model\ShippingMethodManagement">
-        <plugin name="shipping_method_management" type="AdeoWeb\Dpd\Plugin\Model\ShippingMethodManagement" disabled="false"/>
+        <plugin name="shipping_method_management"
+                type="AdeoWeb\Dpd\Plugin\Model\ShippingMethodManagement" disabled="false"/>
     </type>
 </config>

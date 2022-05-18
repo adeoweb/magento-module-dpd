@@ -41,9 +41,13 @@ class CallCourierManagementTest extends AbstractTest
     {
         parent::setUp();
 
-        $this->callCourierRequestReaderMock = $this->createMock(\AdeoWeb\Dpd\Helper\SubjectReader\CallCourierRequest::class);
+        $this->callCourierRequestReaderMock = $this->createMock(
+            \AdeoWeb\Dpd\Helper\SubjectReader\CallCourierRequest::class
+        );
         $this->locationRepositoryMock = $this->createMock(LocationRepositoryInterface::class);
-        $this->pickupOrderSaveRequestFactoryMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequestFactory::class);
+        $this->pickupOrderSaveRequestFactoryMock = $this->createMock(
+            \AdeoWeb\Dpd\Model\Service\Dpd\Request\PickupOrderSaveRequestFactory::class
+        );
         $this->carrierServiceMock = $this->createMock(\AdeoWeb\Dpd\Model\Service\ServiceInterface::class);
 
         $this->subject = $this->objectManager->getObject(CallCourierManagement::class, [

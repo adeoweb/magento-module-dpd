@@ -4,7 +4,9 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="adeoweb_dpd_config_provider" xsi:type="object">AdeoWeb\Dpd\Config\CompositeConfigProvider</item>
+                <item name="adeoweb_dpd_config_provider" xsi:type="object">
+                    AdeoWeb\Dpd\Config\CompositeConfigProvider
+                </item>
             </argument>
         </arguments>
     </type>

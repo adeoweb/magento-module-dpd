@@ -12,7 +12,7 @@ use AdeoWeb\Dpd\Api\Data\LocationInterface;
 class Location extends \Magento\Framework\Api\AbstractExtensibleObject implements LocationInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLocationId()
     {
@@ -20,7 +20,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setLocationId($locationId)
     {
@@ -28,7 +28,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getExtensionAttributes()
     {
@@ -36,7 +36,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setExtensionAttributes(LocationExtensionInterface $extensionAttributes)
     {
@@ -44,7 +44,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getType()
     {
@@ -52,7 +52,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setType($type)
     {
@@ -60,7 +60,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getName()
     {
@@ -68,7 +68,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setName($name)
     {
@@ -76,7 +76,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getAddress()
     {
@@ -84,7 +84,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setAddress($address)
     {
@@ -92,7 +92,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getCity()
     {
@@ -100,7 +100,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setCity($city)
     {
@@ -108,7 +108,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getCountry()
     {
@@ -116,7 +116,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setCountry($country)
     {
@@ -124,7 +124,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getPostcode()
     {
@@ -132,7 +132,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setPostcode($postcode)
     {
@@ -140,7 +140,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getAdditionalInfo()
     {
@@ -148,7 +148,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setAdditionalInfo($additionalInfo)
     {
@@ -156,7 +156,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getContactName()
     {
@@ -164,7 +164,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setContactName($contactName)
     {
@@ -172,7 +172,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getPhone()
     {
@@ -180,7 +180,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setPhone($phone)
     {
@@ -188,7 +188,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getWorkUntil()
     {
@@ -196,7 +196,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setWorkUntil($workUntil)
     {
@@ -204,7 +204,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getCreatedAt()
     {
@@ -212,7 +212,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setCreatedAt($createdAt)
     {
@@ -220,7 +220,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getUpdatedAt()
     {
@@ -228,7 +228,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -244,7 +244,7 @@ class Location extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function setData($key, $value = null)
     {

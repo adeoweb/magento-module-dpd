@@ -16,31 +16,31 @@
     </td>
     <!-- ko ifnot: (method.error_message) -->
     <td class="col col-price">
-        <each args="element.getRegion('price')" render="" />
+        <each args="element.getRegion('price')" render=""></each>
     </td>
     <!-- /ko -->
     <td class="col col-method">
         <div attr="'id': 'label_method_' + method.method_code + '_' + method.carrier_code"
-          text="method.method_title" />
+             text="method.method_title"></div>
         <!-- ko if: (method.carrier_code == 'dpd' && window.checkoutConfig.apiLangCode == 'lv') -->
         <div id="dpd-image-holder"><span data-bind="i18n: 'Sustainable'"></span></div>
         <!-- /ko -->
     </td>
     <td class="col col-carrier">
         <!-- ko if: (method.carrier_code == 'dpd') -->
-        <div attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"/>
+        <div attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"></div>
         <div id="dpd-logo-image-holder"></div>
         <!-- /ko -->
         <!-- ko ifnot: (method.carrier_code == 'dpd') -->
         <div attr="'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code"
-             text="method.carrier_title" />
+             text="method.carrier_title"></div>
         <!-- /ko -->
     </td>
 </tr>
 <!-- ko if: (method.method_code == 'pickup' || method.method_code == 'classic') -->
 <tr attr="'id': 'additional_data_' + method.method_code + '_' + method.carrier_code" class="row" style="display: none;">
     <td class="col" colspan="5">
-        <each args="element.getRegion('dpdShipping')" render="" />
+        <each args="element.getRegion('dpdShipping')" render=""></each>
     </td>
 </tr>
 <!-- /ko -->

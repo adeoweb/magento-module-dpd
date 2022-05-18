@@ -90,7 +90,6 @@ class ClassicTest extends AbstractTest
     {
         $wrongValidator = $this->createMock(DataObject::class);
 
-
         $subject = $this->objectManager->getObject(Classic::class, [
             'validators' => [$wrongValidator],
         ]);
