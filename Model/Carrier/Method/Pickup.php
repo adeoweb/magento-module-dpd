@@ -62,8 +62,10 @@ class Pickup extends AbstractMethod implements MethodInterface
     /**
      * {@inheritDoc}
      */
-    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request): CreateShipmentRequest
-    {
+    public function processShipmentRequest(
+        CreateShipmentRequest $createShipmentRequest,
+        DataObject $request
+    ): CreateShipmentRequest {
         $deliveryOptions = $this->getDeliveryOptions($request);
 
         if (!isset($deliveryOptions[DeliveryOptions::INDEX_API_ID])) {

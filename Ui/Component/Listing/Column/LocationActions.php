@@ -71,7 +71,6 @@ class LocationActions extends Column
             ];
         }
 
-
         return $dataSource;
     }
 }

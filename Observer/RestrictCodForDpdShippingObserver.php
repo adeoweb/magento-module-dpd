@@ -29,6 +29,10 @@ class RestrictCodForDpdShippingObserver implements ObserverInterface
      */
     private $allowedPickupPointIdentifiers = ['EE90', 'EE10', 'LV90', 'LV10', 'LT90'];
 
+    /**
+     * @param Serializer $serializer
+     * @param PickupPointRepositoryInterface $pickupPointRepository
+     */
     public function __construct(
         Serializer $serializer,
         PickupPointRepositoryInterface $pickupPointRepository
@@ -38,6 +42,8 @@ class RestrictCodForDpdShippingObserver implements ObserverInterface
     }
 
     /**
+     * Public Method
+     *
      * @param Observer $observer
      * @return DataObject
      * @throws NoSuchEntityException

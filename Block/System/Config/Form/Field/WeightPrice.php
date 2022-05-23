@@ -125,7 +125,7 @@ class WeightPrice extends AbstractFieldArray
     public function renderCellTemplate($columnName)
     {
         if (empty($this->_columns[$columnName])) {
-            throw new \Exception('Wrong column name specified.');
+            throw new LocalizedException(__('Wrong column name specified.'));
         }
 
         $column = $this->_columns[$columnName];

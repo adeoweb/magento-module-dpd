@@ -26,7 +26,7 @@ class AllowedWeights implements AllowedWeightsInterface
 
         $weight = 0;
 
-        foreach($cartItems as $item) {
+        foreach ($cartItems as $item) {
             $weight += ($item->getWeight() * $item->getQty());
         }
 

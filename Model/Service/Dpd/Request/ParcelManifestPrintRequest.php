@@ -5,7 +5,6 @@ namespace AdeoWeb\Dpd\Model\Service\Dpd\Request;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**
- * Class ParcelManifestPrintRequest
  * @codeCoverageIgnore
  */
 class ParcelManifestPrintRequest extends AbstractRequest implements RequestInterface

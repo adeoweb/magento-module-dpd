@@ -7,7 +7,6 @@ use AdeoWeb\Dpd\Model\ResourceModel\PickupPoint as PickupPointResource;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
- * Class Collection
  * @codeCoverageIgnore
  */
 class Collection extends AbstractCollection

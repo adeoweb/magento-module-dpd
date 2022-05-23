@@ -17,6 +17,9 @@ class SendTrackingDataObserver implements ObserverInterface
      */
     private $trackingDataEmail;
 
+    /**
+     * @param SendTrackingDataEmail $trackingDataEmail
+     */
     public function __construct(
         SendTrackingDataEmail $trackingDataEmail
     ) {
@@ -24,6 +27,8 @@ class SendTrackingDataObserver implements ObserverInterface
     }
 
     /**
+     * Public method
+     *
      * @param Observer $observer
      * @return void
      */

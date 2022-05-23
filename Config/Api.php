@@ -6,7 +6,6 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
 /**
- * Class Api
  * @codeCoverageIgnore
  */
 class Api

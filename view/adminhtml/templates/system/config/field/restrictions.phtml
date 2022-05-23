@@ -5,31 +5,34 @@ $weightPriceHtmlId = $block->getWeightPriceRenderer()->getHtmlId();
 $colspan = $block->isAddAfter() ? 2 : 1;
 ?>
 
-    <div class="design_theme_ua_regexp" id="grid<?php echo $htmlId ?>">
+    <div class="design_theme_ua_regexp" id="grid<?= $block->escapeHtml($htmlId) ?>">
         <div class="admin__control-table-wrapper">
-            <table class="admin__control-table" id="<?php echo $block->getElement()->getId() ?>">
+            <table class="admin__control-table" id="<?= $block->escapeHtml($block->getElement()->getId()) ?>">
                 <thead>
                 <tr>
                     <?php foreach ($block->getColumns() as $columnName => $column): ?>
-                        <th><?php echo $column['label'] ?></th>
+                        <th><?= $block->escapeHtml($column['label']) ?></th>
                     <?php endforeach; ?>
-                    <th class="col-actions" colspan="<?php echo $colspan ?>"><?php echo __('Action') ?></th>
+                    <th class="col-actions" colspan="<?= $block->escapeHtml($colspan) ?>">
+                        <?= $block->escapeHtml(__('Action')) ?>
+                    </th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
                     <td colspan="<?= count($block->getColumns()) + $colspan ?>" class="col-actions-add">
-                        <button id="addToEndBtn<?php echo $htmlId ?>" class="action-add" title="<?php echo __('Add') ?>"
+                        <button id="addToEndBtn<?= $block->escapeHtml($htmlId) ?>"
+                                class="action-add" title="<?= $block->escapeHtml(__('Add')) ?>"
                                 type="button">
-                            <span><?php echo $block->getAddButtonLabel() ?></span>
+                            <span><?= $block->escapeHtml($block->getAddButtonLabel()) ?></span>
                         </button>
                     </td>
                 </tr>
                 </tfoot>
-                <tbody id="addRow<?php echo $htmlId ?>"></tbody>
+                <tbody id="addRow<?= $block->escapeHtml($htmlId) ?>"></tbody>
             </table>
         </div>
-        <input type="hidden" name="<?php echo $block->getElement()->getName() ?>[__empty]" value=""/>
+        <input type="hidden" name="<?= $block->escapeHtml($block->getElement()->getName()) ?>[__empty]" value=""/>
 
         <script>
             require([
@@ -37,22 +40,26 @@ $colspan = $block->isAddAfter() ? 2 : 1;
                 'prototype'
             ], function (mageTemplate) {
                 // create row creator
-                window.arrayRow<?php echo $htmlId ?> = {
+                window.arrayRow<?= $block->escapeHtml($htmlId) ?> = {
 
                     // define row prototypeJS template
                     template: mageTemplate(
                         '<tr class="country-price-tr" id="<%- _id %>">'
                         <?php foreach ($block->getColumns() as $columnName => $column): ?>
                         + '<td>'
-                        + '<?php echo $block->renderCellTemplate($columnName) ?>'
+                        + '<?= /* @noEscape */ $block->renderCellTemplate($block->escapeHtml($columnName)) ?>'
                         + '<\/td>'
                         <?php endforeach; ?>
 
                         <?php if ($block->isAddAfter()): ?>
-                        + '<td><button class="action-add" type="button" id="addAfterBtn<%- _id %>"><span><?php echo __('Add after') ?><\/span><\/button><\/td>'
+                        + '<td><button class="action-add" type="button" id="addAfterBtn<%- _id %>">' +
+                        '<span><?= $block->escapeHtml(__('Add after')) ?><\/span><\/button><\/td>'
                         <?php endif; ?>
 
-                        + '<td class="col-actions"><button onclick="arrayRow<?php echo $htmlId ?>.del(\'<%- _id %>\')" class="action-delete" type="button"><span><?php echo __('Delete') ?><\/span><\/button><\/td>'
+                        + '<td class="col-actions">' +
+                        '<button onclick="arrayRow<?= $block->escapeHtml($htmlId) ?>.del(\'<%- _id %>\')"' +
+                        'class="action-delete"' +
+                            'type="button"><span><?= $block->escapeHtml(__('Delete')) ?><\/span><\/button><\/td>'
                         + '<\/tr>'
                     ),
 
@@ -67,7 +74,7 @@ $colspan = $block->isAddAfter() ? 2 : 1;
                             var d = new Date();
                             templateValues = {
                                 <?php foreach ($block->getColumns() as $columnName => $column): ?>
-                                '<?php echo $columnName ?>': '',
+                                '<?= $block->escapeHtml($columnName) ?>': '',
                                 'option_extra_attrs': {},
                                 <?php endforeach; ?>
                                 _id: '_' + d.getTime() + '_' + d.getMilliseconds()
@@ -78,7 +85,10 @@ $colspan = $block->isAddAfter() ? 2 : 1;
                         if (insertAfterId) {
                             Element.insert($(insertAfterId), {after: this.template(templateValues)});
                         } else {
-                            Element.insert($('addRow<?php echo $htmlId ?>'), {bottom: this.template(templateValues)});
+                            Element.insert(
+                                $('addRow<?= $block->escapeHtml($htmlId) ?>'),
+                                {bottom: this.template(templateValues)}
+                            );
                         }
 
                         // Fill controls with data
@@ -93,14 +103,17 @@ $colspan = $block->isAddAfter() ? 2 : 1;
 
                         // Add event for {addAfterBtn} button
                         <?php if ($block->isAddAfter()): ?>
-                        Event.observe('addAfterBtn' + templateValues._id, 'click', this.add.bind(this, false, templateValues._id));
+                        Event.observe(
+                            'addAfterBtn' + templateValues._id,
+                            'click',
+                            this.add.bind(this, false, templateValues._id));
                         <?php endif; ?>
 
                         if (!rowData) {
-                            window.initWeightPrice<?php echo $weightPriceHtmlId ?>(templateValues._id);
+                            window.initWeightPrice<?= $block->escapeHtml($weightPriceHtmlId) ?>(templateValues._id);
                         } else {
                             document.addEventListener('DOMContentLoaded', function () {
-                                window.initWeightPrice<?php echo $weightPriceHtmlId ?>(templateValues._id);
+                                window.initWeightPrice<?= $block->escapeHtml($weightPriceHtmlId) ?>(templateValues._id);
                             });
                         }
                     },
@@ -111,21 +124,24 @@ $colspan = $block->isAddAfter() ? 2 : 1;
                 };
 
                 // bind add action to "Add" button in last row
-                Event.observe('addToEndBtn<?php echo $htmlId ?>', 'click', arrayRow<?php echo $htmlId ?>.add.bind(arrayRow<?php echo $htmlId ?>, false, false));
+                Event.observe(
+                    'addToEndBtn<?= $block->escapeHtml($htmlId) ?>',
+                    'click', arrayRow<?= $block->escapeHtml($htmlId) ?>.add.bind(
+                        arrayRow<?= $block->escapeHtml($htmlId) ?>, false, false
+                    )
+                );
 
                 // add existing rows
-                <?php
-                foreach ($block->getArrayRows() as $rowId => $row) {
-                    echo "arrayRow{$htmlId}.add(" . $row->toJson() . ");\n";
-                }
-                ?>
+                <?php foreach ($block->getArrayRows() as $rowId => $row) { ?>
+                    <?= /* @noEscape */ "arrayRow{$block->escapeHtml($htmlId)}.add(" . $row->toJson() . ");\n"; ?>
+                <?php } ?>
 
                 // Toggle the grid availability, if element is disabled (depending on scope)
                 <?php if ($block->getElement()->getDisabled()):?>
-                toggleValueElements({checked: true}, $('grid<?php echo $htmlId ?>').parentNode);
+                toggleValueElements({checked: true}, $('grid<?= $block->escapeHtml($htmlId) ?>').parentNode);
                 <?php endif;?>
             });
         </script>
     </div>
 
-<?php echo $block->getWeightPriceJs() ?>
+<?= /* @noEscape */ $block->getWeightPriceJs() ?>

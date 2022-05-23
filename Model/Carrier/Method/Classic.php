@@ -69,8 +69,10 @@ class Classic extends AbstractMethod implements MethodInterface
     /**
      * {@inheritDoc}
      */
-    public function processShipmentRequest(CreateShipmentRequest $createShipmentRequest, DataObject $request): CreateShipmentRequest
-    {
+    public function processShipmentRequest(
+        CreateShipmentRequest $createShipmentRequest,
+        DataObject $request
+    ): CreateShipmentRequest {
         $createShipmentRequest = parent::processShipmentRequest($createShipmentRequest, $request);
 
         $deliveryOptions = $this->getDeliveryOptions($request);

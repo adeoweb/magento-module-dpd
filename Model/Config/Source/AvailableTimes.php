@@ -3,7 +3,6 @@
 namespace AdeoWeb\Dpd\Model\Config\Source;
 
 /**
- * Class AvailableTimes
  * @codeCoverageIgnore
  */
 class AvailableTimes extends Generic

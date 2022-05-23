@@ -6,7 +6,8 @@ use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\ShippingMethodManagement as ShippingMethodManagementBase;
 use AdeoWeb\Dpd\Model\Provider\PickupPoint\AllowedWeightsInterface;
 
-class ShippingMethodManagement {
+class ShippingMethodManagement
+{
     /**
      * @var CartRepositoryInterface
      */
@@ -43,8 +44,7 @@ class ShippingMethodManagement {
         }
 
         foreach ($output as $key => $shippingMethod) {
-            if (
-                $shippingMethod->getCarrierCode() == 'dpd'
+            if ($shippingMethod->getCarrierCode() == 'dpd'
                 && $shippingMethod->getMethodCode() == 'pickup'
             ) {
                 unset($output[$key]);

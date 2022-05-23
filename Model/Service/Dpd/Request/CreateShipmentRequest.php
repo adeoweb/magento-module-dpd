@@ -6,7 +6,6 @@ use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**
- * Class CreateShipmentRequest
  * @codeCoverageIgnore
  */
 class CreateShipmentRequest extends AbstractRequest implements RequestInterface

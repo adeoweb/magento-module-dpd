@@ -1,6 +1,6 @@
 <?php $shipment = $block->getShipment() ?>
 <?php $order = $block->getOrder() ?>
-<?php if ($shipment && $order) : ?>
+<?php if ($shipment && $order): ?>
     <?php $defaultShipmentItems = $shipment->getAllItems(); ?>
     <?php $dpdShipmentItems = $block->getShipmentItems(); ?>
     <?php $shipmentItems = $dpdShipmentItems ?: $defaultShipmentItems; ?>
@@ -8,17 +8,17 @@
         <thead>
         <tr>
             <th class="item-info">
-                <?php echo $block->escapeHtml(__('Items')); ?>
+                <?= $block->escapeHtml(__('Items')); ?>
             </th>
             <th class="item-qty">
-                <?php echo $block->escapeHtml(__('Qty')); ?>
+                <?= $block->escapeHtml(__('Qty')); ?>
             </th>
         </tr>
         </thead>
-        <?php foreach ($shipmentItems as $item) : ?>
-            <?php if (!$item->getOrderItem()->getParentItem()) : ?>
+        <?php foreach ($shipmentItems as $item): ?>
+            <?php if (!$item->getOrderItem()->getParentItem()): ?>
                 <tbody>
-                <?php echo $block->getItemHtml($item); ?>
+                <?= $block->getItemHtml($item); ?>
                 </tbody>
             <?php endif; ?>
         <?php endforeach; ?>

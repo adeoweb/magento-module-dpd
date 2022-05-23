@@ -447,14 +447,15 @@ abstract class AbstractMethod
             return [];
         }
 
-
         return $this->serializer->unserialize($order->getData('dpd_delivery_options'));
     }
 
     private function getMagentoModuleVersions(): string
     {
         return sprintf(
-            "MG%s|%s", $this->productMetadata->getVersion(), $this->moduleMetaData->getVersion()
+            "MG%s|%s",
+            $this->productMetadata->getVersion(),
+            $this->moduleMetaData->getVersion()
         );
     }
 }

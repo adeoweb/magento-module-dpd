@@ -5,7 +5,6 @@ namespace AdeoWeb\Dpd\Model\ResourceModel\Location;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
- * Class Collection
  * @codeCoverageIgnore
  */
 class Collection extends AbstractCollection

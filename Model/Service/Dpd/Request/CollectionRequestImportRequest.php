@@ -6,7 +6,6 @@ use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**
- * Class CollectionRequestImportRequest
  * @codeCoverageIgnore
  */
 class CollectionRequestImportRequest extends AbstractRequest implements RequestInterface

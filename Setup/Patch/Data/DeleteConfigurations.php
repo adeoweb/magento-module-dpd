@@ -22,6 +22,11 @@ class DeleteConfigurations implements DataPatchInterface
     /** @var ConfigInterface */
     private $resourceConfig;
 
+    /**
+     * @param ModuleDataSetupInterface $moduleDataSetup
+     * @param ModuleMetaDataInterface $moduleMetaData
+     * @param ConfigInterface $resourceConfig
+     */
     public function __construct(
         ModuleDataSetupInterface $moduleDataSetup,
         ModuleMetaDataInterface $moduleMetaData,
@@ -32,6 +37,11 @@ class DeleteConfigurations implements DataPatchInterface
         $this->resourceConfig = $resourceConfig;
     }
 
+    /**
+     * Public method
+     *
+     * @inhertidoc
+     */
     public function apply(): void
     {
         $installer = $this->moduleDataSetup;
@@ -48,16 +58,31 @@ class DeleteConfigurations implements DataPatchInterface
         $installer->endSetup();
     }
 
+    /**
+     * Public method
+     *
+     * @inhertidoc
+     */
     public function getAliases(): array
     {
         return [];
     }
 
+    /**
+     * Public method
+     *
+     * @inhertidoc
+     */
     public static function getDependencies(): array
     {
         return [];
     }
 
+    /**
+     * Delete carrier configs
+     *
+     * @inhertidoc
+     */
     private function deleteConfig(string $path): void
     {
         $this->resourceConfig->deleteConfig(

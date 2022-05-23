@@ -6,7 +6,6 @@ use AdeoWeb\Dpd\Helper\Utils;
 use AdeoWeb\Dpd\Model\Service\RequestInterface;
 
 /**
- * Class PickupOrderSaveRequest
  * @codeCoverageIgnore
  */
 class PickupOrderSaveRequest extends AbstractRequest implements RequestInterface

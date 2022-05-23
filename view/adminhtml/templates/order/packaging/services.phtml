@@ -1,20 +1,22 @@
 <div class="admin__page-section-title">
     <span class="title">
-        <?php echo __('DPD Services'); ?>
+        <?= $block->escapeHtml(__('DPD Services')); ?>
     </span>
 </div>
 <div class="admin__field admin__field-option">
     <input type="checkbox" class="admin__control-checkbox" name="include_return_label"
-           id="include_return_label_checkbox" value="0" <?php echo $block->isAutoIncludeReturnLabels() ? 'checked' : ''; ?>>
+           id="include_return_label_checkbox" value="0" <?= $block->isAutoIncludeReturnLabels() ? 'checked' : ''; ?>>
 
     <label class="admin__field-label"
-           for="include_return_label_checkbox"><?php echo __('Include DPD Return Label'); ?></label>
+           for="include_return_label_checkbox"><?= $block->escapeHtml(__('Include DPD Return Label')); ?></label>
 </div>
 <div class="admin__field admin__field-option">
     <input type="checkbox" class="admin__control-checkbox" name="document_return"
-           id="document_return_checkbox" value="0" <?php echo $block->isAutoDocumentReturn() ? 'checked' : ''; ?>>
+           id="document_return_checkbox" value="0" <?= $block->isAutoDocumentReturn() ? 'checked' : ''; ?>>
 
-    <label class="admin__field-label" for="document_return_checkbox"><?php echo __('DPD Document Return'); ?></label>
+    <label class="admin__field-label" for="document_return_checkbox">
+        <?= $block->escapeHtml(__('DPD Document Return')); ?>
+    </label>
 </div>
 <div>&nbsp;</div>
 <script>

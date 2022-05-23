@@ -3,20 +3,23 @@
 
 <div class="design_theme_ua_regexp" id="grid<%- _id %>">
     <div class="admin__control-table-wrapper">
-        <table class="admin__control-table" id="<?php echo $block->getElement()->getId() ?>">
+        <table class="admin__control-table" id="<?= $block->escapeHtml($block->getElement()->getId()) ?>">
             <thead>
             <tr>
                 <?php foreach ($block->getColumns() as $columnName => $column): ?>
-                    <th><?php echo $column['label'] ?></th>
+                    <th><?= $block->escapeHtml($column['label']) ?></th>
                 <?php endforeach;?>
-                <th class="col-actions" colspan="<?php echo $colspan ?>"><?php echo __('Action') ?></th>
+                <th class="col-actions" colspan="<?= $block->escapeHtml($colspan) ?>">
+                    <?= $block->escapeHtml(__('Action')) ?>
+                </th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <td colspan="<?= count($block->getColumns()) + $colspan ?>" class="col-actions-add">
-                    <button id="addToEndBtn<%- _id %>" class="action-add" title="<?php echo __('Add') ?>" type="button">
-                        <span><?php echo $block->getAddButtonLabel() ?></span>
+                    <button id="addToEndBtn<%- _id %>" class="action-add" title="<?= $block->escapeHtml(__('Add')) ?>"
+                            type="button">
+                        <span><?= $block->escapeHtml($block->getAddButtonLabel()) ?></span>
                     </button>
                 </td>
             </tr>
@@ -24,5 +27,5 @@
             <tbody id="addRow<%- _id %>"></tbody>
         </table>
     </div>
-    <input type="hidden" name="<?php echo $block->getElement()->getName() ?>[__empty]" value="" />
+    <input type="hidden" name="<?= $block->escapeHtml($block->getElement()->getName()) ?>[__empty]" value="" />
 </div>

@@ -66,7 +66,7 @@ class ShippingAdditionalInfo extends Template
         } elseif ($invoice = $this->registry->registry('current_invoice')) {
             return $invoice->getOrder();
         } else {
-            throw new \Exception('Order is not set');
+            throw new NoSuchEntityException(__('Order is not set'));
         }
     }
 

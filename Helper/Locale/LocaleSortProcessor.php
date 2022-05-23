@@ -31,10 +31,10 @@ class LocaleSortProcessor
 
         $sortedItems = [];
         foreach ($pointers as $pointer) {
-            $sortedItems = array_merge($sortedItems, $items[$pointer]);
+            $sortedItems[] = $items[$pointer];
         }
 
-        return $sortedItems;
+        return array_merge(...$sortedItems);
     }
 
     protected function cmp(string $a, string $b): int
@@ -47,8 +47,7 @@ class LocaleSortProcessor
         if (empty($this->char2order)) {
             $order = 1;
             $len = mb_strlen($this->getCharOrder());
-            for ($order=0; $order < $len; ++$order)
-            {
+            for ($order=0; $order < $len; ++$order) {
                 $this->char2order[mb_substr($this->getCharOrder(), $order, 1)] = $order;
             }
         }
@@ -57,7 +56,7 @@ class LocaleSortProcessor
         $len_b = mb_strlen($b);
         $max = min($len_a, $len_b);
 
-        for($i=0; $i<$max; ++$i) {
+        for ($i=0; $i<$max; ++$i) {
             $char_a = mb_substr($a, $i, 1);
             $char_b = mb_substr($b, $i, 1);
 

@@ -1,4 +1,7 @@
 <?php if ($block->isPickupPointGoogleMapsEnabled()): ?>
     <script async defer
-            src="https://maps.google.com/maps/api/js?key=<?php echo $block->escapeHtml($block->getPickupPointGoogleMapsApiKey()); ?>"></script>
+            src="https://maps.google.com/maps/api/js?key=<?=
+            $block->escapeHtml($block->getPickupPointGoogleMapsApiKey());
+            ?>">
+    </script>
 <?php endif; ?>

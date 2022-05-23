@@ -77,11 +77,11 @@ class MassPrintDpdLabels extends Action
 
             if ($shipments->getSize()) {
                 foreach ($shipments as $shipment) {
-                    $parcels = array_merge($parcels, $this->getShipmentParcels($shipment));
+                    $parcels[] = $this->getShipmentParcels($shipment);
                 }
             }
 
-            $this->createPdfProcessor->process($parcels, $this->messageManager);
+            $this->createPdfProcessor->process(array_merge(...$parcels), $this->messageManager);
 
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 

@@ -6,7 +6,6 @@ use AdeoWeb\Dpd\Api\Data\LocationExtensionInterface;
 use AdeoWeb\Dpd\Api\Data\LocationInterface;
 
 /**
- * Class Location
  * @codeCoverageIgnore
  */
 class Location extends \Magento\Framework\Api\AbstractExtensibleObject implements LocationInterface

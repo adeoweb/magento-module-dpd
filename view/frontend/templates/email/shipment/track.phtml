@@ -5,28 +5,27 @@
 /* @var \Magento\Sales\Model\Order $_order */
 $order = $block->getOrder() ?>
 <!-- AdeoWeb Start -->
-<?php if ($shipment && $order) : ?>
+<?php if ($shipment && $order): ?>
     <?php $defaultTrackCollection = $order->getTracksCollection($shipment->getId()) ?>
     <?php $dpdTrackCollection = $block->getTracksCollection() ?>
     <?php $trackCollection = $dpdTrackCollection ?: $defaultTrackCollection; ?>
-    <?php if ($trackCollection) : ?>
+    <?php if ($trackCollection): ?>
         <br />
         <table class="shipment-track">
             <thead>
             <tr>
-                <th><?php echo $block->escapeHtml(__('Shipped By')); ?></th>
-                <th><?php echo $block->escapeHtml(__('Tracking Number')); ?></th>
+                <th><?= $block->escapeHtml(__('Shipped By')); ?></th>
+                <th><?= $block->escapeHtml(__('Tracking Number')); ?></th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($trackCollection as $item) : ?>
+            <?php foreach ($trackCollection as $item): ?>
                 <?php $trackingInfo = $viewModel->getTrackingInfoByTrackId((int)$item->getEntityId()); ?>
                 <tr>
-                    <td><?php echo $block->escapeHtml($item->getTitle()); ?>:</td>
+                    <td><?= $block->escapeHtml($item->getTitle()); ?>:</td>
                     <td>
-                        <a href="<?php echo $block->escapeUrl(!empty($trackingInfo['url']) ? $trackingInfo['url'] : '') ?>" target="_blank">
-                            <?php echo $block->escapeHtml($item->getNumber()); ?>
-                        </a>
+                        <a href="<?= $block->escapeUrl(!empty($trackingInfo['url']) ? $trackingInfo['url'] : '');
+                        ?>" target="_blank"><?= $block->escapeHtml($item->getNumber()); ?></a>
                     </td>
                 </tr>
             <?php endforeach ?>

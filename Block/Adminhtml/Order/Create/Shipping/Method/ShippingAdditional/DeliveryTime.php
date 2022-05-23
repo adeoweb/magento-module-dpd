@@ -20,6 +20,12 @@ class DeliveryTime extends Template
      */
     private $carrierConfig;
 
+    /**
+     * @param Template\Context $context
+     * @param Quote $quoteSession
+     * @param Config $carrierConfig
+     * @param array $data
+     */
     public function __construct(
         Template\Context $context,
         Quote $quoteSession,
@@ -33,6 +39,8 @@ class DeliveryTime extends Template
     }
 
     /**
+     * Public method
+     *
      * @return \Magento\Framework\Phrase
      */
     public function getInputLabel()
@@ -41,6 +49,8 @@ class DeliveryTime extends Template
     }
 
     /**
+     * Public method
+     *
      * @return string
      */
     public function getInputName()
@@ -49,6 +59,8 @@ class DeliveryTime extends Template
     }
 
     /**
+     * Public method
+     *
      * @return string
      */
     public function getInputId()
@@ -57,6 +69,8 @@ class DeliveryTime extends Template
     }
 
     /**
+     * Public method
+     *
      * @return \Magento\Quote\Model\Quote
      */
     public function getQuote()
@@ -65,6 +79,8 @@ class DeliveryTime extends Template
     }
 
     /**
+     * Public method
+     *
      * @return array
      */
     public function getOptions()
@@ -90,7 +106,7 @@ class DeliveryTime extends Template
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function _toHtml()
     {
@@ -98,8 +114,7 @@ class DeliveryTime extends Template
 
         $applicableShippingMethod = Carrier::CODE . '_' . Classic::CODE;
 
-        if (
-            $quote->getShippingAddress()->getShippingMethod() !== $applicableShippingMethod ||
+        if ($quote->getShippingAddress()->getShippingMethod() !== $applicableShippingMethod ||
             empty($this->getOptions())
         ) {
             return '';

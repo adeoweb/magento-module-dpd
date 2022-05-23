@@ -96,11 +96,14 @@ class Dpd implements ServiceInterface
             $rawResponse = $client->request($request->getMethod());
             $rawResponse = $rawResponse->getBody();
         } catch (\Zend_Http_Exception $e) {
-            $this->logger->debug('REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson());
+            $this->logger->debug(
+                'REQUEST: [Endpoint: ' . $request->getEndpoint() . '] [Parameters: ' . $requestParams->toJson()
+            );
             $this->logger->debug('HTTP Request ERROR: ' . $e->getMessage());
 
             throw new LocalizedException(
-                __('Something went wrong while doing a request to DPD service. Please contact system administrator for more information.')
+                __('Something went wrong while doing a request to DPD service. ' .
+                    'Please contact system administrator for more information.')
             );
         }
 
