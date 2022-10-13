@@ -5,7 +5,6 @@ namespace AdeoWeb\Dpd\Model\Carrier\Method;
 use AdeoWeb\Dpd\Model\Carrier\MethodInterface;
 
 /**
- * Class Saturday
  * @codeCoverageIgnore
  */
 class Saturday extends AbstractMethod implements MethodInterface

@@ -27,7 +27,7 @@ class PickupPointFactory
     public function __construct(
         ObjectManagerInterface $objectManager,
         ResolverInterface $typeResolver,
-        $instanceName = '\\AdeoWeb\\Dpd\\Api\\Data\\PickupPointInterface'
+        $instanceName = PickupPointInterface::class
     ) {
         $this->objectManager = $objectManager;
         $this->instanceName = $instanceName;
@@ -36,7 +36,7 @@ class PickupPointFactory
 
     /**
      * @param array $data
-     * @return \AdeoWeb\Dpd\Api\Data\PickupPointInterface
+     * @return PickupPointInterface
      * @codeCoverageIgnore
      */
     public function create(array $data = [])
@@ -47,7 +47,7 @@ class PickupPointFactory
     /**
      * @param array|DataObject $responseData
      * @param array $objectData
-     * @return \AdeoWeb\Dpd\Api\Data\PickupPointInterface
+     * @return PickupPointInterface
      */
     public function createFromResponseData($responseData, array $objectData = [])
     {

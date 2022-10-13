@@ -43,7 +43,7 @@ class PickupPointFactoryTest extends AbstractTest
 
         $this->objectManagerMock->expects($this->once())
             ->method('create')
-            ->with('\\AdeoWeb\\Dpd\\Api\\Data\\PickupPointInterface', [])
+            ->with(PickupPointInterface::class, [])
             ->willReturn($pickupPointMock);
 
         $this->typeResolverMock->expects($this->once())

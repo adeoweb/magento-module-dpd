@@ -1,6 +1,23 @@
 <?xml version="1.0"?>
 <ruleset name="AdeoWeb">
     <rule ref="./vendor/magento/magento-coding-standard/Magento2/ruleset.xml"/>
+    <rule ref="Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge">
+        <exclude-pattern>Model/Adminhtml/System/Config/WeightPrice.php</exclude-pattern>
+        <exclude-pattern>Controller/Adminhtml/Location/InlineEdit.php</exclude-pattern>
+    </rule>
+    <rule ref="Magento2.Exceptions.DirectThrow.FoundDirectThrow">
+        <exclude-pattern>Model/Adminhtml/System/Config/WeightPrice.php</exclude-pattern>
+        <exclude-pattern>Model/CollectionRequestManagement.php</exclude-pattern>
+        <exclude-pattern>Model/CancelParcelsManagement.php</exclude-pattern>
+        <exclude-pattern>Model/Carrier/Validator/Timeframe.php</exclude-pattern>
+        <exclude-pattern>Model/Carrier/Validator/Country.php</exclude-pattern>
+        <exclude-pattern>Model/DeliveryTimeManagement.php</exclude-pattern>
+        <exclude-pattern>Model/CallCourierManagement.php</exclude-pattern>
+        <exclude-pattern>Model/PrintLabelManagement.php</exclude-pattern>
+    </rule>
+    <rule ref="Magento2.Functions.DiscouragedFunction.Discouraged">
+        <exclude-pattern>Model/App/Request/DataPersistor.php</exclude-pattern>
+    </rule>
 
     <file>./Api</file>
     <file>./Block</file>

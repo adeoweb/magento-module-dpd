@@ -1,0 +1,53 @@
+name: PHP Composer
+
+on:
+  push:
+    branches:
+      - '**'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        version: ["7.2"]
+
+    env:
+      MAGENTO_USERNAME: ${{ secrets.MAGENTO_USERNAME }}
+      MAGENTO_PASSWORD: ${{ secrets.MAGENTO_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup PHP with specific version of PECL extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.version }}
+        tools: composer:1
+
+    - run: composer config --global repositories.magento composer https://repo.magento.com
+    - run: composer config http-basic.repo.magento.com "${MAGENTO_USERNAME}" "${MAGENTO_PASSWORD}"
+    - run: rm -rf composer.lock
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: check style
+      run: ./vendor/bin/phpcs
+
+    - name: unit tests
+      run: ./vendor/bin/phpunit

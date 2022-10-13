@@ -15,7 +15,6 @@ use Magento\Framework\App\ProductMetadataInterface;
 use AdeoWeb\Dpd\Model\Provider\MetaData\ModuleMetaDataInterface;
 
 /**
- * Class Saturday
  * @codeCoverageIgnore
  */
 class Sameday extends AbstractMethod implements MethodInterface
